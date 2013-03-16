@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>me.zhaowu.top</string>
+	<key>connections</key>
+	<dict>
+		<key>C844DE84-FBA3-4500-9C91-2A43C2729C1D</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>2DFC2B91-5FE6-4B96-96AB-A31F8896B7E0</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>6BBEEF3D-8425-4DB1-B2DE-5D0B634DD9D4</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>4F27382C-82E2-4594-91A4-A671F119A335</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Zhao Cai</string>
+	<key>description</key>
+	<string>List Top Cpu/Mem Using Processes</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Top Processes</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>top</string>
+				<key>runningsubtext</key>
+				<string>Determining top processes...</string>
+				<key>script</key>
+				<string>ruby ./main.rb --sort cpu</string>
+				<key>subtext</key>
+				<string>List top processes sorted by CPU usage</string>
+				<key>title</key>
+				<string>List Top Processes</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>C844DE84-FBA3-4500-9C91-2A43C2729C1D</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>2DFC2B91-5FE6-4B96-96AB-A31F8896B7E0</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)
+	tell application "Alfred 2" to search "kill " &amp; q
+end alfred_script</string>
+				<key>cachescript</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>6BBEEF3D-8425-4DB1-B2DE-5D0B634DD9D4</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>PID {query}</string>
+				<key>title</key>
+				<string>Copied to clipboard</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>4F27382C-82E2-4594-91A4-A671F119A335</string>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Lists top ten system processes by CPU or Memory usage. Provide actions to kill.</string>
+	<key>uidata</key>
+	<dict>
+		<key>2DFC2B91-5FE6-4B96-96AB-A31F8896B7E0</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>4F27382C-82E2-4594-91A4-A671F119A335</key>
+		<dict>
+			<key>ypos</key>
+			<real>140</real>
+		</dict>
+		<key>6BBEEF3D-8425-4DB1-B2DE-5D0B634DD9D4</key>
+		<dict>
+			<key>ypos</key>
+			<real>110</real>
+		</dict>
+		<key>C844DE84-FBA3-4500-9C91-2A43C2729C1D</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
