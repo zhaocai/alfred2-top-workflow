@@ -47,35 +47,37 @@ end
 
 options = parse_opt()
 
-c = %Q{ps -a#{options[:sort]}cwwwxo 'pid=pid command=command %mem=mem %cpu=cpu state=state'}
+c = %Q{ps -a#{options[:sort]}cwwwxo 'pid %cpu %mem state command'}
 stdin, stdout, stderr = Open3.popen3(c)
 
 processes = []
-commands = []
-stdout.readlines.slice(1..13).each do |entry|
+stdout.readlines.slice(1..13).map(&:chomp).each do |entry|
   columns = entry.split
-  commands << columns[1]
+
   processes << {
     :line    => entry      ,
     :pid     => columns[0] ,
-    :command => columns[1] ,
+    :cpu     => columns[1] ,
     :memory  => columns[2] ,
-    :cpu     => columns[3] ,
-    :state   => columns[4] ,
+    :state   => columns[3] ,
+    :command => columns[4..-1].join(" ") ,
   }
 end
 
+processes.delete_if {|p| ['Alfred 2', 'mds'].include?(p[:command]) }
+
+unless ARGV.empty?
+  query = ARGV.join(" ")
+  processes.delete_if {|p| !p[:command].include?(query) }
+end
 
 
 feedback = Feedback.new
-
-max_len = commands.max_by {|c| c.length}.length
-
-processes.each do |process|
+processes.each do |p|
   feedback.add_item({
-    :title    => process[:command]                                                                                               ,
-    :arg      => process[:pid]                                                                                                   ,
-    :subtitle => "#{process[:pid].ljust(max_len)}	#{process[:cpu].ljust(6)}	#{process[:memory].ljust(6)} #{process[:state]}"
+    :title    => p[:command]                                                                          ,
+    :arg      => p[:pid]                                                                              ,
+    :subtitle => "CPU: #{p[:cpu].ljust(10)} MEM: #{p[:memory].ljust(10)} STAT: #{p[:state].ljust(8)}"
   })
 end
 

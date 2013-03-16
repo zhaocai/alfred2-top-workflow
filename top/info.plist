@@ -6,11 +6,41 @@
 	<string>me.zhaowu.top</string>
 	<key>connections</key>
 	<dict>
+		<key>65DAE3B3-5040-4117-A911-65EDE5765DC3</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>DA167D3F-4147-4632-A672-72656D18E997</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string>Force Kill</string>
+			</dict>
+		</array>
+		<key>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>4F27382C-82E2-4594-91A4-A671F119A335</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>C844DE84-FBA3-4500-9C91-2A43C2729C1D</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>2DFC2B91-5FE6-4B96-96AB-A31F8896B7E0</string>
+				<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -18,12 +48,15 @@
 			</dict>
 			<dict>
 				<key>destinationuid</key>
-				<string>6BBEEF3D-8425-4DB1-B2DE-5D0B634DD9D4</string>
+				<string>DA167D3F-4147-4632-A672-72656D18E997</string>
 				<key>modifiers</key>
-				<integer>0</integer>
+				<integer>1048576</integer>
 				<key>modifiersubtext</key>
-				<string></string>
+				<string>Force Kill</string>
 			</dict>
+		</array>
+		<key>DA167D3F-4147-4632-A672-72656D18E997</key>
+		<array>
 			<dict>
 				<key>destinationuid</key>
 				<string>4F27382C-82E2-4594-91A4-A671F119A335</string>
@@ -47,24 +80,45 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string>kill {query}
+
+if [ $? -eq 0 ] ; then
+    echo "Succeed!"
+else
+    echo "Fail!"
+fi</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argumenttype</key>
-				<integer>2</integer>
+				<integer>1</integer>
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>top</string>
+				<string>topm</string>
 				<key>runningsubtext</key>
 				<string>Determining top processes...</string>
 				<key>script</key>
-				<string>ruby ./main.rb --sort cpu</string>
+				<string>ruby ./main.rb --sort memory {query}</string>
 				<key>subtext</key>
-				<string>List top processes sorted by CPU usage</string>
+				<string>topm</string>
 				<key>title</key>
-				<string>List Top Processes</string>
+				<string>Top Processes by Memory usage</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
-				<false/>
+				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
@@ -74,30 +128,50 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>autopaste</key>
-				<false/>
-				<key>clipboardtext</key>
-				<string>{query}</string>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>keyword</key>
+				<string>topc</string>
+				<key>runningsubtext</key>
+				<string>waiting...</string>
+				<key>script</key>
+				<string>ruby ./main.rb --sort cpu {query}</string>
+				<key>subtext</key>
+				<string>topc</string>
+				<key>title</key>
+				<string>Top processes by CPU usage</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.clipboard</string>
+			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>2DFC2B91-5FE6-4B96-96AB-A31F8896B7E0</string>
+			<string>65DAE3B3-5040-4117-A911-65EDE5765DC3</string>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>applescript</key>
-				<string>on alfred_script(q)
-	tell application "Alfred 2" to search "kill " &amp; q
-end alfred_script</string>
-				<key>cachescript</key>
-				<true/>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string>kill -9 {query}
+
+if [ $? -eq 0 ] ; then
+    echo "Succeed!"
+else
+    echo "Fail!"
+fi</string>
+				<key>type</key>
+				<integer>0</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.applescript</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>6BBEEF3D-8425-4DB1-B2DE-5D0B634DD9D4</string>
+			<string>DA167D3F-4147-4632-A672-72656D18E997</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -105,7 +179,7 @@ end alfred_script</string>
 				<key>lastpathcomponent</key>
 				<false/>
 				<key>onlyshowifquerypopulated</key>
-				<false/>
+				<true/>
 				<key>output</key>
 				<integer>0</integer>
 				<key>removeextension</key>
@@ -113,9 +187,9 @@ end alfred_script</string>
 				<key>sticky</key>
 				<false/>
 				<key>text</key>
-				<string>PID {query}</string>
+				<string>{query}</string>
 				<key>title</key>
-				<string>Copied to clipboard</string>
+				<string>Kill Process</string>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.output.notification</string>
@@ -127,25 +201,30 @@ end alfred_script</string>
 	<string>Lists top ten system processes by CPU or Memory usage. Provide actions to kill.</string>
 	<key>uidata</key>
 	<dict>
-		<key>2DFC2B91-5FE6-4B96-96AB-A31F8896B7E0</key>
-		<dict>
-			<key>ypos</key>
-			<real>10</real>
-		</dict>
 		<key>4F27382C-82E2-4594-91A4-A671F119A335</key>
 		<dict>
 			<key>ypos</key>
 			<real>140</real>
 		</dict>
-		<key>6BBEEF3D-8425-4DB1-B2DE-5D0B634DD9D4</key>
+		<key>65DAE3B3-5040-4117-A911-65EDE5765DC3</key>
 		<dict>
 			<key>ypos</key>
-			<real>110</real>
+			<real>330</real>
+		</dict>
+		<key>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</key>
+		<dict>
+			<key>ypos</key>
+			<real>140</real>
 		</dict>
 		<key>C844DE84-FBA3-4500-9C91-2A43C2729C1D</key>
 		<dict>
 			<key>ypos</key>
 			<real>10</real>
+		</dict>
+		<key>DA167D3F-4147-4632-A672-72656D18E997</key>
+		<dict>
+			<key>ypos</key>
+			<real>260</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>
