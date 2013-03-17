@@ -5,18 +5,22 @@ require 'optparse'
 require 'open3'
 load "alfred_feedback.rb"
 
+ignored_processes = ['Alfred 2', 'mds']
+
 def parse_opt()
-  options = {:sort => 'r'}
+  options = {:sort => :auto, :num => 13}
 
   optparse = OptionParser.new do |opts|
-    opts.on("--sort [TYPE]", [:memory, :cpu, :auto],
+    opts.on("--sort [TYPE]", [:auto, :memory, :cpu],
     "sort processes by (memory, cpu, auto)") do |t|
-      if t.eql?(:memory)
-        options[:sort] = 'm'
-      elsif t.eql?(:cpu)
-        options[:sort] = 'r'
-      end
+      options[:sort] = t
     end
+
+    opts.on('-n', "--n [N]", OptionParser::DecimalInteger,
+    "list top N processes") do |t|
+      options[:num] = t
+    end
+
     opts.on('-h', '--help', 'Help Message') do
       puts opts
       exit
@@ -44,45 +48,79 @@ end
 
 
 
+def ps_list(type, ignored, n=13)
 
-options = parse_opt()
+  type2opt = {:memory => 'm', :cpu => 'r'}
 
-c = %Q{ps -a#{options[:sort]}cwwwxo 'pid %cpu %mem state command'}
-stdin, stdout, stderr = Open3.popen3(c)
+  c = %Q{ps -a#{type2opt[type]}cwwwxo 'pid %cpu %mem state command'}
+  stdin, stdout, stderr = Open3.popen3(c)
 
-processes = []
-stdout.readlines.slice(1..13).map(&:chomp).each do |entry|
-  columns = entry.split
+  processes = []
+  i = 1
+  stdout.readlines.slice(1..n).map(&:chomp).each do |entry|
+    columns = entry.split
 
-  processes << {
-    :line    => entry      ,
-    :pid     => columns[0] ,
-    :cpu     => columns[1] ,
-    :memory  => columns[2] ,
-    :state   => columns[3] ,
-    :command => columns[4..-1].join(" ") ,
-  }
+    processes << {
+      :line    => entry      ,
+      :type    => type       ,
+      :rank    => i          ,
+      :pid     => columns[0] ,
+      :cpu     => columns[1] ,
+      :memory  => columns[2] ,
+      :state   => columns[3] ,
+      :command => columns[4..-1].join(" ") ,
+    }
+    i += 1
+  end
+
+  processes.delete_if {|p| ignored.include?(p[:command]) }
 end
 
-processes.delete_if {|p| ['Alfred 2', 'mds'].include?(p[:command]) }
+def generate_feedback(processes)
 
-unless ARGV.empty?
-  query = ARGV.join(" ")
-  processes.delete_if {|p| !p[:command].include?(query) }
+  feedback = Feedback.new
+  processes.each do |p|
+    icon = {:type => "default", :name => "icon.png"}
+    if p[:type].eql?(:memory)
+      icon[:name] = "memory.png"
+    elsif p[:type].eql?(:cpu)
+      icon[:name] = "cpu.png"
+    end
+    feedback.add_item({
+      :title    => "#{p[:rank]}: #{p[:command]}"                                                        ,
+      :arg      => p[:pid]                                                                              ,
+      :icon     => icon                                                                                 ,
+      :subtitle => "CPU: #{p[:cpu].ljust(10)} MEM: #{p[:memory].ljust(10)} STAT: #{p[:state].ljust(8)}"
+    })
+  end
+
+  puts feedback.to_xml
 end
 
+if __FILE__ == $PROGRAM_NAME
 
-feedback = Feedback.new
-processes.each do |p|
-  feedback.add_item({
-    :title    => p[:command]                                                                          ,
-    :arg      => p[:pid]                                                                              ,
-    :subtitle => "CPU: #{p[:cpu].ljust(10)} MEM: #{p[:memory].ljust(10)} STAT: #{p[:state].ljust(8)}"
-  })
+  options = parse_opt()
+
+  processes = []
+
+  if options[:sort] == :auto
+    psm = ps_list(:memory, ignored_processes, options[:num])
+    psc = ps_list(:cpu, ignored_processes, options[:num])
+    processes = psm[0..2] + psc [0..2] + psm[3..-1].zip(psc[3..-1]).flatten.compact
+  elsif options[:sort] == :memory
+    processes = ps_list(:memory, ignored_processes, options[:num])
+  elsif options[:sort] == :cpu
+    processes += ps_list(:cpu, ignored_processes, options[:num])
+  end
+
+  unless ARGV.empty?
+    query = ARGV.join(" ")
+    processes.delete_if {|p| !p[:command].include?(query) }
+  end
+
+  generate_feedback(processes)
+
 end
-
-puts feedback.to_xml
-
 
 # Reference:
 # ----------

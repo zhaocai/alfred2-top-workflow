@@ -55,6 +55,25 @@
 				<string>Force Kill</string>
 			</dict>
 		</array>
+		<key>CA714745-B63F-46C5-9D77-50C52956368C</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>DA167D3F-4147-4632-A672-72656D18E997</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string>force kill</string>
+			</dict>
+		</array>
 		<key>DA167D3F-4147-4632-A672-72656D18E997</key>
 		<array>
 			<dict>
@@ -106,15 +125,15 @@ fi</string>
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>topm</string>
+				<string>top memory</string>
 				<key>runningsubtext</key>
 				<string>Determining top processes...</string>
 				<key>script</key>
 				<string>ruby ./main.rb --sort memory {query}</string>
 				<key>subtext</key>
-				<string>topm</string>
+				<string>by Memory usage</string>
 				<key>title</key>
-				<string>Top Processes by Memory usage</string>
+				<string>Top Processes</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
@@ -133,15 +152,15 @@ fi</string>
 				<key>escaping</key>
 				<integer>63</integer>
 				<key>keyword</key>
-				<string>topc</string>
+				<string>top cpu</string>
 				<key>runningsubtext</key>
-				<string>waiting...</string>
+				<string>Determining top processes...</string>
 				<key>script</key>
 				<string>ruby ./main.rb --sort cpu {query}</string>
 				<key>subtext</key>
-				<string>topc</string>
+				<string>by CPU usage</string>
 				<key>title</key>
-				<string>Top processes by CPU usage</string>
+				<string>Top processes</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
@@ -176,6 +195,33 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>keyword</key>
+				<string>top auto</string>
+				<key>runningsubtext</key>
+				<string>Determining top processes...</string>
+				<key>script</key>
+				<string>ruby ./main.rb --sort auto {query}</string>
+				<key>subtext</key>
+				<string>by Memory/CPU usage</string>
+				<key>title</key>
+				<string>Top Processes</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>CA714745-B63F-46C5-9D77-50C52956368C</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>lastpathcomponent</key>
 				<false/>
 				<key>onlyshowifquerypopulated</key>
@@ -198,7 +244,48 @@ fi</string>
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>Lists top ten system processes by CPU or Memory usage. Provide actions to kill.</string>
+	<string>Lists top ten system processes by CPU or Memory usage. Provide actions to kill.
+
+# Reference:
+
+state     The state is given by a sequence of characters, for example,
+          ``RWNA''.  The first character indicates the run state of the
+          process:
+
+          I       Marks a process that is idle (sleeping for longer than
+                  about 20 seconds).
+          R       Marks a runnable process.
+          S       Marks a process that is sleeping for less than about 20
+                  seconds.
+          T       Marks a stopped process.
+          U       Marks a process in uninterruptible wait.
+          Z       Marks a dead process (a ``zombie'').
+
+          Additional characters after these, if any, indicate additional
+          state information:
+
+          +       The process is in the foreground process group of its
+                  control terminal.
+          &lt;       The process has raised CPU scheduling priority.
+          &gt;       The process has specified a soft limit on memory
+                  requirements and is currently exceeding that limit;
+                  such a process is (necessarily) not swapped.
+          A       the process has asked for random page replacement
+                  (VA_ANOM, from vadvise(2), for example, lisp(1) in a
+                  garbage collect).
+          E       The process is trying to exit.
+          L       The process has pages locked in core (for example, for
+                  raw I/O).
+          N       The process has reduced CPU scheduling priority (see
+                  setpriority(2)).
+          S       The process has asked for FIFO page replacement
+                  (VA_SEQL, from vadvise(2), for example, a large image
+                  processing program using virtual memory to sequentially
+                  address voluminous data).
+          s       The process is a session leader.
+          V       The process is suspended during a vfork(2).
+          W       The process is swapped out.
+          X       The process is being traced or debugged.</string>
 	<key>uidata</key>
 	<dict>
 		<key>4F27382C-82E2-4594-91A4-A671F119A335</key>
@@ -219,7 +306,12 @@ fi</string>
 		<key>C844DE84-FBA3-4500-9C91-2A43C2729C1D</key>
 		<dict>
 			<key>ypos</key>
-			<real>10</real>
+			<real>150</real>
+		</dict>
+		<key>CA714745-B63F-46C5-9D77-50C52956368C</key>
+		<dict>
+			<key>ypos</key>
+			<real>20</real>
 		</dict>
 		<key>DA167D3F-4147-4632-A672-72656D18E997</key>
 		<dict>
