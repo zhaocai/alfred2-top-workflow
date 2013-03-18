@@ -12,12 +12,12 @@ def parse_opt()
 
   optparse = OptionParser.new do |opts|
     opts.on("--sort [TYPE]", [:auto, :memory, :cpu],
-    "sort processes by (memory, cpu, auto)") do |t|
+            "sort processes by (memory, cpu, auto)") do |t|
       options[:sort] = t
     end
 
     opts.on('-n', "--n [N]", OptionParser::DecimalInteger,
-    "list top N processes") do |t|
+            "list top N processes") do |t|
       options[:num] = t
     end
 
@@ -90,12 +90,56 @@ def generate_feedback(processes)
       :title    => "#{p[:rank]}: #{p[:command]}"                                                        ,
       :arg      => p[:pid]                                                                              ,
       :icon     => icon                                                                                 ,
-      :subtitle => "CPU: #{p[:cpu].ljust(10)} MEM: #{p[:memory].ljust(10)} STAT: #{p[:state].ljust(8)}"
+      :subtitle => "cpu: #{p[:cpu].rjust(6)}%  memory: #{p[:memory].rjust(6)}%  state: #{interpret_state(p[:state]).rjust(6)}"
     })
   end
 
   puts feedback.to_xml
 end
+
+def interpret_state(state)
+  if state.empty?
+    return ""
+  end
+
+  main_states = {
+    'I' => 'idle',
+    'R' => 'runnable',
+    'S' => 'sleep',
+    'U' => 'uninterruptible',
+    'Z' => 'zombie'
+  }
+  additional_states = {
+    '+' => 'foreground',
+    '<' => 'raised priority',
+    '>' => 'soft limit on memory',
+    'A' => 'random page replacement',
+    'E' => 'trying to exit',
+    'L' => 'page locked',
+    'N' => 'reduced priority',
+    'S' => 'FIO page replacement',
+    's' => 'session leader',
+    'V' => 'suspended',
+    'W' => 'swapped out',
+    'X' => 'being traced or debugged'
+  }
+
+  m = main_states[state.slice(0..0)]
+  a = []
+  if state.size > 1
+    state[1..-1].each_char { |c|
+      a.insert(additional_states[c])
+    }
+  end
+
+  if a.empty?
+    return m
+  else
+    return "#{m} (#{a.join(',')})"
+  end
+end
+
+
 
 if __FILE__ == $PROGRAM_NAME
 
@@ -122,50 +166,4 @@ if __FILE__ == $PROGRAM_NAME
 
 end
 
-# Reference:
-# ----------
-#
-# -m      Sort by memory usage, instead of the combination of controlling
-#         terminal and process ID.
-#
-# -r      Sort by current CPU usage, instead of the combination of control-
-#         ling terminal and process ID.
 
-# state     The state is given by a sequence of characters, for example,
-#           ``RWNA''.  The first character indicates the run state of the
-#           process:
-
-#           I       Marks a process that is idle (sleeping for longer than
-#                   about 20 seconds).
-#           R       Marks a runnable process.
-#           S       Marks a process that is sleeping for less than about 20
-#                   seconds.
-#           T       Marks a stopped process.
-#           U       Marks a process in uninterruptible wait.
-#           Z       Marks a dead process (a ``zombie'').
-
-#           Additional characters after these, if any, indicate additional
-#           state information:
-
-#           +       The process is in the foreground process group of its
-#                   control terminal.
-#           <       The process has raised CPU scheduling priority.
-#           >       The process has specified a soft limit on memory
-#                   requirements and is currently exceeding that limit;
-#                   such a process is (necessarily) not swapped.
-#           A       the process has asked for random page replacement
-#                   (VA_ANOM, from vadvise(2), for example, lisp(1) in a
-#                   garbage collect).
-#           E       The process is trying to exit.
-#           L       The process has pages locked in core (for example, for
-#                   raw I/O).
-#           N       The process has reduced CPU scheduling priority (see
-#                   setpriority(2)).
-#           S       The process has asked for FIFO page replacement
-#                   (VA_SEQL, from vadvise(2), for example, a large image
-#                   processing program using virtual memory to sequentially
-#                   address voluminous data).
-#           s       The process is a session leader.
-#           V       The process is suspended during a vfork(2).
-#           W       The process is swapped out.
-#           X       The process is being traced or debugged.

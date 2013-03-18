@@ -1,6 +1,6 @@
 # Alfred 2 Top Process Workflow
 
-Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage
+Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage. The initial motive is to avoid frequent visits to the Activity Monitor when the fan goes loud.
 
 ## Usage
 
@@ -9,7 +9,6 @@ Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage
 1. `top memory`
 2. `top cpu`
 3. `top auto` which shows a mixed processes list based on top cpu and memory usage
-
 
 ## Screenshots
 
