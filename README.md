@@ -7,16 +7,16 @@ Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage. The initial mo
 3 Keywords are defined:
 
 1. `top`: show a mixed processes list based on top cpu and memory usage
-2. `memory top`
-3. `cpu top`
+2. `memory top`: processes list based on top memory usage
+3. `cpu top`: processes list based on top cpu usage
 
 ## Screenshots
 
-### mixed processes list:
+### 1. Mixed Processes List:
 
 ![mixed top processes](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/mixed%20top%20processes.png)
 
-### filtered by query:
+### 2. Filtered By Query:
 ![filtered by query](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/filtered%20by%20query.png)
 
 

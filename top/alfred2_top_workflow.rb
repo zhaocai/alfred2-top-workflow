@@ -5,7 +5,7 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Mon 18 Mar 2013 10:02:36 PM EDT
+# Last Modified  : Mon 18 Mar 2013 11:14:05 PM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -16,7 +16,10 @@ require 'optparse'
 require 'open3'
 load "alfred_feedback.rb"
 
-ignored_processes = ['Alfred 2', 'mds']
+# Ignore mds because its cpu usgae spikes the moment alfred calls the workflow
+$ignored_processes = ['Alfred 2', 'mds']
+
+$vague_commands = ['ruby', 'java', 'zsh', 'bash', 'python', 'perl', ]
 
 def parse_opt()
   options = {:sort => :auto, :num => 13}
@@ -71,7 +74,7 @@ def ps_list(type, ignored, n=13)
   stdout.readlines.slice(1..n).map(&:chomp).each do |entry|
     columns = entry.split
 
-    processes << {
+    process = {
       :line    => entry      ,
       :type    => type       ,
       :rank    => i          ,
@@ -81,6 +84,13 @@ def ps_list(type, ignored, n=13)
       :state   => columns[3] ,
       :command => columns[4..-1].join(" ") ,
     }
+    process[:title] = interpret_command($vague_commands, process)
+
+    # Ignore this script
+    unless process[:title].include?(__FILE__)
+      processes << process
+    end
+
     i += 1
   end
 
@@ -98,14 +108,24 @@ def generate_feedback(processes)
       icon[:name] = "cpu.png"
     end
     feedback.add_item({
-      :title    => "#{p[:rank]}: #{p[:command]}"                                                        ,
-      :arg      => p[:pid]                                                                              ,
-      :icon     => icon                                                                                 ,
-      :subtitle => "cpu: #{p[:cpu].rjust(6)}%  memory: #{p[:memory].rjust(6)}%  state: #{interpret_state(p[:state]).rjust(6)}"
+      :title => p[:title] ,
+      :arg   => p[:pid] ,
+      :icon  => icon ,
+      :subtitle => "cpu: #{p[:cpu].rjust(6)}%,  memory: #{p[:memory].rjust(6)}%,  state: #{interpret_state(p[:state]).rjust(6)}"
     })
   end
 
   puts feedback.to_xml
+end
+
+def interpret_command(vague_command_list, process)
+  if vague_command_list.include?(process[:command])
+    c = %Q{ps -awwwxo 'command' #{process[:pid]}}
+    stdin, stdout, stderr = Open3.popen3(c)
+    return "#{process[:rank]}: #{stdout.readlines.map(&:chomp)[1]}"
+  else
+    return "#{process[:rank]}: #{process[:command]}"
+  end
 end
 
 def interpret_state(state)
@@ -159,18 +179,18 @@ if __FILE__ == $PROGRAM_NAME
   processes = []
 
   if options[:sort] == :auto
-    psm = ps_list(:memory, ignored_processes, options[:num])
-    psc = ps_list(:cpu, ignored_processes, options[:num])
-    processes = psm[0..2] + psc [0..2] + psm[3..-1].zip(psc[3..-1]).flatten.compact
+    psm = ps_list(:memory, $ignored_processes, options[:num])
+    psc = ps_list(:cpu, $ignored_processes, options[:num])
+    processes = psm[0..2] + psc[0..2] + psc[3..-1].zip(psm[3..-1]).flatten.compact
   elsif options[:sort] == :memory
-    processes = ps_list(:memory, ignored_processes, options[:num])
+    processes = ps_list(:memory, $ignored_processes, options[:num])
   elsif options[:sort] == :cpu
-    processes += ps_list(:cpu, ignored_processes, options[:num])
+    processes += ps_list(:cpu, $ignored_processes, options[:num])
   end
 
   unless ARGV.empty?
     query = ARGV.join(" ")
-    processes.delete_if {|p| !p[:command].include?(query) }
+    processes.delete_if {|p| !p[:title].include?(query) }
   end
 
   generate_feedback(processes)
