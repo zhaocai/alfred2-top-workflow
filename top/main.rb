@@ -1,5 +1,16 @@
 #!/usr/bin/env ruby
-#
+# ============== = ===========================================================
+# Description    : Alfred 2 Top Processes Workflow
+# Author         : Zhao Cai <caizhaoff@gmail.com>
+# HomePage       : https://github.com/zhaocai/alfred2-top-workflow
+# Version        : 0.1
+# Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
+# Last Modified  : Mon 18 Mar 2013 10:02:36 PM EDT
+# Tag            : [ ruby, alfred, workflow ]
+# Copyright      : © 2013 by Zhao Cai,
+#                  Released under current GPL license.
+# ============== = ===========================================================
+
 
 require 'optparse'
 require 'open3'

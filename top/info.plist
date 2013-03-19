@@ -12,9 +12,9 @@
 				<key>destinationuid</key>
 				<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
 				<key>modifiers</key>
-				<integer>0</integer>
+				<integer>262144</integer>
 				<key>modifiersubtext</key>
-				<string></string>
+				<string>kill process</string>
 			</dict>
 			<dict>
 				<key>destinationuid</key>
@@ -42,9 +42,9 @@
 				<key>destinationuid</key>
 				<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
 				<key>modifiers</key>
-				<integer>0</integer>
+				<integer>262144</integer>
 				<key>modifiersubtext</key>
-				<string></string>
+				<string>kill process</string>
 			</dict>
 			<dict>
 				<key>destinationuid</key>
@@ -61,9 +61,9 @@
 				<key>destinationuid</key>
 				<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
 				<key>modifiers</key>
-				<integer>0</integer>
+				<integer>262144</integer>
 				<key>modifiersubtext</key>
-				<string></string>
+				<string>kill process</string>
 			</dict>
 			<dict>
 				<key>destinationuid</key>
@@ -125,7 +125,7 @@ fi</string>
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>top memory</string>
+				<string>memory top</string>
 				<key>runningsubtext</key>
 				<string>Determining top processes...</string>
 				<key>script</key>
@@ -152,7 +152,7 @@ fi</string>
 				<key>escaping</key>
 				<integer>4</integer>
 				<key>keyword</key>
-				<string>top cpu</string>
+				<string>cpu top</string>
 				<key>runningsubtext</key>
 				<string>Determining top processes...</string>
 				<key>script</key>
@@ -200,7 +200,7 @@ fi</string>
 				<key>escaping</key>
 				<integer>4</integer>
 				<key>keyword</key>
-				<string>top auto</string>
+				<string>top</string>
 				<key>runningsubtext</key>
 				<string>Determining top processes...</string>
 				<key>script</key>
