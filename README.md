@@ -6,13 +6,15 @@ Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage. The initial mo
 
 ## Usage
 
-3 Keywords are defined:
+### A. Keywords:
 
 1. `top`: show a mixed processes list based on top cpu and memory usage
 2. `memory top`: processes list based on top memory usage
 3. `cpu top`: processes list based on top cpu usage
 
-
+### B. Modifier Key
+1. `^` key to `kill`
+2. `⌘` key to force kill (`kill -9`)
 
 
 ## Screenshots
