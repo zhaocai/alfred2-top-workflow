@@ -129,7 +129,7 @@ fi</string>
 				<key>runningsubtext</key>
 				<string>Determining top processes...</string>
 				<key>script</key>
-				<string>ruby ./alfred2_top_workflow.rb --sort memory -n 30 {query}</string>
+				<string>/usr/bin/ruby  ./alfred2_top_workflow.rb --sort memory -n 30 {query}</string>
 				<key>subtext</key>
 				<string>by Memory usage</string>
 				<key>title</key>
@@ -156,7 +156,7 @@ fi</string>
 				<key>runningsubtext</key>
 				<string>Determining top processes...</string>
 				<key>script</key>
-				<string>ruby ./alfred2_top_workflow.rb --sort cpu -n 30 {query}</string>
+				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --sort cpu -n 30 {query}</string>
 				<key>subtext</key>
 				<string>by CPU usage</string>
 				<key>title</key>
@@ -204,7 +204,7 @@ fi</string>
 				<key>runningsubtext</key>
 				<string>Determining top processes...</string>
 				<key>script</key>
-				<string>ruby ./alfred2_top_workflow.rb --sort auto -n 30 {query}</string>
+				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --sort auto -n 30 {query}</string>
 				<key>subtext</key>
 				<string>by Memory/CPU usage</string>
 				<key>title</key>

@@ -5,16 +5,20 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Fri 22 Mar 2013 03:42:11 PM EDT
+# Last Modified  : Sat 23 Mar 2013 04:55:03 AM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
 # ============== = ===========================================================
 
+require 'rubygems' unless defined? Gem # rubygems is only needed in 1.8
+($LOAD_PATH << File.expand_path("..", __FILE__)).uniq!
+
+require "bundle/bundler/setup"
+require "alfred"
 
 require 'optparse'
 require 'open3'
-load "alfred_feedback.rb"
 
 # Ignore mds because its cpu usgae spikes the moment alfred calls the workflow
 $ignored_processes = ['Alfred 2', 'mds']
@@ -97,26 +101,6 @@ def ps_list(type, ignored, n=13)
   processes.delete_if {|p| ignored.include?(p[:command]) }
 end
 
-def generate_feedback(processes)
-
-  feedback = Feedback.new
-  processes.each do |p|
-    icon = {:type => "default", :name => "icon.png"}
-    if p[:type].eql?(:memory)
-      icon[:name] = "memory.png"
-    elsif p[:type].eql?(:cpu)
-      icon[:name] = "cpu.png"
-    end
-    feedback.add_item({
-      :title => p[:title] ,
-      :arg   => p[:pid] ,
-      :icon  => icon ,
-      :subtitle => "cpu: #{p[:cpu].rjust(6)}%,  memory: #{p[:memory].rjust(6)}%,  state: #{interpret_state(p[:state]).rjust(6)}"
-    })
-  end
-
-  puts feedback.to_xml
-end
 
 def interpret_command(vague_command_list, process)
   if vague_command_list.include?(process[:command])
@@ -170,20 +154,15 @@ def interpret_state(state)
   end
 end
 
-
-
-if __FILE__ == $PROGRAM_NAME
-
-  options = parse_opt()
-
+def top_processes(options)
   processes = []
 
   if options[:sort] == :auto
     psm = ps_list(:memory, $ignored_processes, options[:num])
     psc = ps_list(:cpu, $ignored_processes, options[:num])
-    
+
     until psm.empty? and psc.empty?
-        processes << psm.shift(2) << psc.shift(2)
+      processes << psm.shift(2) << psc.shift(2)
     end
     processes.flatten!.compact!
   elsif options[:sort] == :memory
@@ -197,7 +176,43 @@ if __FILE__ == $PROGRAM_NAME
     processes.delete_if {|p| !p[:title].include?(query) }
   end
 
-  generate_feedback(processes)
+  processes
+end
+
+def generate_feedback(alfred, processes)
+
+  feedback = alfred.feedback
+  time = Time.now.to_s
+  processes.each do |p|
+    icon = {:type => "default", :name => "icon.png"}
+    if p[:type].eql?(:memory)
+      icon[:name] = "memory.png"
+    elsif p[:type].eql?(:cpu)
+      icon[:name] = "cpu.png"
+    end
+    feedback.add_item({
+      :uid   => "#{p[:title]} #{time}" ,
+      :title => p[:title] ,
+      :arg   => p[:pid] ,
+      :icon  => icon ,
+      :subtitle => "cpu: #{p[:cpu].rjust(6)}%,  memory: #{p[:memory].rjust(6)}%,  state: #{interpret_state(p[:state]).rjust(6)}"
+    })
+  end
+
+  puts feedback.to_xml
+end
+
+if __FILE__ == $PROGRAM_NAME
+  Alfred.with_friendly_error do |alfred|
+
+    options = parse_opt()
+    processes = top_processes(options)
+
+
+    generate_feedback(alfred, processes)
+
+  end
+
 
 end
 
