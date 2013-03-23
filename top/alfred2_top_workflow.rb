@@ -5,14 +5,14 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Sat 23 Mar 2013 04:55:03 AM EDT
+# Last Modified  : Sat 23 Mar 2013 05:09:45 AM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
 # ============== = ===========================================================
+($LOAD_PATH << File.expand_path("..", __FILE__)).uniq!
 
 require 'rubygems' unless defined? Gem # rubygems is only needed in 1.8
-($LOAD_PATH << File.expand_path("..", __FILE__)).uniq!
 
 require "bundle/bundler/setup"
 require "alfred"
@@ -195,7 +195,7 @@ def generate_feedback(alfred, processes)
       :title => p[:title] ,
       :arg   => p[:pid] ,
       :icon  => icon ,
-      :subtitle => "cpu: #{p[:cpu].rjust(6)}%,  memory: #{p[:memory].rjust(6)}%,  state: #{interpret_state(p[:state]).rjust(6)}"
+      :subtitle => "cpu: #{p[:cpu].rjust(6)}%,  memory: #{p[:memory].rjust(6)}%,  state: (#{p[:pid].rjust(6)}) #{interpret_state(p[:state]).rjust(6)}"
     })
   end
 

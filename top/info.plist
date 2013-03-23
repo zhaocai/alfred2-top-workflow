@@ -99,23 +99,25 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
 				<key>escaping</key>
-				<integer>63</integer>
+				<integer>4</integer>
+				<key>keyword</key>
+				<string>lsof</string>
 				<key>script</key>
-				<string>kill {query}
-
-if [ $? -eq 0 ] ; then
-    echo "Succeed!"
-else
-    echo "Fail!"
-fi</string>
+				<string>/usr/bin/ruby ./lsof.rb {query}</string>
+				<key>title</key>
+				<string>List Files Used by Process</string>
 				<key>type</key>
 				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.script</string>
+			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
+			<string>2B8AA7B1-2F79-475C-ADEF-6EE35005FCBA</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -143,6 +145,29 @@ fi</string>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>C844DE84-FBA3-4500-9C91-2A43C2729C1D</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Kill Process</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>4F27382C-82E2-4594-91A4-A671F119A335</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -222,31 +247,34 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<true/>
-				<key>output</key>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string>kill {query}
+
+if [ $? -eq 0 ] ; then
+    echo "Succeed!"
+else
+    echo "Fail!"
+fi</string>
+				<key>type</key>
 				<integer>0</integer>
-				<key>removeextension</key>
-				<false/>
-				<key>sticky</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Kill Process</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>4F27382C-82E2-4594-91A4-A671F119A335</string>
+			<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
 		</dict>
 	</array>
 	<key>readme</key>
 	<string>Lists top ten system processes by CPU or Memory usage. Provide actions to kill.</string>
 	<key>uidata</key>
 	<dict>
+		<key>2B8AA7B1-2F79-475C-ADEF-6EE35005FCBA</key>
+		<dict>
+			<key>ypos</key>
+			<real>510</real>
+		</dict>
 		<key>4F27382C-82E2-4594-91A4-A671F119A335</key>
 		<dict>
 			<key>ypos</key>
@@ -260,7 +288,7 @@ fi</string>
 		<key>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</key>
 		<dict>
 			<key>ypos</key>
-			<real>90</real>
+			<real>250</real>
 		</dict>
 		<key>C844DE84-FBA3-4500-9C91-2A43C2729C1D</key>
 		<dict>
@@ -275,7 +303,7 @@ fi</string>
 		<key>DA167D3F-4147-4632-A672-72656D18E997</key>
 		<dict>
 			<key>ypos</key>
-			<real>450</real>
+			<real>380</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>
