@@ -5,7 +5,7 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Sun 24 Mar 2013 09:10:32 AM EDT
+# Last Modified  : Sun 24 Mar 2013 10:18:32 AM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -162,7 +162,7 @@ def top_processes(options)
     psc = ps_list(:cpu, $ignored_processes, options[:num])
 
     until psm.empty? and psc.empty?
-      processes << psm.shift(2) << psc.shift(2)
+      processes << psc.shift(2) << psm.shift(2)
     end
     processes.flatten!.compact!
   elsif options[:sort] == :memory
