@@ -5,7 +5,7 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Sat 23 Mar 2013 05:09:45 AM EDT
+# Last Modified  : Sun 24 Mar 2013 09:10:32 AM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -171,15 +171,10 @@ def top_processes(options)
     processes += ps_list(:cpu, $ignored_processes, options[:num])
   end
 
-  unless ARGV.empty?
-    query = ARGV.join(" ")
-    processes.delete_if {|p| !p[:title].include?(query) }
-  end
-
   processes
 end
 
-def generate_feedback(alfred, processes)
+def generate_feedback(alfred, processes, query)
 
   feedback = alfred.feedback
   time = Time.now.to_s
@@ -199,7 +194,7 @@ def generate_feedback(alfred, processes)
     })
   end
 
-  puts feedback.to_xml
+  puts feedback.to_xml(query)
 end
 
 if __FILE__ == $PROGRAM_NAME
@@ -209,7 +204,7 @@ if __FILE__ == $PROGRAM_NAME
     processes = top_processes(options)
 
 
-    generate_feedback(alfred, processes)
+    generate_feedback(alfred, processes, ARGV)
 
   end
 
