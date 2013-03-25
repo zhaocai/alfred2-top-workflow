@@ -1,11 +1,13 @@
 #!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
 # ============== = ===========================================================
 # Description    : Alfred 2 Top Processes Workflow
 # Author         : Zhao Cai <caizhaoff@gmail.com>
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Sun 24 Mar 2013 10:18:32 AM EDT
+# Last Modified  : Mon 25 Mar 2013 12:12:26 AM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -25,8 +27,31 @@ $ignored_processes = ['Alfred 2', 'mds']
 
 $vague_commands = ['ruby', 'java', 'zsh', 'bash', 'python', 'perl', ]
 
+$main_states = {
+    'I' => 'idle',
+    'R' => 'runnable',
+    'S' => 'sleep',
+    'T' => 'stopped',
+    'U' => 'uninterruptible',
+    'Z' => 'zombie'
+}
+$additional_states = {
+    '+' => 'foreground',
+    '<' => 'raised priority',
+    '>' => 'soft limit on memory',
+    'A' => 'random page replacement',
+    'E' => 'trying to exit',
+    'L' => 'page locked',
+    'N' => 'reduced priority',
+    'S' => 'FIO page replacement',
+    's' => 'session leader',
+    'V' => 'suspended',
+    'W' => 'swapped out',
+    'X' => 'being traced or debugged'
+}
+
 def parse_opt()
-  options = {:sort => :auto, :num => 13}
+  options = {:sort => :auto}
 
   optparse = OptionParser.new do |opts|
     opts.on("--sort [TYPE]", [:auto, :memory, :cpu],
@@ -34,10 +59,10 @@ def parse_opt()
       options[:sort] = t
     end
 
-    opts.on('-n', "--n [N]", OptionParser::DecimalInteger,
-            "list top N processes") do |t|
-      options[:num] = t
-    end
+    # opts.on('-n', "--n [N]", OptionParser::DecimalInteger,
+    #         "list top N processes") do |t|
+    #   options[:num] = t
+    # end
 
     opts.on('-h', '--help', 'Help Message') do
       puts opts
@@ -66,16 +91,18 @@ end
 
 
 
-def ps_list(type, ignored, n=13)
+def ps_list(type, ignored)
 
   type2opt = {:memory => 'm', :cpu => 'r'}
 
   c = %Q{ps -a#{type2opt[type]}cwwwxo 'pid %cpu %mem state command'}
   stdin, stdout, stderr = Open3.popen3(c)
+  lines = stdout.readlines.map(&:chomp)
+  lines.shift
 
   processes = []
   i = 1
-  stdout.readlines.slice(1..n).map(&:chomp).each do |entry|
+  lines.each do |entry|
     columns = entry.split
 
     process = {
@@ -117,33 +144,14 @@ def interpret_state(state)
     return ""
   end
 
-  main_states = {
-    'I' => 'idle',
-    'R' => 'runnable',
-    'S' => 'sleep',
-    'U' => 'uninterruptible',
-    'Z' => 'zombie'
-  }
-  additional_states = {
-    '+' => 'foreground',
-    '<' => 'raised priority',
-    '>' => 'soft limit on memory',
-    'A' => 'random page replacement',
-    'E' => 'trying to exit',
-    'L' => 'page locked',
-    'N' => 'reduced priority',
-    'S' => 'FIO page replacement',
-    's' => 'session leader',
-    'V' => 'suspended',
-    'W' => 'swapped out',
-    'X' => 'being traced or debugged'
-  }
+  states = state.chars.to_a
 
-  m = main_states[state.slice(0..0)]
+  m = $main_states[states[0]]
+
   a = []
-  if state.size > 1
-    state[1..-1].each_char { |c|
-      a.insert(additional_states[c])
+  if states.size > 1
+    states[1..-1].each { |c|
+      a.insert($additional_states[c])
     }
   end
 
@@ -158,17 +166,17 @@ def top_processes(options)
   processes = []
 
   if options[:sort] == :auto
-    psm = ps_list(:memory, $ignored_processes, options[:num])
-    psc = ps_list(:cpu, $ignored_processes, options[:num])
+    psm = ps_list(:memory, $ignored_processes)
+    psc = ps_list(:cpu, $ignored_processes)
 
     until psm.empty? and psc.empty?
       processes << psc.shift(2) << psm.shift(2)
     end
     processes.flatten!.compact!
   elsif options[:sort] == :memory
-    processes = ps_list(:memory, $ignored_processes, options[:num])
+    processes = ps_list(:memory, $ignored_processes)
   elsif options[:sort] == :cpu
-    processes += ps_list(:cpu, $ignored_processes, options[:num])
+    processes += ps_list(:cpu, $ignored_processes)
   end
 
   processes
@@ -185,6 +193,7 @@ def generate_feedback(alfred, processes, query)
     elsif p[:type].eql?(:cpu)
       icon[:name] = "cpu.png"
     end
+
     feedback.add_item({
       :uid   => "#{p[:title]} #{time}" ,
       :title => p[:title] ,
@@ -194,7 +203,7 @@ def generate_feedback(alfred, processes, query)
     })
   end
 
-  puts feedback.to_xml(query)
+  puts feedback.to_alfred(query)
 end
 
 if __FILE__ == $PROGRAM_NAME
