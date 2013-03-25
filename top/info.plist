@@ -6,6 +6,17 @@
 	<string>me.zhaowu.top</string>
 	<key>connections</key>
 	<dict>
+		<key>2B8AA7B1-2F79-475C-ADEF-6EE35005FCBA</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>CFA5D2DB-0DDA-4D3C-9755-3C4DD3A6BA29</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>65DAE3B3-5040-4117-A911-65EDE5765DC3</key>
 		<array>
 			<dict>
@@ -15,6 +26,14 @@
 				<integer>262144</integer>
 				<key>modifiersubtext</key>
 				<string>kill process</string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
 			</dict>
 			<dict>
 				<key>destinationuid</key>
@@ -48,6 +67,14 @@
 			</dict>
 			<dict>
 				<key>destinationuid</key>
+				<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
 				<string>DA167D3F-4147-4632-A672-72656D18E997</string>
 				<key>modifiers</key>
 				<integer>1048576</integer>
@@ -64,6 +91,14 @@
 				<integer>262144</integer>
 				<key>modifiersubtext</key>
 				<string>kill process</string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
 			</dict>
 			<dict>
 				<key>destinationuid</key>
@@ -102,13 +137,17 @@
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
-				<integer>4</integer>
+				<integer>62</integer>
 				<key>keyword</key>
 				<string>lsof</string>
+				<key>runningsubtext</key>
+				<string>waiting...</string>
 				<key>script</key>
 				<string>/usr/bin/ruby ./lsof.rb {query}</string>
+				<key>subtext</key>
+				<string>lsof pid query</string>
 				<key>title</key>
-				<string>List Files Used by Process</string>
+				<string>List Files Opened by Process {query}</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
@@ -245,6 +284,12 @@ fi</string>
 			<string>CA714745-B63F-46C5-9D77-50C52956368C</string>
 		</dict>
 		<dict>
+			<key>type</key>
+			<string>alfred.workflow.action.revealfile</string>
+			<key>uid</key>
+			<string>CFA5D2DB-0DDA-4D3C-9755-3C4DD3A6BA29</string>
+		</dict>
+		<dict>
 			<key>config</key>
 			<dict>
 				<key>escaping</key>
@@ -265,6 +310,20 @@ fi</string>
 			<key>uid</key>
 			<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)	tell application "Alfred 2" to search "lsof " &amp; q &amp; " "end alfred_script
+</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string>Lists top ten system processes by CPU or Memory usage. Provide actions to kill.</string>
@@ -273,7 +332,7 @@ fi</string>
 		<key>2B8AA7B1-2F79-475C-ADEF-6EE35005FCBA</key>
 		<dict>
 			<key>ypos</key>
-			<real>510</real>
+			<real>490</real>
 		</dict>
 		<key>4F27382C-82E2-4594-91A4-A671F119A335</key>
 		<dict>
@@ -283,27 +342,37 @@ fi</string>
 		<key>65DAE3B3-5040-4117-A911-65EDE5765DC3</key>
 		<dict>
 			<key>ypos</key>
-			<real>350</real>
+			<real>330</real>
 		</dict>
 		<key>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</key>
 		<dict>
 			<key>ypos</key>
 			<real>10</real>
 		</dict>
+		<key>A325DFB8-2F81-4919-8541-1365154D5F89</key>
+		<dict>
+			<key>ypos</key>
+			<real>190</real>
+		</dict>
 		<key>C844DE84-FBA3-4500-9C91-2A43C2729C1D</key>
 		<dict>
 			<key>ypos</key>
-			<real>150</real>
+			<real>20</real>
 		</dict>
 		<key>CA714745-B63F-46C5-9D77-50C52956368C</key>
 		<dict>
 			<key>ypos</key>
-			<real>250</real>
+			<real>190</real>
+		</dict>
+		<key>CFA5D2DB-0DDA-4D3C-9755-3C4DD3A6BA29</key>
+		<dict>
+			<key>ypos</key>
+			<real>490</real>
 		</dict>
 		<key>DA167D3F-4147-4632-A672-72656D18E997</key>
 		<dict>
 			<key>ypos</key>
-			<real>590</real>
+			<real>330</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>

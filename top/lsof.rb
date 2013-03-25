@@ -6,7 +6,7 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Sat 23 Mar 2013 05:23:51 AM EDT
+# Last Modified  : Mon 25 Mar 2013 03:00:52 AM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -20,37 +20,57 @@ require "alfred"
 require 'open3'
 
 
+def valid_pid?(pid)
+  return false if pid.nil?
+  !pid.match(/[^0-9]/)
+end
 
-def generate_feedback(alfred, pids)
+def generate_feedback(alfred, pid, with_query)
   fb = alfred.feedback
+
   files = []
-  pids.each { |p|
-    c = %Q{ lsof -p #{p}}
-    stdin, stdout, stderr = Open3.popen3(c)
 
-    stdout.readlines.slice(1..-1).map(&:chomp).each do |entry|
-      columns = entry.split
-      f = columns[8..-1]
-      if f
-        file = f.join(" ")
-        files << file if File.exist?(file)
-      end
+  c = %Q{lsof -p #{pid}}
+  stdin, stdout, stderr = Open3.popen3(c)
+  lines = stdout.readlines.map(&:chomp)
 
+  if lines.empty?
+    puts alfred.rescue_feedback(:title => "Is #{pid} a valid PID?")
+    return false
+  end
+
+  lines.shift
+
+  lines.each do |entry|
+    columns = entry.split
+    f = columns[8..-1]
+    if f
+      file = f.join(" ")
+      files << file if File.exist?(file)
     end
+  end
 
-  }
+  files.delete_if { |f| f.start_with?("/Applications/")  }
+
 
   files.each do |f|
     fb.add_file_item(f)
   end
 
-  puts fb.to_xml
+  puts fb.to_alfred(with_query)
 end
-
 
 if __FILE__ == $PROGRAM_NAME
   Alfred.with_friendly_error do |alfred|
-    generate_feedback(alfred, ARGV)
+    pid = ARGV[0]
+    ARGV.shift
+
+    unless valid_pid?(pid)
+      puts alfred.rescue_feedback(:title => "Invalid PID: #{pid}") 
+      exit(-1)
+    end
+
+    generate_feedback(alfred, pid, ARGV)
   end
 end
 

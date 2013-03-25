@@ -8,13 +8,16 @@ Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage. The initial mo
 
 ### A. Keywords:
 
-1. `top`: show a mixed processes list based on top cpu and memory usage
-2. `memory top`: processes list based on top memory usage
-3. `cpu top`: processes list based on top cpu usage
+1. `top`: Show a mixed processes list based on top cpu and memory usage
+2. `lsof`: List files opened by process id
+3. `memory top`: Processes list based on top memory usage
+4. `cpu top`: Processes list based on top cpu usage
+
 
 ### B. Modifier Key
-1. `^` key to `kill`
-2. `⌘` key to force kill (`kill -9`)
+1. `none`: The default action is to list files opened by process ID
+2. `^` key to `kill`
+3. `⌘` key to force kill (`kill -9`)
 
 
 ## Screenshots
@@ -34,7 +37,7 @@ Two ways are provided:
 
 1. You can download the [Top Processes.alfredworkflow](https://github.com/zhaocai/alfred2-top-workflow/raw/master/Top%20Processes.alfredworkflow) and import to Alfred 2. This method is suitable for **regular users**.
 
-2. You can `git clone` or `fork` this repository and use `rake install` and `rake uninstall` to install.
+2. You can `git clone` or `fork` this repository and use `rake install` and `rake uninstall` to install. Check `rake -T` for available tasks.
 This method create a symlink to the alfred workflow directory: "~/Library/Application Support/Alfred 2/Alfred.alfredpreferences/workflows". This method is suitable for **developers**.
 
 
