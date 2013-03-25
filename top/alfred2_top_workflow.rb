@@ -7,7 +7,7 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Mon 25 Mar 2013 12:12:26 AM EDT
+# Last Modified  : Mon 25 Mar 2013 01:14:46 AM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -112,8 +112,8 @@ def ps_list(type, ignored)
       :pid     => columns[0] ,
       :cpu     => columns[1] ,
       :memory  => columns[2] ,
-      :state   => columns[3] ,
-      :command => columns[4..-1].join(" ") ,
+      :state   => interpret_state(columns[3]) ,
+      :command => columns[4..-1].join(" ")    ,
     }
     process[:title] = interpret_command($vague_commands, process)
 
@@ -199,11 +199,43 @@ def generate_feedback(alfred, processes, query)
       :title => p[:title] ,
       :arg   => p[:pid] ,
       :icon  => icon ,
-      :subtitle => "cpu: #{p[:cpu].rjust(6)}%,  memory: #{p[:memory].rjust(6)}%,  state: (#{p[:pid].rjust(6)}) #{interpret_state(p[:state]).rjust(6)}"
+      :subtitle => "cpu: #{p[:cpu].rjust(6)}%,  memory: #{p[:memory].rjust(6)}%,  state: (#{p[:pid].rjust(6)}) #{p[:state].rjust(6)}"
     })
   end
 
   puts feedback.to_alfred(query)
+end
+
+
+# overwrite default query matcher
+module Alfred
+  class Feedback
+    class Item
+
+      def match?(query)
+        return true if query.empty?
+        if query.is_a? String
+          query = query.split("\s")
+        end
+
+        queries = []
+        query.each { |q|
+          queries << smartcase_query(q)
+        }
+
+        queries.delete_if { |q|
+          q.match(@title) or q.match(@subtitle)
+        }
+
+        if queries.empty?
+          return true
+        else
+          return false
+        end
+      end
+
+    end
+  end
 end
 
 if __FILE__ == $PROGRAM_NAME
@@ -212,9 +244,7 @@ if __FILE__ == $PROGRAM_NAME
     options = parse_opt()
     processes = top_processes(options)
 
-
     generate_feedback(alfred, processes, ARGV)
-
   end
 
 
