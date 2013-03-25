@@ -9,16 +9,31 @@ Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage. The initial mo
 ### A. Keywords:
 
 1. `top`: Show a mixed processes list based on top cpu and memory usage
-1. `kill`: Filter process to kill.
-2. `lsof`: List files opened by process id
 3. `memory top`: Processes list based on top memory usage
 4. `cpu top`: Processes list based on top cpu usage
+1. `kill`: Filter process to kill.
+2. `lsof`: List files opened by process id
 
 
 ### B. Modifier Key
+
+#### Keywords: `top`, `cpu top`, `memory top`
+
 1. `none`: The default action is to list files opened by process ID
 2. `^` key to `kill`
 3. `⌘` key to force kill (`kill -9`)
+
+#### Keywords: `kill`
+
+1. `none`: The default action is to kill by process ID
+3. `⌘` key to force kill (`kill -9`)
+
+#### Keywords: `lsof`
+
+1. `none`: The default action is to reveal file in Finder
+
+### C. Query
+1. now you can search for process state like idle, sleep, stopped, zombie, uninterruptible, runnable, etc.
 
 
 ## Screenshots
