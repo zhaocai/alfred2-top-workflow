@@ -44,6 +44,25 @@
 				<string>Force Kill</string>
 			</dict>
 		</array>
+		<key>7DC8A847-D1E3-4D91-B2B5-844E95E7F38A</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>DA167D3F-4147-4632-A672-72656D18E997</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string>Force Kill</string>
+			</dict>
+		</array>
 		<key>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</key>
 		<array>
 			<dict>
@@ -214,7 +233,34 @@
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
-				<integer>4</integer>
+				<integer>36</integer>
+				<key>keyword</key>
+				<string>kill</string>
+				<key>runningsubtext</key>
+				<string>list processes...</string>
+				<key>script</key>
+				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --sort cpu {query}</string>
+				<key>subtext</key>
+				<string>Type to filter processes</string>
+				<key>title</key>
+				<string>Kill Process</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>7DC8A847-D1E3-4D91-B2B5-844E95E7F38A</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>36</integer>
 				<key>keyword</key>
 				<string>cpu top</string>
 				<key>runningsubtext</key>
@@ -332,7 +378,7 @@ fi</string>
 		<key>2B8AA7B1-2F79-475C-ADEF-6EE35005FCBA</key>
 		<dict>
 			<key>ypos</key>
-			<real>490</real>
+			<real>570</real>
 		</dict>
 		<key>4F27382C-82E2-4594-91A4-A671F119A335</key>
 		<dict>
@@ -342,7 +388,12 @@ fi</string>
 		<key>65DAE3B3-5040-4117-A911-65EDE5765DC3</key>
 		<dict>
 			<key>ypos</key>
-			<real>330</real>
+			<real>420</real>
+		</dict>
+		<key>7DC8A847-D1E3-4D91-B2B5-844E95E7F38A</key>
+		<dict>
+			<key>ypos</key>
+			<real>60</real>
 		</dict>
 		<key>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</key>
 		<dict>
@@ -357,7 +408,7 @@ fi</string>
 		<key>C844DE84-FBA3-4500-9C91-2A43C2729C1D</key>
 		<dict>
 			<key>ypos</key>
-			<real>20</real>
+			<real>300</real>
 		</dict>
 		<key>CA714745-B63F-46C5-9D77-50C52956368C</key>
 		<dict>
@@ -367,7 +418,7 @@ fi</string>
 		<key>CFA5D2DB-0DDA-4D3C-9755-3C4DD3A6BA29</key>
 		<dict>
 			<key>ypos</key>
-			<real>490</real>
+			<real>590</real>
 		</dict>
 		<key>DA167D3F-4147-4632-A672-72656D18E997</key>
 		<dict>

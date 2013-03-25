@@ -9,6 +9,7 @@ Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage. The initial mo
 ### A. Keywords:
 
 1. `top`: Show a mixed processes list based on top cpu and memory usage
+1. `kill`: Filter process to kill.
 2. `lsof`: List files opened by process id
 3. `memory top`: Processes list based on top memory usage
 4. `cpu top`: Processes list based on top cpu usage
