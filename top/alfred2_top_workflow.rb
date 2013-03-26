@@ -7,7 +7,7 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Mon 25 Mar 2013 01:14:46 AM EDT
+# Last Modified  : Tue 26 Mar 2013 02:53:59 AM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -95,7 +95,7 @@ def ps_list(type, ignored)
 
   type2opt = {:memory => 'm', :cpu => 'r'}
 
-  c = %Q{ps -a#{type2opt[type]}cwwwxo 'pid %cpu %mem state command'}
+  c = %Q{ps -a#{type2opt[type]}cwwwxo 'pid nice %cpu %mem state command'}
   stdin, stdout, stderr = Open3.popen3(c)
   lines = stdout.readlines.map(&:chomp)
   lines.shift
@@ -110,10 +110,11 @@ def ps_list(type, ignored)
       :type    => type       ,
       :rank    => i          ,
       :pid     => columns[0] ,
-      :cpu     => columns[1] ,
-      :memory  => columns[2] ,
-      :state   => interpret_state(columns[3]) ,
-      :command => columns[4..-1].join(" ")    ,
+      :nice    => columns[1] ,
+      :cpu     => columns[2] ,
+      :memory  => columns[3] ,
+      :state   => interpret_state(columns[4]) ,
+      :command => columns[5..-1].join(" ")    ,
     }
     process[:title] = interpret_command($vague_commands, process)
 
@@ -199,7 +200,7 @@ def generate_feedback(alfred, processes, query)
       :title => p[:title] ,
       :arg   => p[:pid] ,
       :icon  => icon ,
-      :subtitle => "cpu: #{p[:cpu].rjust(6)}%,  memory: #{p[:memory].rjust(6)}%,  state: (#{p[:pid].rjust(6)}) #{p[:state].rjust(6)}"
+      :subtitle => "cpu: #{p[:cpu].rjust(6)}%,  memory: #{p[:memory].rjust(6)}%,  nice:#{p[:nice].rjust(4)},  state: (#{p[:pid].rjust(6)}) #{p[:state].rjust(6)}"
     })
   end
 
@@ -209,31 +210,9 @@ end
 
 # overwrite default query matcher
 module Alfred
-  class Feedback
-    class Item
-
-      def match?(query)
-        return true if query.empty?
-        if query.is_a? String
-          query = query.split("\s")
-        end
-
-        queries = []
-        query.each { |q|
-          queries << smartcase_query(q)
-        }
-
-        queries.delete_if { |q|
-          q.match(@title) or q.match(@subtitle)
-        }
-
-        if queries.empty?
-          return true
-        else
-          return false
-        end
-      end
-
+  class Feedback::Item
+    def match?(query)
+      all_title_match?(query)
     end
   end
 end

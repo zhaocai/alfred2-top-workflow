@@ -21,6 +21,14 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
+				<string>CE16D203-D372-4FC5-AA16-B8A41ECA3D16</string>
+				<key>modifiers</key>
+				<integer>524288</integer>
+				<key>modifiersubtext</key>
+				<string>nice cpu priority</string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
 				<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
 				<key>modifiers</key>
 				<integer>262144</integer>
@@ -29,19 +37,19 @@
 			</dict>
 			<dict>
 				<key>destinationuid</key>
-				<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
 				<string>DA167D3F-4147-4632-A672-72656D18E997</string>
 				<key>modifiers</key>
 				<integer>1048576</integer>
 				<key>modifiersubtext</key>
 				<string>Force Kill</string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
 			</dict>
 		</array>
 		<key>7DC8A847-D1E3-4D91-B2B5-844E95E7F38A</key>
@@ -78,19 +86,19 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
+				<string>CE16D203-D372-4FC5-AA16-B8A41ECA3D16</string>
+				<key>modifiers</key>
+				<integer>524288</integer>
+				<key>modifiersubtext</key>
+				<string>nice cpu priority</string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
 				<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
 				<key>modifiers</key>
 				<integer>262144</integer>
 				<key>modifiersubtext</key>
 				<string>kill process</string>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
 			</dict>
 			<dict>
 				<key>destinationuid</key>
@@ -100,9 +108,25 @@
 				<key>modifiersubtext</key>
 				<string>Force Kill</string>
 			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
 		</array>
 		<key>CA714745-B63F-46C5-9D77-50C52956368C</key>
 		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>CE16D203-D372-4FC5-AA16-B8A41ECA3D16</string>
+				<key>modifiers</key>
+				<integer>524288</integer>
+				<key>modifiersubtext</key>
+				<string>nice cpu priority</string>
+			</dict>
 			<dict>
 				<key>destinationuid</key>
 				<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
@@ -113,19 +137,30 @@
 			</dict>
 			<dict>
 				<key>destinationuid</key>
+				<string>DA167D3F-4147-4632-A672-72656D18E997</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string>force kill</string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
 				<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
 			</dict>
+		</array>
+		<key>CE16D203-D372-4FC5-AA16-B8A41ECA3D16</key>
+		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>DA167D3F-4147-4632-A672-72656D18E997</string>
+				<string>638845CE-0394-46AA-85F6-723639C71696</string>
 				<key>modifiers</key>
-				<integer>1048576</integer>
+				<integer>0</integer>
 				<key>modifiersubtext</key>
-				<string>force kill</string>
+				<string></string>
 			</dict>
 		</array>
 		<key>DA167D3F-4147-4632-A672-72656D18E997</key>
@@ -151,81 +186,10 @@
 	<key>objects</key>
 	<array>
 		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>escaping</key>
-				<integer>62</integer>
-				<key>keyword</key>
-				<string>lsof</string>
-				<key>runningsubtext</key>
-				<string>waiting...</string>
-				<key>script</key>
-				<string>/usr/bin/ruby ./lsof.rb {query}</string>
-				<key>subtext</key>
-				<string>lsof pid query</string>
-				<key>title</key>
-				<string>List Files Opened by Process {query}</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
+			<string>alfred.workflow.action.revealfile</string>
 			<key>uid</key>
-			<string>2B8AA7B1-2F79-475C-ADEF-6EE35005FCBA</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>0</integer>
-				<key>keyword</key>
-				<string>memory top</string>
-				<key>runningsubtext</key>
-				<string>Determining top processes...</string>
-				<key>script</key>
-				<string>/usr/bin/ruby  ./alfred2_top_workflow.rb --sort memory {query}</string>
-				<key>subtext</key>
-				<string>by Memory usage</string>
-				<key>title</key>
-				<string>Top Processes</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>C844DE84-FBA3-4500-9C91-2A43C2729C1D</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<true/>
-				<key>output</key>
-				<integer>0</integer>
-				<key>removeextension</key>
-				<false/>
-				<key>sticky</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Kill Process</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>4F27382C-82E2-4594-91A4-A671F119A335</string>
+			<string>CFA5D2DB-0DDA-4D3C-9755-3C4DD3A6BA29</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -257,37 +221,10 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttype</key>
-				<integer>1</integer>
 				<key>escaping</key>
-				<integer>36</integer>
-				<key>keyword</key>
-				<string>cpu top</string>
-				<key>runningsubtext</key>
-				<string>Determining top processes...</string>
+				<integer>4</integer>
 				<key>script</key>
-				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --sort cpu {query}</string>
-				<key>subtext</key>
-				<string>by CPU usage</string>
-				<key>title</key>
-				<string>Top processes</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>65DAE3B3-5040-4117-A911-65EDE5765DC3</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>escaping</key>
-				<integer>63</integer>
-				<key>script</key>
-				<string>kill -9 {query}
+				<string>renice -n 5 {query}
 
 if [ $? -eq 0 ] ; then
     echo "Succeed!"
@@ -300,7 +237,30 @@ fi</string>
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>DA167D3F-4147-4632-A672-72656D18E997</string>
+			<string>CE16D203-D372-4FC5-AA16-B8A41ECA3D16</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Nice Cpu Priority</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>638845CE-0394-46AA-85F6-723639C71696</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -330,10 +290,116 @@ fi</string>
 			<string>CA714745-B63F-46C5-9D77-50C52956368C</string>
 		</dict>
 		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string>kill -9 {query}
+
+if [ $? -eq 0 ] ; then
+    echo "Succeed!"
+else
+    echo "Fail!"
+fi</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.revealfile</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>CFA5D2DB-0DDA-4D3C-9755-3C4DD3A6BA29</string>
+			<string>DA167D3F-4147-4632-A672-72656D18E997</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>36</integer>
+				<key>keyword</key>
+				<string>cpu top</string>
+				<key>runningsubtext</key>
+				<string>Determining top processes...</string>
+				<key>script</key>
+				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --sort cpu {query}</string>
+				<key>subtext</key>
+				<string>by CPU usage</string>
+				<key>title</key>
+				<string>Top processes</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>65DAE3B3-5040-4117-A911-65EDE5765DC3</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Kill Process</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>4F27382C-82E2-4594-91A4-A671F119A335</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)	tell application "Alfred 2" to search "lsof " &amp; q &amp; " "end alfred_script
+</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>62</integer>
+				<key>keyword</key>
+				<string>lsof</string>
+				<key>runningsubtext</key>
+				<string>waiting...</string>
+				<key>script</key>
+				<string>/usr/bin/ruby ./lsof.rb {query}</string>
+				<key>subtext</key>
+				<string>lsof pid query</string>
+				<key>title</key>
+				<string>List Files Opened by Process {query}</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>2B8AA7B1-2F79-475C-ADEF-6EE35005FCBA</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -359,16 +425,29 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>applescript</key>
-				<string>on alfred_script(q)	tell application "Alfred 2" to search "lsof " &amp; q &amp; " "end alfred_script
-</string>
-				<key>cachescript</key>
-				<false/>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>memory top</string>
+				<key>runningsubtext</key>
+				<string>Determining top processes...</string>
+				<key>script</key>
+				<string>/usr/bin/ruby  ./alfred2_top_workflow.rb --sort memory {query}</string>
+				<key>subtext</key>
+				<string>by Memory usage</string>
+				<key>title</key>
+				<string>Top Processes</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.applescript</string>
+			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+			<string>C844DE84-FBA3-4500-9C91-2A43C2729C1D</string>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -385,6 +464,11 @@ fi</string>
 			<key>ypos</key>
 			<real>270</real>
 		</dict>
+		<key>638845CE-0394-46AA-85F6-723639C71696</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
 		<key>65DAE3B3-5040-4117-A911-65EDE5765DC3</key>
 		<dict>
 			<key>ypos</key>
@@ -393,17 +477,17 @@ fi</string>
 		<key>7DC8A847-D1E3-4D91-B2B5-844E95E7F38A</key>
 		<dict>
 			<key>ypos</key>
-			<real>60</real>
+			<real>70</real>
 		</dict>
 		<key>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</key>
 		<dict>
 			<key>ypos</key>
-			<real>10</real>
+			<real>160</real>
 		</dict>
 		<key>A325DFB8-2F81-4919-8541-1365154D5F89</key>
 		<dict>
 			<key>ypos</key>
-			<real>190</real>
+			<real>470</real>
 		</dict>
 		<key>C844DE84-FBA3-4500-9C91-2A43C2729C1D</key>
 		<dict>
@@ -415,6 +499,11 @@ fi</string>
 			<key>ypos</key>
 			<real>190</real>
 		</dict>
+		<key>CE16D203-D372-4FC5-AA16-B8A41ECA3D16</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
 		<key>CFA5D2DB-0DDA-4D3C-9755-3C4DD3A6BA29</key>
 		<dict>
 			<key>ypos</key>
@@ -423,7 +512,7 @@ fi</string>
 		<key>DA167D3F-4147-4632-A672-72656D18E997</key>
 		<dict>
 			<key>ypos</key>
-			<real>330</real>
+			<real>290</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>

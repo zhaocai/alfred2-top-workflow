@@ -24,7 +24,7 @@ task :chdir => [:config] do
 end
 
 desc "Install Gems"
-task :bundle_install => [:chdir] do
+task "bundle:install" => [:chdir] do
   sh %Q{bundle install --standalone --clean} do |ok, res|
     if ! ok
       puts "fail to install gems (status = #{res.exitstatus})"
@@ -33,7 +33,7 @@ task :bundle_install => [:chdir] do
 end
 
 desc "Update Gems"
-task :bundle_update => [:chdir] do
+task "bundle:update" => [:chdir] do
   sh %Q{bundle update && bundle install --standalone --clean} do |ok, res|
     if ! ok
       puts "fail to update gems (status = #{res.exitstatus})"
@@ -51,8 +51,15 @@ task :uninstall => [:config] do
   rm File.join(workflow_home, $config["bundleid"])
 end
 
+
+
+
+desc "Clean up all the extras"
+task :clean => [:config] do
+end
+
 desc "Remove any generated file"
-task :clobber => [:config] do
+task :clobber => [:clean] do
   rmtree File.join($config["path"], ".bundle")
   rmtree File.join($config["path"], "bundle")
 end
