@@ -34,7 +34,7 @@ Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage. The initial mo
 1. `none`: The default action is to reveal file in Finder
 
 ### C. Query
-1. You can search for process state like idle, sleep, stopped, zombie, uninterruptible, runnable, etc.
+1. To search for process state, use **:idle**, **:sleep**, **:stopped**, **:zombie**, **:uninterruptible**, **:runnable**, etc.
 
 
 ## Screenshots

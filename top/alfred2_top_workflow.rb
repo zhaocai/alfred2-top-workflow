@@ -7,7 +7,7 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Tue 26 Mar 2013 02:53:59 AM EDT
+# Last Modified  : Thu 28 Mar 2013 09:03:24 AM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -28,12 +28,12 @@ $ignored_processes = ['Alfred 2', 'mds']
 $vague_commands = ['ruby', 'java', 'zsh', 'bash', 'python', 'perl', ]
 
 $main_states = {
-    'I' => 'idle',
-    'R' => 'runnable',
-    'S' => 'sleep',
-    'T' => 'stopped',
-    'U' => 'uninterruptible',
-    'Z' => 'zombie'
+    'I' => ':idle',
+    'R' => ':runnable',
+    'S' => ':sleep',
+    'T' => ':stopped',
+    'U' => ':uninterruptible',
+    'Z' => ':zombie'
 }
 $additional_states = {
     '+' => 'foreground',
