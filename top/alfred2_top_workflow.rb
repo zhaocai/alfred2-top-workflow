@@ -7,7 +7,7 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Thu 28 Mar 2013 09:03:24 AM EDT
+# Last Modified  : Thu 28 Mar 2013 10:27:24 PM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -22,10 +22,17 @@ require "alfred"
 require 'optparse'
 require 'open3'
 
+# (#
+# Configuration                                                           [[[1
+# #)
+
+
 # Ignore mds because its cpu usgae spikes the moment alfred calls the workflow
 $ignored_processes = ['Alfred 2', 'mds']
 
 $vague_commands = ['ruby', 'java', 'zsh', 'bash', 'python', 'perl', ]
+
+$top_symbol = '🔝'
 
 $main_states = {
     'I' => ':idle',
@@ -90,53 +97,17 @@ def parse_opt()
 end
 
 
-
-def ps_list(type, ignored)
-
-  type2opt = {:memory => 'm', :cpu => 'r'}
-
-  c = %Q{ps -a#{type2opt[type]}cwwwxo 'pid nice %cpu %mem state command'}
-  stdin, stdout, stderr = Open3.popen3(c)
-  lines = stdout.readlines.map(&:chomp)
-  lines.shift
-
-  processes = []
-  i = 1
-  lines.each do |entry|
-    columns = entry.split
-
-    process = {
-      :line    => entry      ,
-      :type    => type       ,
-      :rank    => i          ,
-      :pid     => columns[0] ,
-      :nice    => columns[1] ,
-      :cpu     => columns[2] ,
-      :memory  => columns[3] ,
-      :state   => interpret_state(columns[4]) ,
-      :command => columns[5..-1].join(" ")    ,
-    }
-    process[:title] = interpret_command($vague_commands, process)
-
-    # Ignore this script
-    unless process[:title].include?(__FILE__)
-      processes << process
-    end
-
-    i += 1
-  end
-
-  processes.delete_if {|p| ignored.include?(p[:command]) }
-end
-
+# (#
+# Helper Functions                                                        [[[1
+# #)
 
 def interpret_command(vague_command_list, process)
   if vague_command_list.include?(process[:command])
     c = %Q{ps -awwwxo 'command' #{process[:pid]}}
     stdin, stdout, stderr = Open3.popen3(c)
-    return "#{process[:rank]}: #{stdout.readlines.map(&:chomp)[1]}"
+    return stdout.readlines.map(&:chomp)[1]
   else
-    return "#{process[:rank]}: #{process[:command]}"
+    return process[:command]
   end
 end
 
@@ -163,33 +134,94 @@ def interpret_state(state)
   end
 end
 
-def top_processes(options)
-  processes = []
 
+# (#
+# Top Processes                                                           [[[1
+# #)
+
+
+
+def ps_list(type, ignored)
+
+  type2opt = {:memory => 'm', :cpu => 'r'}
+
+  c = %Q{ps -a#{type2opt[type]}cwwwxo 'pid nice %cpu %mem state command'}
+  stdin, stdout, stderr = Open3.popen3(c)
+  lines = stdout.readlines.map(&:chomp)
+  lines.shift
+
+  processes = {}
+  i = 1
+  lines.each do |entry|
+    columns = entry.split
+
+    process = {
+      :line    => entry      ,
+      :type    => type       ,
+      :rank    => i          ,
+      :pid     => columns[0] ,
+      :nice    => columns[1] ,
+      :cpu     => columns[2] ,
+      :memory  => columns[3] ,
+      :state   => interpret_state(columns[4]) ,
+      :command => columns[5..-1].join(" ")    ,
+    }
+    process[:command] = interpret_command($vague_commands, process)
+    process[:title] = "#{process[:rank]}: #{process[:command]}"
+
+    # Ignore this script
+    unless process[:title].include?(__FILE__) or ignored.include?(process[:command])
+      processes[process[:pid]] = process
+    end
+
+    i += 1
+  end
+  return processes
+end
+
+
+
+def top_processes(options)
   if options[:sort] == :auto
     psm = ps_list(:memory, $ignored_processes)
     psc = ps_list(:cpu, $ignored_processes)
 
-    until psm.empty? and psc.empty?
-      processes << psc.shift(2) << psm.shift(2)
+    processes = {}
+    psc.each_pair do |id, p|
+      m = psm[id]
+      if m
+        p[:type] = :auto
+        p[:title] =  "#{p[:rank]}/#{m[:rank]}: #{p[:command]}"
+      end
+      processes[id] = p
     end
-    processes.flatten!.compact!
+    return processes
   elsif options[:sort] == :memory
-    processes = ps_list(:memory, $ignored_processes)
+    return ps_list(:memory, $ignored_processes)
   elsif options[:sort] == :cpu
-    processes += ps_list(:cpu, $ignored_processes)
+    return ps_list(:cpu, $ignored_processes)
   end
 
-  processes
 end
 
+
+
+
+# (#
+# Feedback                                                                [[[1
+# #)
+
 def generate_feedback(alfred, processes, query)
+  time = Time.now.to_s
 
   feedback = alfred.feedback
-  time = Time.now.to_s
-  processes.each do |p|
+
+  processes.sort_by { |_, p| p[:rank] }.each do |pair|
+    p = pair[1]
     icon = {:type => "default", :name => "icon.png"}
-    if p[:type].eql?(:memory)
+    if p[:type].eql?(:auto)
+      icon[:name] = "auto.png"
+    elsif p[:type].eql?(:memory)
       icon[:name] = "memory.png"
     elsif p[:type].eql?(:cpu)
       icon[:name] = "cpu.png"
@@ -200,7 +232,7 @@ def generate_feedback(alfred, processes, query)
       :title => p[:title] ,
       :arg   => p[:pid] ,
       :icon  => icon ,
-      :subtitle => "cpu: #{p[:cpu].rjust(6)}%,  memory: #{p[:memory].rjust(6)}%,  nice:#{p[:nice].rjust(4)},  state: (#{p[:pid].rjust(6)}) #{p[:state].rjust(6)}"
+      :subtitle => "cpu: #{p[:cpu].rjust(6)}%,  memory: #{p[:memory].rjust(6)}%,  nice:#{p[:nice].rjust(4)},  state: |#{p[:pid].rjust(6)}| #{p[:state].ljust(15)}"
     })
   end
 
@@ -219,6 +251,7 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   Alfred.with_friendly_error do |alfred|
+    alfred.with_rescue_feedback = true
 
     options = parse_opt()
     processes = top_processes(options)
@@ -230,3 +263,7 @@ if __FILE__ == $PROGRAM_NAME
 end
 
 
+# (#
+# Modeline                                                                [[[1
+# #)
+# vim: set ft=ruby ts=2 sw=2 tw=78 fdm=marker fmr=[[[,]]] fdl=1 :

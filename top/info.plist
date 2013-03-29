@@ -242,6 +242,33 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>keyword</key>
+				<string>top</string>
+				<key>runningsubtext</key>
+				<string>Determining top processes...</string>
+				<key>script</key>
+				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --sort auto {query}</string>
+				<key>subtext</key>
+				<string>by Memory/CPU usage</string>
+				<key>title</key>
+				<string>Search Top Processes for '{query}'</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>CA714745-B63F-46C5-9D77-50C52956368C</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>lastpathcomponent</key>
 				<false/>
 				<key>onlyshowifquerypopulated</key>
@@ -261,33 +288,6 @@ fi</string>
 			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
 			<string>638845CE-0394-46AA-85F6-723639C71696</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>4</integer>
-				<key>keyword</key>
-				<string>top</string>
-				<key>runningsubtext</key>
-				<string>Determining top processes...</string>
-				<key>script</key>
-				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --sort auto {query}</string>
-				<key>subtext</key>
-				<string>by Memory/CPU usage</string>
-				<key>title</key>
-				<string>Top Processes</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>CA714745-B63F-46C5-9D77-50C52956368C</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -326,7 +326,7 @@ fi</string>
 				<key>subtext</key>
 				<string>by CPU usage</string>
 				<key>title</key>
-				<string>Top processes</string>
+				<string>Search Top processes for '{query}'</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
@@ -438,7 +438,7 @@ fi</string>
 				<key>subtext</key>
 				<string>by Memory usage</string>
 				<key>title</key>
-				<string>Top Processes</string>
+				<string>Search Top Processes for '{query}'</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
