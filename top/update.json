@@ -1,5 +1,4 @@
 {
-    "version": 1.2,
-    "download_uri": "https://github.com/zhaocai/alfred2-top-workflow/raw/master/Top%20Processes.alfredworkflow",
-    "description": "Use single entry for the top auto mixed mode."
+    "version": 1.0,
+    "remote_json": "https://github.com/zhaocai/alfred2-top-workflow/raw/master/top/top.json"
 }
