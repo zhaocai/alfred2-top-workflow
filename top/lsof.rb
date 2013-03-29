@@ -6,7 +6,7 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Mon 25 Mar 2013 03:00:52 AM EDT
+# Last Modified  : Thu 28 Mar 2013 11:07:27 PM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -62,11 +62,14 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   Alfred.with_friendly_error do |alfred|
+
+    alfred.with_rescue_feedback = true
+
     pid = ARGV[0]
     ARGV.shift
 
     unless valid_pid?(pid)
-      puts alfred.rescue_feedback(:title => "Invalid PID: #{pid}") 
+      puts alfred.rescue_feedback(:title => "Invalid PID: #{pid}")
       exit(-1)
     end
 
