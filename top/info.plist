@@ -17,6 +17,17 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>6DED0FCD-B485-4D7D-A4B7-673C0D34E2D0</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>CA714745-B63F-46C5-9D77-50C52956368C</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>7DC8A847-D1E3-4D91-B2B5-844E95E7F38A</key>
 		<array>
 			<dict>
@@ -118,16 +129,29 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>applescript</key>
-				<string>on alfred_script(q)	tell application "Alfred 2" to search "lsof " &amp; q &amp; " "end alfred_script
-</string>
-				<key>cachescript</key>
-				<false/>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>62</integer>
+				<key>keyword</key>
+				<string>lsof</string>
+				<key>runningsubtext</key>
+				<string>waiting...</string>
+				<key>script</key>
+				<string>/usr/bin/ruby ./lsof.rb {query}</string>
+				<key>subtext</key>
+				<string>lsof pid query</string>
+				<key>title</key>
+				<string>List Files Opened by Process {query}</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.applescript</string>
+			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+			<string>2B8AA7B1-2F79-475C-ADEF-6EE35005FCBA</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -153,29 +177,48 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttype</key>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
 				<integer>0</integer>
-				<key>escaping</key>
-				<integer>62</integer>
-				<key>keyword</key>
-				<string>lsof</string>
-				<key>runningsubtext</key>
-				<string>waiting...</string>
-				<key>script</key>
-				<string>/usr/bin/ruby ./lsof.rb {query}</string>
-				<key>subtext</key>
-				<string>lsof pid query</string>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
 				<key>title</key>
-				<string>List Files Opened by Process {query}</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
+				<string>Nice Cpu Priority</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
+			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>2B8AA7B1-2F79-475C-ADEF-6EE35005FCBA</string>
+			<string>638845CE-0394-46AA-85F6-723639C71696</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>hotkey</key>
+				<integer>17</integer>
+				<key>hotmod</key>
+				<integer>1572864</integer>
+				<key>hotstring</key>
+				<string>T</string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>6DED0FCD-B485-4D7D-A4B7-673C0D34E2D0</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -305,25 +348,16 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>lastpathcomponent</key>
+				<key>applescript</key>
+				<string>on alfred_script(q)	tell application "Alfred 2" to search "lsof " &amp; q &amp; " "end alfred_script
+</string>
+				<key>cachescript</key>
 				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>output</key>
-				<integer>0</integer>
-				<key>removeextension</key>
-				<false/>
-				<key>sticky</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Nice Cpu Priority</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
+			<string>alfred.workflow.action.applescript</string>
 			<key>uid</key>
-			<string>638845CE-0394-46AA-85F6-723639C71696</string>
+			<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -333,7 +367,7 @@ fi</string>
 		<key>2B8AA7B1-2F79-475C-ADEF-6EE35005FCBA</key>
 		<dict>
 			<key>ypos</key>
-			<real>630</real>
+			<real>520</real>
 		</dict>
 		<key>4F27382C-82E2-4594-91A4-A671F119A335</key>
 		<dict>
@@ -345,10 +379,15 @@ fi</string>
 			<key>ypos</key>
 			<real>10</real>
 		</dict>
+		<key>6DED0FCD-B485-4D7D-A4B7-673C0D34E2D0</key>
+		<dict>
+			<key>ypos</key>
+			<real>290</real>
+		</dict>
 		<key>7DC8A847-D1E3-4D91-B2B5-844E95E7F38A</key>
 		<dict>
 			<key>ypos</key>
-			<real>100</real>
+			<real>110</real>
 		</dict>
 		<key>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</key>
 		<dict>
@@ -363,7 +402,7 @@ fi</string>
 		<key>CA714745-B63F-46C5-9D77-50C52956368C</key>
 		<dict>
 			<key>ypos</key>
-			<real>300</real>
+			<real>320</real>
 		</dict>
 		<key>CE16D203-D372-4FC5-AA16-B8A41ECA3D16</key>
 		<dict>
@@ -378,7 +417,7 @@ fi</string>
 		<key>DA167D3F-4147-4632-A672-72656D18E997</key>
 		<dict>
 			<key>ypos</key>
-			<real>290</real>
+			<real>320</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>

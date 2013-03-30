@@ -1,5 +1,5 @@
 {
-    "version": 1.3,
+    "version": 1.4,
     "download_uri": "https://github.com/zhaocai/alfred2-top-workflow/raw/master/Top%20Processes.alfredworkflow",
-    "description": "refined keywords"
+    "description": "refined keywords, hotkeys, and bugfix."
 }

@@ -7,7 +7,7 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Fri 29 Mar 2013 11:40:26 PM EDT
+# Last Modified  : Sat 30 Mar 2013 06:17:13 PM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -39,7 +39,8 @@ $main_states = {
     'S' => ':sleep',
     'T' => ':stopped',
     'U' => ':uninterruptible',
-    'Z' => ':zombie'
+    'Z' => ':zombie',
+    '?' => ':unknown'
 }
 $additional_states = {
     '+' => 'foreground',
