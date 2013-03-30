@@ -43,7 +43,7 @@ end
 
 desc "Install to Alfred"
 task :install => [:config] do
-  ln_sf File.realpath($config["path"]), File.join(workflow_home, $config["bundleid"])
+  ln_sf File.expand_path($config["path"]), File.join(workflow_home, $config["bundleid"])
 end
 
 desc "Unlink from Alfred"

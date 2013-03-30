@@ -7,7 +7,7 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Thu 28 Mar 2013 10:27:24 PM EDT
+# Last Modified  : Fri 29 Mar 2013 09:58:24 PM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -115,6 +115,8 @@ def interpret_state(state)
   if state.empty?
     return ""
   end
+
+  m = ""
 
   states = state.chars.to_a
 
