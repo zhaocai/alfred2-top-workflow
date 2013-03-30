@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Alfred2-top-workflow by zhaocai</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Alfred2-top-workflow</h1>
+        <h2>Alfred 2 Top Processes Based Memory or CPU Usage Workflow  </h2>
+        <a href="https://github.com/zhaocai/alfred2-top-workflow" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Alfred 2 Top Process Workflow</h1>
+
+<p>Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage. The initial motive is to avoid frequent visits to the Activity Monitor when the fan goes loud.</p>
+
+<p><img src="https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/workflow.png" alt="workflow"></p>
+
+<h2>Usage</h2>
+
+<h3>A. Keywords:</h3>
+
+<ol>
+<li>
+<p><code>top</code>: Show a mixed processes list based on top cpu/memory usage.</p>
+
+<blockquote>
+<ul>
+<li>
+<code>top /m</code>, <code>top /mem</code>, <code>top /memory</code> to show processes ranked by memory usage</li>
+<li>
+<code>top /c</code>, <code>top /cpu</code>, to show processes ranked by cpu usage</li>
+</ul>
+</blockquote>
+</li>
+<li><p><code>kill</code>: Filter process to kill.</p></li>
+<li><p><code>lsof</code>: List files opened by process id</p></li>
+</ol><h3>B. Modifier Key</h3>
+
+<h4>Keywords: <code>top</code>
+</h4>
+
+<ol>
+<li>
+<code>none</code>: The default action is to list files opened by process ID</li>
+<li>
+<code>^</code> key to <code>kill</code>
+</li>
+<li>
+<code>⌘</code> key to force kill (<code>kill -9</code>)</li>
+<li>
+<code>alt</code> : nice cpu priority</li>
+</ol><h4>Keywords: <code>kill</code>
+</h4>
+
+<ol>
+<li>
+<code>none</code>: The default action is to kill by process ID</li>
+<li>
+<code>⌘</code> key to force kill (<code>kill -9</code>)</li>
+</ol><h4>Keywords: <code>lsof</code>
+</h4>
+
+<ol>
+<li>
+<code>none</code>: The default action is to reveal file in Finder</li>
+</ol><h3>C. Query</h3>
+
+<ol>
+<li>To search for process state, use <strong>:idle</strong>, <strong>:sleep</strong>, <strong>:stopped</strong>, <strong>:zombie</strong>, <strong>:uninterruptible</strong>, <strong>:runnable</strong>, etc.</li>
+</ol><h2>Screenshots</h2>
+
+<h3>1. Mixed Processes List:</h3>
+
+<p><img src="https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/mixed%20top%20processes.png" alt="mixed top processes"></p>
+
+<h3>2. Filtered By Query:</h3>
+
+<p><img src="https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/filtered%20by%20query.png" alt="filtered by query"></p>
+
+<h2>Installation</h2>
+
+<p>Two ways are provided:</p>
+
+<ol>
+<li><p>You can download the <a href="https://github.com/zhaocai/alfred2-top-workflow/raw/master/Top%20Processes.alfredworkflow">Top Processes.alfredworkflow</a> and import to Alfred 2. This method is suitable for <strong>regular users</strong>.</p></li>
+<li><p>You can <code>git clone</code> or <code>fork</code> this repository and use <code>rake install</code> and <code>rake uninstall</code> to install. Check <code>rake -T</code> for available tasks.
+This method create a symlink to the alfred workflow directory: "~/Library/Application Support/Alfred 2/Alfred.alfredpreferences/workflows". This method is suitable for <strong>developers</strong>.</p></li>
+</ol><h2>Copyright</h2>
+
+<p>Copyright (c) 2013 Zhao Cai <a href="mailto:caizhaoff@gmail.com">caizhaoff@gmail.com</a></p>
+
+<p>This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with
+this program. If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/zhaocai/alfred2-top-workflow/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/zhaocai/alfred2-top-workflow/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/zhaocai/alfred2-top-workflow"></a> is maintained by <a href="https://github.com/zhaocai">zhaocai</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
