@@ -7,7 +7,7 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Fri 29 Mar 2013 09:58:24 PM EDT
+# Last Modified  : Fri 29 Mar 2013 11:40:26 PM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -19,7 +19,6 @@ require 'rubygems' unless defined? Gem # rubygems is only needed in 1.8
 require "bundle/bundler/setup"
 require "alfred"
 
-require 'optparse'
 require 'open3'
 
 # (#
@@ -57,44 +56,6 @@ $additional_states = {
     'X' => 'being traced or debugged'
 }
 
-def parse_opt()
-  options = {:sort => :auto}
-
-  optparse = OptionParser.new do |opts|
-    opts.on("--sort [TYPE]", [:auto, :memory, :cpu],
-            "sort processes by (memory, cpu, auto)") do |t|
-      options[:sort] = t
-    end
-
-    # opts.on('-n', "--n [N]", OptionParser::DecimalInteger,
-    #         "list top N processes") do |t|
-    #   options[:num] = t
-    # end
-
-    opts.on('-h', '--help', 'Help Message') do
-      puts opts
-      exit
-    end
-  end
-
-  # parse and check mandatory options
-  begin
-    optparse.parse!
-    mandatory = []
-    missing = mandatory.select{ |param| options[param].nil? }
-    if not missing.empty?
-      puts "Missing options: #{missing.join(', ')}"
-      puts optparse
-      exit
-    end
-  rescue OptionParser::InvalidOption, OptionParser::MissingArgument
-    puts $!.to_s
-    puts optparse
-    exit
-  end
-
-  return options
-end
 
 
 # (#
@@ -183,8 +144,8 @@ end
 
 
 
-def top_processes(options)
-  if options[:sort] == :auto
+def top_processes(sort_option)
+  if sort_option == :auto
     psm = ps_list(:memory, $ignored_processes)
     psc = ps_list(:cpu, $ignored_processes)
 
@@ -198,9 +159,9 @@ def top_processes(options)
       processes[id] = p
     end
     return processes
-  elsif options[:sort] == :memory
+  elsif sort_option == :memory
     return ps_list(:memory, $ignored_processes)
-  elsif options[:sort] == :cpu
+  elsif sort_option == :cpu
     return ps_list(:cpu, $ignored_processes)
   end
 
@@ -255,8 +216,15 @@ if __FILE__ == $PROGRAM_NAME
   Alfred.with_friendly_error do |alfred|
     alfred.with_rescue_feedback = true
 
-    options = parse_opt()
-    processes = top_processes(options)
+    sort_option = :auto
+    if ['/m', '/mem', '/memory'].include? ARGV[0]
+      sort_option = :memory
+      ARGV.shift
+    elsif ['/c', '/cpu'].include? ARGV[0]
+      sort_option = :cpu
+      ARGV.shift
+    end
+    processes = top_processes(sort_option)
 
     generate_feedback(alfred, processes, ARGV)
   end
