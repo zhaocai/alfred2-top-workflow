@@ -7,7 +7,7 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Sat 30 Mar 2013 10:43:06 PM EDT
+# Last Modified  : Sat 30 Mar 2013 11:39:10 PM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -64,13 +64,14 @@ $additional_states = {
 # #)
 
 def interpret_command(vague_command_list, process)
-  if vague_command_list.include?(process[:command])
+  command = File.basename(process[:command])
+  if vague_command_list.include?(command)
     c = %Q{ps -awwwxo 'command' #{process[:pid]}}
     stdin, stdout, stderr = Open3.popen3(c)
-    return stdout.readlines.map(&:chomp)[1]
-  else
-    return process[:command]
+    command_line = stdout.readlines.map(&:chomp)[1]
+    command = "#{command} #{command_line.split(" ")[1..-1].join(" ")}"
   end
+  return command
 end
 
 def interpret_state(state)
@@ -106,7 +107,7 @@ def ps_list(type, ignored)
 
   type2opt = {:memory => 'm', :cpu => 'r'}
 
-  c = %Q{ps -a#{type2opt[type]}cwwwxo 'pid nice %cpu %mem state comm'}
+  c = %Q{ps -a#{type2opt[type]}wwwxo 'pid nice %cpu %mem state comm'}
   stdin, stdout, stderr = Open3.popen3(c)
   lines = stdout.readlines.map(&:chomp)
   lines.shift
@@ -127,6 +128,13 @@ def ps_list(type, ignored)
       :state   => interpret_state(columns[4]) ,
       :command => columns[5..-1].join(" ")    ,
     }
+
+    if m = process[:command].match(/(.*\.app\/).*/)
+      process[:icon] = {:type => "fileicon", :name => m[1]}
+    # else
+    #   process[:icon] = {:type => "fileicon", :name => process[:command]}
+    end
+
     process[:command] = interpret_command($vague_commands, process)
     process[:title] = "#{process[:rank]}: #{process[:command]}"
 
@@ -179,13 +187,17 @@ def generate_feedback(alfred, processes, query)
 
   processes.sort_by { |_, p| p[:rank] }.each do |pair|
     p = pair[1]
-    icon = {:type => "default", :name => "icon.png"}
-    if p[:type].eql?(:auto)
-      icon[:name] = "auto.png"
-    elsif p[:type].eql?(:memory)
-      icon[:name] = "memory.png"
-    elsif p[:type].eql?(:cpu)
-      icon[:name] = "cpu.png"
+    if p[:icon]
+      icon = p[:icon]
+    else
+      icon = {:type => "default", :name => "icon.png"}
+      if p[:type].eql?(:auto)
+        icon[:name] = "auto.png"
+      elsif p[:type].eql?(:memory)
+        icon[:name] = "memory.png"
+      elsif p[:type].eql?(:cpu)
+        icon[:name] = "cpu.png"
+      end
     end
 
     feedback.add_item({
@@ -211,6 +223,7 @@ module Alfred
 end
 
 if __FILE__ == $PROGRAM_NAME
+
   Alfred.with_friendly_error do |alfred|
     alfred.with_rescue_feedback = true
 

@@ -6,7 +6,7 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Sat 30 Mar 2013 10:29:44 PM EDT
+# Last Modified  : Sat 30 Mar 2013 10:48:07 PM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -30,9 +30,16 @@ def generate_feedback(alfred, pid, with_query)
 
   files = []
 
-  c = %Q{./sudo.sh lsof -p #{pid}}
+  c = %Q{lsof -p #{pid}}
   stdin, stdout, stderr = Open3.popen3(c)
   lines = stdout.readlines.map(&:chomp)
+
+  if lines.empty?
+    # try sudo
+    c = %Q{./sudo.sh #{c}}
+    stdin, stdout, stderr = Open3.popen3(c)
+    lines = stdout.readlines.map(&:chomp)
+  end
 
   if lines.empty?
     puts alfred.rescue_feedback(:title => "Is #{pid} a valid PID?")
@@ -51,7 +58,7 @@ def generate_feedback(alfred, pid, with_query)
   end
 
   files.delete_if { |f|
-    f.start_with?("/Applications/") or f.eql?('/')
+    f.start_with?("/Applications/") or f.eql?('/') or f.eql?('/dev/null')
   }
 
 
