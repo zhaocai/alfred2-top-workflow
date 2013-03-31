@@ -129,6 +129,50 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Nice Cpu Priority</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>638845CE-0394-46AA-85F6-723639C71696</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>script</key>
+				<string>renice -n 5 {query}
+
+if [ $? -eq 0 ] ; then
+    echo "Succeed!"
+else
+    echo "Fail!"
+fi</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>CE16D203-D372-4FC5-AA16-B8A41ECA3D16</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
@@ -156,69 +200,16 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>escaping</key>
-				<integer>4</integer>
-				<key>script</key>
-				<string>renice -n 5 {query}
-
-if [ $? -eq 0 ] ; then
-    echo "Succeed!"
-else
-    echo "Fail!"
-fi</string>
-				<key>type</key>
-				<integer>0</integer>
+				<key>applescript</key>
+				<string>on alfred_script(q)	tell application "Alfred 2" to search "lsof " &amp; q &amp; " "end alfred_script
+</string>
+				<key>cachescript</key>
+				<false/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.script</string>
+			<string>alfred.workflow.action.applescript</string>
 			<key>uid</key>
-			<string>CE16D203-D372-4FC5-AA16-B8A41ECA3D16</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>output</key>
-				<integer>0</integer>
-				<key>removeextension</key>
-				<false/>
-				<key>sticky</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Nice Cpu Priority</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>638845CE-0394-46AA-85F6-723639C71696</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>action</key>
-				<integer>0</integer>
-				<key>argument</key>
-				<integer>0</integer>
-				<key>hotkey</key>
-				<integer>17</integer>
-				<key>hotmod</key>
-				<integer>1572864</integer>
-				<key>hotstring</key>
-				<string>T</string>
-				<key>leftcursor</key>
-				<false/>
-				<key>modsmode</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.trigger.hotkey</string>
-			<key>uid</key>
-			<string>6DED0FCD-B485-4D7D-A4B7-673C0D34E2D0</string>
+			<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -255,7 +246,7 @@ fi</string>
 				<key>runningsubtext</key>
 				<string>list processes...</string>
 				<key>script</key>
-				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --sort cpu {query}</string>
+				<string>/usr/bin/ruby ./alfred2_top_workflow.rb {query}</string>
 				<key>subtext</key>
 				<string>Type to filter processes</string>
 				<key>title</key>
@@ -348,16 +339,25 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>applescript</key>
-				<string>on alfred_script(q)	tell application "Alfred 2" to search "lsof " &amp; q &amp; " "end alfred_script
-</string>
-				<key>cachescript</key>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>hotkey</key>
+				<integer>17</integer>
+				<key>hotmod</key>
+				<integer>1572864</integer>
+				<key>hotstring</key>
+				<string>T</string>
+				<key>leftcursor</key>
 				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.applescript</string>
+			<string>alfred.workflow.trigger.hotkey</string>
 			<key>uid</key>
-			<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+			<string>6DED0FCD-B485-4D7D-A4B7-673C0D34E2D0</string>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -382,7 +382,7 @@ fi</string>
 		<key>6DED0FCD-B485-4D7D-A4B7-673C0D34E2D0</key>
 		<dict>
 			<key>ypos</key>
-			<real>290</real>
+			<real>320</real>
 		</dict>
 		<key>7DC8A847-D1E3-4D91-B2B5-844E95E7F38A</key>
 		<dict>

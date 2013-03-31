@@ -7,7 +7,7 @@
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
 # Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
-# Last Modified  : Sat 30 Mar 2013 06:17:13 PM EDT
+# Last Modified  : Sat 30 Mar 2013 10:43:06 PM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
@@ -82,14 +82,11 @@ def interpret_state(state)
 
   states = state.chars.to_a
 
-  m = $main_states[states[0]]
-
+  m = $main_states[states.shift]
   a = []
-  if states.size > 1
-    states[1..-1].each { |c|
-      a.insert($additional_states[c])
-    }
-  end
+  states.each { |c|
+    a.push($additional_states[c])
+  }
 
   if a.empty?
     return m
@@ -109,7 +106,7 @@ def ps_list(type, ignored)
 
   type2opt = {:memory => 'm', :cpu => 'r'}
 
-  c = %Q{ps -a#{type2opt[type]}cwwwxo 'pid nice %cpu %mem state command'}
+  c = %Q{ps -a#{type2opt[type]}cwwwxo 'pid nice %cpu %mem state comm'}
   stdin, stdout, stderr = Open3.popen3(c)
   lines = stdout.readlines.map(&:chomp)
   lines.shift
