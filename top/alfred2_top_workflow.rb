@@ -29,7 +29,7 @@ require 'open3'
 # Ignore mds because its cpu usgae spikes the moment alfred calls the workflow
 $ignored_processes = ['Alfred 2', 'mds']
 
-$vague_commands = ['ruby', 'java', 'zsh', 'bash', 'python', 'perl', ]
+$vague_commands = ['ruby', 'java', 'zsh', 'bash', 'python', 'perl', 'rsync' ]
 
 $top_symbol = '🔝'
 
