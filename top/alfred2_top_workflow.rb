@@ -21,6 +21,9 @@ require "alfred"
 
 require 'open3'
 
+
+
+
 # (#
 # Configuration                                                           [[[1
 # #)
@@ -56,6 +59,9 @@ $additional_states = {
     'W' => 'swapped out',
     'X' => 'being traced or debugged'
 }
+
+
+
 
 
 
@@ -95,6 +101,9 @@ def interpret_state(state)
     return "#{m} (#{a.join(',')})"
   end
 end
+
+
+
 
 
 # (#
