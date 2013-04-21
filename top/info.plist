@@ -200,25 +200,16 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>action</key>
-				<integer>0</integer>
-				<key>argument</key>
-				<integer>0</integer>
-				<key>hotkey</key>
-				<integer>17</integer>
-				<key>hotmod</key>
-				<integer>1572864</integer>
-				<key>hotstring</key>
-				<string>T</string>
-				<key>leftcursor</key>
+				<key>applescript</key>
+				<string>on alfred_script(q)	tell application "Alfred 2" to search "lsof " &amp; q &amp; " "end alfred_script
+</string>
+				<key>cachescript</key>
 				<false/>
-				<key>modsmode</key>
-				<integer>0</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.trigger.hotkey</string>
+			<string>alfred.workflow.action.applescript</string>
 			<key>uid</key>
-			<string>6DED0FCD-B485-4D7D-A4B7-673C0D34E2D0</string>
+			<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -348,16 +339,25 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>applescript</key>
-				<string>on alfred_script(q)	tell application "Alfred 2" to search "lsof " &amp; q &amp; " "end alfred_script
-</string>
-				<key>cachescript</key>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>hotkey</key>
+				<integer>17</integer>
+				<key>hotmod</key>
+				<integer>1572864</integer>
+				<key>hotstring</key>
+				<string>T</string>
+				<key>leftcursor</key>
 				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.applescript</string>
+			<string>alfred.workflow.trigger.hotkey</string>
 			<key>uid</key>
-			<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+			<string>6DED0FCD-B485-4D7D-A4B7-673C0D34E2D0</string>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -387,7 +387,7 @@ fi</string>
 		<key>7DC8A847-D1E3-4D91-B2B5-844E95E7F38A</key>
 		<dict>
 			<key>ypos</key>
-			<real>110</real>
+			<real>120</real>
 		</dict>
 		<key>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</key>
 		<dict>
