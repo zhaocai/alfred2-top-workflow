@@ -5,13 +5,13 @@
 # Description    : Alfred 2 Top Processes Workflow
 # Author         : Zhao Cai <caizhaoff@gmail.com>
 # HomePage       : https://github.com/zhaocai/alfred2-top-workflow
-# Version        : 0.1
 # Date Created   : Sun 10 Mar 2013 09:59:48 PM EDT
 # Last Modified  : Sat 30 Mar 2013 11:39:10 PM EDT
 # Tag            : [ ruby, alfred, workflow ]
 # Copyright      : © 2013 by Zhao Cai,
 #                  Released under current GPL license.
 # ============== = ===========================================================
+
 ($LOAD_PATH << File.expand_path("..", __FILE__)).uniq!
 
 require 'rubygems' unless defined? Gem # rubygems is only needed in 1.8
@@ -235,6 +235,9 @@ module Alfred
 end
 
 if __FILE__ == $PROGRAM_NAME
+  if ['/h', '/help'].include? ARGV[0]
+    exit 0
+  end
 
   Alfred.with_friendly_error do |alfred|
     alfred.with_rescue_feedback = true
