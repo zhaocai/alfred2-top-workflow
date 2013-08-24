@@ -34,33 +34,33 @@ $ignored_processes = ['Alfred 2', 'mds']
 
 $vague_commands = [
   'ruby' , 'java'   , 'zsh'  , 'bash', 'python', 'perl',
-  'rsync', 'macruby', 'ctags'
+  'rsync', 'macruby', 'ctags', 'vim', 'Vim', 'ag', 'node'
 ]
 
 $top_symbol = '🔝'
 
 $main_states = {
-    'I' => ':idle',
-    'R' => ':runnable',
-    'S' => ':sleep',
-    'T' => ':stopped',
-    'U' => ':uninterruptible',
-    'Z' => ':zombie',
-    '?' => ':unknown'
+  'I' => ':idle',
+  'R' => ':runnable',
+  'S' => ':sleep',
+  'T' => ':stopped',
+  'U' => ':uninterruptible',
+  'Z' => ':zombie',
+  '?' => ':unknown'
 }
 $additional_states = {
-    '+' => 'foreground',
-    '<' => 'raised priority',
-    '>' => 'soft limit on memory',
-    'A' => 'random page replacement',
-    'E' => 'trying to exit',
-    'L' => 'page locked',
-    'N' => 'reduced priority',
-    'S' => 'FIO page replacement',
-    's' => 'session leader',
-    'V' => 'suspended',
-    'W' => 'swapped out',
-    'X' => 'being traced or debugged'
+  '+' => 'foreground',
+  '<' => 'raised priority',
+  '>' => 'soft limit on memory',
+  'A' => 'random page replacement',
+  'E' => 'trying to exit',
+  'L' => 'page locked',
+  'N' => 'reduced priority',
+  'S' => 'FIO page replacement',
+  's' => 'session leader',
+  'V' => 'suspended',
+  'W' => 'swapped out',
+  'X' => 'being traced or debugged'
 }
 
 
@@ -76,7 +76,7 @@ def interpret_command(vague_command_list, process)
   command = File.basename(process[:command])
   if vague_command_list.include?(command)
     c = %Q{ps -awwwxo 'command' #{process[:pid]}}
-    stdin, stdout, stderr = Open3.popen3(c)
+    _stdin, stdout, _stderr = Open3.popen3(c)
     command_line = stdout.readlines.map(&:chomp)[1]
     command = "#{command} #{command_line.split(" ")[1..-1].join(" ")}"
   end
@@ -101,7 +101,7 @@ def interpret_state(state)
   if a.empty?
     return m
   else
-    return "#{m} (#{a.join(',')})"
+    return "#{m}: #{a.join(',')}"
   end
 end
 
@@ -120,7 +120,7 @@ def ps_list(type, ignored)
   type2opt = {:memory => 'm', :cpu => 'r'}
 
   c = %Q{ps -a#{type2opt[type]}wwwxo 'pid nice %cpu %mem state comm'}
-  stdin, stdout, stderr = Open3.popen3(c)
+  _stdin, stdout, _stderr = Open3.popen3(c)
   lines = stdout.readlines.map(&:chomp)
   lines.shift
 
@@ -143,8 +143,8 @@ def ps_list(type, ignored)
 
     if m = process[:command].match(/(.*\.app\/).*/)
       process[:icon] = {:type => "fileicon", :name => m[1]}
-    # else
-    #   process[:icon] = {:type => "fileicon", :name => process[:command]}
+      # else
+      #   process[:icon] = {:type => "fileicon", :name => process[:command]}
     end
 
     process[:command] = interpret_command($vague_commands, process)
@@ -217,7 +217,10 @@ def generate_feedback(alfred, processes, query)
       :title => p[:title] ,
       :arg   => p[:pid] ,
       :icon  => icon ,
-      :subtitle => "cpu: #{p[:cpu].rjust(6)}%,  memory: #{p[:memory].rjust(6)}%,  nice:#{p[:nice].rjust(4)},  state: |#{p[:pid].rjust(6)}| #{p[:state].ljust(15)}"
+      :subtitle => "cpu: #{p[:cpu].rjust(6)}%,  "                        \
+                   "memory: #{p[:memory].rjust(6)}%,  "                  \
+                   "nice:#{p[:nice].rjust(4)},  "                        \
+                   "state:(#{p[:pid].center(8)}) #{p[:state]}"
     })
   end
 

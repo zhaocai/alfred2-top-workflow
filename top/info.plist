@@ -89,19 +89,19 @@
 			</dict>
 			<dict>
 				<key>destinationuid</key>
-				<string>DA167D3F-4147-4632-A672-72656D18E997</string>
-				<key>modifiers</key>
-				<integer>1048576</integer>
-				<key>modifiersubtext</key>
-				<string>force kill</string>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
 				<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>DA167D3F-4147-4632-A672-72656D18E997</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string>force kill</string>
 			</dict>
 		</array>
 		<key>CE16D203-D372-4FC5-AA16-B8A41ECA3D16</key>
@@ -140,6 +140,27 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>script</key>
+				<string>renice -n 5 {query}
+
+if [ $? -eq 0 ] ; then
+    echo "Succeed!"
+else
+    echo "Fail!"
+fi</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>CE16D203-D372-4FC5-AA16-B8A41ECA3D16</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>lastpathcomponent</key>
 				<false/>
 				<key>onlyshowifquerypopulated</key>
@@ -159,27 +180,6 @@
 			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
 			<string>638845CE-0394-46AA-85F6-723639C71696</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>escaping</key>
-				<integer>4</integer>
-				<key>script</key>
-				<string>renice -n 5 {query}
-
-if [ $? -eq 0 ] ; then
-    echo "Succeed!"
-else
-    echo "Fail!"
-fi</string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>CE16D203-D372-4FC5-AA16-B8A41ECA3D16</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -255,6 +255,20 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)	tell application "Alfred 2" to search "lsof " &amp; q &amp; " "end alfred_script
+</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -282,27 +296,6 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>escaping</key>
-				<integer>63</integer>
-				<key>script</key>
-				<string>kill -9 {query}
-
-if [ $? -eq 0 ] ; then
-    echo "Succeed!"
-else
-    echo "Fail!"
-fi</string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>DA167D3F-4147-4632-A672-72656D18E997</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>action</key>
 				<integer>0</integer>
 				<key>argument</key>
@@ -326,16 +319,23 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>applescript</key>
-				<string>on alfred_script(q)	tell application "Alfred 2" to search "lsof " &amp; q &amp; " "end alfred_script
-</string>
-				<key>cachescript</key>
-				<false/>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string>kill -9 {query}
+
+if [ $? -eq 0 ] ; then
+    echo "Succeed!"
+else
+    echo "Fail!"
+fi</string>
+				<key>type</key>
+				<integer>0</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.applescript</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+			<string>DA167D3F-4147-4632-A672-72656D18E997</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -452,7 +452,7 @@ fi</string>
 		<key>A325DFB8-2F81-4919-8541-1365154D5F89</key>
 		<dict>
 			<key>ypos</key>
-			<real>470</real>
+			<real>310</real>
 		</dict>
 		<key>CA714745-B63F-46C5-9D77-50C52956368C</key>
 		<dict>
@@ -472,7 +472,7 @@ fi</string>
 		<key>DA167D3F-4147-4632-A672-72656D18E997</key>
 		<dict>
 			<key>ypos</key>
-			<real>320</real>
+			<real>460</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>
