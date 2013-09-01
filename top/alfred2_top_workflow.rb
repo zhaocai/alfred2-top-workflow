@@ -127,7 +127,7 @@ def ps_list(type, ignored)
   processes = {}
   i = 1
   lines.each do |entry|
-    columns = entry.split
+    columns = entry.split(' ')
 
     process = {
       :line    => entry      ,

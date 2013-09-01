@@ -1,5 +1,5 @@
 {
-    "version": 1.6,
+    "version": 1.7,
     "download_uri": "https://github.com/zhaocai/alfred2-top-workflow/raw/master/Top%20Processes.alfredworkflow",
-    "description": "update help commands"
+    "description": "support ruby 2.0.0"
 }
