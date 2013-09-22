@@ -34,7 +34,7 @@ $ignored_processes = ['Alfred 2', 'mds']
 
 $vague_commands = [
   'ruby' , 'java'   , 'zsh'  , 'bash', 'python', 'perl',
-  'rsync', 'macruby', 'ctags', 'vim', 'Vim', 'ag', 'node'
+  'rsync', 'macruby', 'ctags', 'vim', 'Vim', 'ag', 'node', 'aria2c'
 ]
 
 $top_symbol = '🔝'
@@ -77,8 +77,9 @@ def interpret_command(vague_command_list, process)
   if vague_command_list.include?(command)
     c = %Q{ps -awwwxo 'command' #{process[:pid]}}
     _stdin, stdout, _stderr = Open3.popen3(c)
-    command_line = stdout.readlines.map(&:chomp)[1]
-    command = "#{command} #{command_line.split(" ")[1..-1].join(" ")}"
+    if command_line = stdout.readlines.map(&:chomp)[1]
+      command = "#{command} #{command_line.split(" ")[1..-1].join(" ")}"
+    end
   end
   return command
 end
