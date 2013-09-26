@@ -214,10 +214,11 @@ def generate_feedback(alfred, processes, query)
     end
 
     feedback.add_item({
-      :uid   => "#{p[:title]} #{time}" ,
-      :title => p[:title] ,
-      :arg   => p[:pid] ,
-      :icon  => icon ,
+      :uid    => "#{p[:title]} #{time}" ,
+      :title  => p[:title]              ,
+      :arg    => p[:pid]                ,
+      :icon   => icon                   ,
+      :match? => :all_title_match?      ,
       :subtitle => "cpu: #{p[:cpu].rjust(6)}%,  "                        \
                    "memory: #{p[:memory].rjust(6)}%,  "                  \
                    "nice:#{p[:nice].rjust(4)},  "                        \
