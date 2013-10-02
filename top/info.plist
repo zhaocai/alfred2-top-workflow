@@ -6,6 +6,17 @@
 	<string>me.zhaowu.top</string>
 	<key>connections</key>
 	<dict>
+		<key>2011A968-7743-480E-A078-3D3602FF8E11</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C439BF3F-F4EF-43E6-BFD2-DF8837E2B120</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>2B8AA7B1-2F79-475C-ADEF-6EE35005FCBA</key>
 		<array>
 			<dict>
@@ -433,20 +444,45 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>hotkey</key>
+				<integer>17</integer>
+				<key>hotmod</key>
+				<integer>1179648</integer>
+				<key>hotstring</key>
+				<string>T</string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>2011A968-7743-480E-A078-3D3602FF8E11</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>df</string>
+				<string>glance</string>
 				<key>runningsubtext</key>
 				<string>working on it ヽ( ´¬`)ノ</string>
 				<key>script</key>
-				<string>/usr/bin/ruby ./df.rb {query}</string>
+				<string>/usr/bin/ruby ./glance.rb {query}</string>
 				<key>subtext</key>
-				<string>{query}</string>
+				<string>Type '{query}' to filter</string>
 				<key>title</key>
-				<string>display free disk space for</string>
+				<string>Glances an Eye on your system</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
@@ -464,6 +500,11 @@ fi</string>
 	<string>Lists top ten system processes by CPU or Memory usage. Provide actions to kill.</string>
 	<key>uidata</key>
 	<dict>
+		<key>2011A968-7743-480E-A078-3D3602FF8E11</key>
+		<dict>
+			<key>ypos</key>
+			<real>810</real>
+		</dict>
 		<key>2B8AA7B1-2F79-475C-ADEF-6EE35005FCBA</key>
 		<dict>
 			<key>ypos</key>

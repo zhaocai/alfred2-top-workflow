@@ -7,9 +7,9 @@ require 'rubygems' unless defined? Gem # rubygems is only needed in 1.8
 require "bundle/bundler/setup"
 require "alfred"
 
-def generate_feedback(alfred, query)
-  fb = alfred.feedback
 
+
+def generate_storage_feedback(feedback, query)
   devices = %x{/bin/df -H}.split("\n")
 
   devices.each do |device|
@@ -26,12 +26,19 @@ def generate_feedback(alfred, query)
     else
       name = File.basename(mount_point)
     end
-    fb.add_file_item(mount_point,
+    feedback.add_file_item(mount_point,
                      :title => "#{name}: #{free} free",
                      :subtitle =>"#{used} (#{percentage}) used of #{size} total")
   end
+end
 
-  puts fb.to_alfred(query)
+
+
+def generate_feedback(alfred, query)
+  feedback = alfred.feedback
+  generate_storage_feedback(feedback, query)
+
+  puts feedback.to_alfred(query)
 end
 
 
