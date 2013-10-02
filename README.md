@@ -12,9 +12,9 @@ Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage. The initial mo
 >   - `top /m`, `top /mem`, `top /memory` to show processes ranked by memory usage
 >   - `top /c`, `top /cpu`, to show processes ranked by cpu usage
 
-1. `kill`: Filter process to kill.
-2. `lsof`: List files opened by process id
-
+2. `kill`: Filter process to kill.
+3. `lsof`: List files opened by process id
+4. `df`: display free disk space
 
 ### B. Modifier Key
 

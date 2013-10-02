@@ -157,6 +157,8 @@ fi</string>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
 			<string>CE16D203-D372-4FC5-AA16-B8A41ECA3D16</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -180,6 +182,8 @@ fi</string>
 			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
 			<string>638845CE-0394-46AA-85F6-723639C71696</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -207,6 +211,8 @@ fi</string>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>7DC8A847-D1E3-4D91-B2B5-844E95E7F38A</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -228,6 +234,8 @@ fi</string>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
 			<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -251,6 +259,8 @@ fi</string>
 			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
 			<string>4F27382C-82E2-4594-91A4-A671F119A335</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -265,6 +275,8 @@ fi</string>
 			<string>alfred.workflow.action.applescript</string>
 			<key>uid</key>
 			<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -292,6 +304,8 @@ fi</string>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>CA714745-B63F-46C5-9D77-50C52956368C</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -315,6 +329,8 @@ fi</string>
 			<string>alfred.workflow.trigger.hotkey</string>
 			<key>uid</key>
 			<string>6DED0FCD-B485-4D7D-A4B7-673C0D34E2D0</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -336,6 +352,8 @@ fi</string>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
 			<string>DA167D3F-4147-4632-A672-72656D18E997</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -363,12 +381,16 @@ fi</string>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>2B8AA7B1-2F79-475C-ADEF-6EE35005FCBA</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>type</key>
 			<string>alfred.workflow.action.revealfile</string>
 			<key>uid</key>
 			<string>CFA5D2DB-0DDA-4D3C-9755-3C4DD3A6BA29</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -388,6 +410,8 @@ fi</string>
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
 			<string>2D963FB2-D9CA-4423-AD37-66DAA9B5C6A4</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -403,6 +427,37 @@ fi</string>
 			<string>alfred.workflow.action.openurl</string>
 			<key>uid</key>
 			<string>8BC268C2-F6D4-4B9B-BB4E-3C9D3CFC14D9</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>df</string>
+				<key>runningsubtext</key>
+				<string>working on it ヽ( ´¬`)ノ</string>
+				<key>script</key>
+				<string>/usr/bin/ruby ./df.rb {query}</string>
+				<key>subtext</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>display free disk space for</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>C439BF3F-F4EF-43E6-BFD2-DF8837E2B120</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -453,6 +508,11 @@ fi</string>
 		<dict>
 			<key>ypos</key>
 			<real>310</real>
+		</dict>
+		<key>C439BF3F-F4EF-43E6-BFD2-DF8837E2B120</key>
+		<dict>
+			<key>ypos</key>
+			<real>820</real>
 		</dict>
 		<key>CA714745-B63F-46C5-9D77-50C52956368C</key>
 		<dict>

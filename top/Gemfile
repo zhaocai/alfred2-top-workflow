@@ -1,5 +1,4 @@
 source "https://rubygems.org"
 
 gem "plist"
-gem "logging"
 gem "alfred-workflow"
