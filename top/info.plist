@@ -152,14 +152,15 @@
 			<key>config</key>
 			<dict>
 				<key>escaping</key>
-				<integer>4</integer>
+				<integer>0</integer>
 				<key>script</key>
 				<string>renice -n 5 {query}
 
+message="nice cpu priority for {query}"
 if [ $? -eq 0 ] ; then
-    echo "Succeed!"
+    echo "⭕ ${message}"
 else
-    echo "Fail!"
+    echo "❌ ${message}"
 fi</string>
 				<key>type</key>
 				<integer>0</integer>
@@ -187,7 +188,7 @@ fi</string>
 				<key>text</key>
 				<string>{query}</string>
 				<key>title</key>
-				<string>Nice Cpu Priority</string>
+				<string>nice cpu priority</string>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.output.notification</string>
@@ -234,9 +235,9 @@ fi</string>
 				<string>kill {query}
 
 if [ $? -eq 0 ] ; then
-    echo "Succeed!"
+    echo "⭕ kill {query}"
 else
-    echo "Fail!"
+    echo "❌ kill {query}"
 fi</string>
 				<key>type</key>
 				<integer>0</integer>
@@ -352,9 +353,9 @@ fi</string>
 				<string>kill -9 {query}
 
 if [ $? -eq 0 ] ; then
-    echo "Succeed!"
+    echo "⭕ kill -9 {query}"
 else
-    echo "Fail!"
+    echo "❌ kill -9 {query}"
 fi</string>
 				<key>type</key>
 				<integer>0</integer>
