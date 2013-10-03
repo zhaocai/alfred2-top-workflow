@@ -30,6 +30,38 @@ def percentage_sign(percent, use_sign = :emoji)
   sign
 end
 
+def generate_fan_temp_feedback(alfred, query)
+  return if query[1].eql? '⟩'
+
+  feedback = alfred.feedback
+  profiler = %x{./bin/fans_tempsMonitor}.split("\n")
+
+  right_fan_speed = profiler[0].split[-1][0...-3].to_i
+  left_fan_speed  = profiler[1].split[-1][0...-3].to_i
+  cpu_temperature = profiler[2].split[-1][0..-3].to_i
+  gpu_temperature = profiler[7].split[-1][0..-3].to_i
+
+  fan_speed = (left_fan_speed + right_fan_speed) / 2
+
+  if fan_speed < 3000
+    icon = {:type => "default", :name => "icon/fan/green.png"}
+    title = "Fan Speed: Normal"
+  elsif fan_speed < 4500
+    icon = {:type => "default", :name => "icon/fan/blue.png"}
+    title = "Fan Speed: Fast"
+  else
+    icon = {:type => "default", :name => "icon/fan/red.png"}
+    title = "Fan Speed: Driving Crazy!"
+  end
+  feedback.add_item(:subtitle => "L: #{left_fan_speed} / R: #{right_fan_speed} RPM",
+                    :title => title,
+                    :icon => icon)
+  icon = {:type => "default", :name => "icon/temperature/GPU.png"}
+  feedback.add_item(:subtitle => "CPU: #{cpu_temperature}° C / GPU: #{gpu_temperature}° C",
+                    :title => "CPU/GPU Temperature",
+                    :icon => icon)
+
+end
 def generate_storage_feedback(alfred, query)
   return if query[1].eql? '⟩'
 
@@ -212,6 +244,7 @@ end
 
 def generate_feedback(alfred, query)
   generate_battery_feedback(alfred, query)
+  generate_fan_temp_feedback(alfred,query)
   generate_bluetooth_battery_feedback(alfred, query)
   generate_storage_feedback(alfred, query)
 

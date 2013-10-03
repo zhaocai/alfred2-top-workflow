@@ -205,11 +205,11 @@ def generate_feedback(alfred, processes, query)
     else
       icon = {:type => "default", :name => "icon.png"}
       if p[:type].eql?(:auto)
-        icon[:name] = "auto.png"
+        icon[:name] = "icon/process/auto.png"
       elsif p[:type].eql?(:memory)
-        icon[:name] = "memory.png"
+        icon[:name] = "icon/process/memory.png"
       elsif p[:type].eql?(:cpu)
-        icon[:name] = "cpu.png"
+        icon[:name] = "icon/process/cpu.png"
       end
     end
 

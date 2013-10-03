@@ -6,7 +6,9 @@ Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage. The initial mo
 
 ## Usage
 
-### A. Keywords:
+### 1. Top Processes
+
+#### A. Keywords:
 
 1. `top`: Show a mixed processes list based on top cpu/memory usage.
 >   - `top /m`, `top /mem`, `top /memory` to show processes ranked by memory usage
@@ -14,40 +16,44 @@ Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage. The initial mo
 
 2. `kill`: Filter process to kill.
 3. `lsof`: List files opened by process id
-4. `df`: display free disk space
 
-### B. Modifier Key
+#### B. Modifier Key
 
-#### Keywords: `top`
+##### Keywords: `top`
 
 1. `none`: The default action is to list files opened by process ID
 2. `^` key to `kill`
 3. `⌘` key to force kill (`kill -9`)
 4. `alt` : nice cpu priority
 
-#### Keywords: `kill`
+##### Keywords: `kill`
 
 1. `none`: The default action is to kill by process ID
 3. `⌘` key to force kill (`kill -9`)
 
-#### Keywords: `lsof`
+##### Keywords: `lsof`
 
 1. `none`: The default action is to reveal file in Finder
 
-### C. Query
+#### C. Query
 1. To search for process state, use **:idle**, **:sleep**, **:stopped**, **:zombie**, **:uninterruptible**, **:runnable**, etc.
 
 
-## Screenshots
+### Screenshots
 
-### 1. Mixed Processes List:
+#### 1. Mixed Processes List:
 
 ![mixed top processes](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/mixed%20top%20processes.png)
 
-### 2. Filtered By Query:
+#### 2. Filtered By Query:
 ![filtered by query](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/filtered%20by%20query.png)
 
 
+### 2. Glance an Eye on your system
+
+#### A. Keywords:
+
+1. `glance`: Show system information including internal battery, bluetooth battery, disk capacity, etc.
 
 ## Installation
 
