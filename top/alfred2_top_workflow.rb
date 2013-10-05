@@ -73,14 +73,19 @@ $additional_states = {
 # Helper Functions                                                        [[[1
 # #)
 
-def interpret_command(vague_command_list, process)
+def interpret_command(vague_command_list, process, opts = {})
   command = process[:command]
   command_basename = File.basename command
-  if vague_command_list.include?(command_basename)
+
+  if vague_command_list.include?(command_basename) || opts[:use_command_line]
     c = %Q{ps -awwwxo 'command' #{process[:pid]}}
     _stdin, stdout, _stderr = Open3.popen3(c)
     if command_line = stdout.readlines.map(&:chomp)[1]
-      return %Q{#{File.basename(command)}#{command_line.sub(/^#{Regexp.escape(command)}/, '')}}
+      if opts[:use_command_line]
+        return command_line
+      else
+        return %Q{#{command_basename}#{command_line.sub(/^#{Regexp.escape(command)}/, '')}}
+      end
     end
   else
     return command_basename
@@ -110,6 +115,17 @@ def interpret_state(state)
 end
 
 
+class Integer
+    def to_human
+      units = ['', 'K', 'M', 'G', 'T', 'P']
+
+      size, unit = units.reduce(self.to_f) do |(fsize, _), utype|
+        fsize > 512 ? [fsize / 1024, utype] : (break [fsize, utype])
+      end
+
+      "#{size > 9 || size.modulo(1) < 0.1 ? '%d' : '%.1f'}%s" % [size, unit]
+    end
+end
 
 
 
@@ -170,9 +186,11 @@ def ps_list(type, ignored)
 end
 
 def iotop(ignored)
+  sample_interval = 2
+
   iosnoop_command = %q{./sudo.sh ./bin/iosnoop.d 2>/dev/null}
   iosnoop = Mixlib::ShellOut.new(iosnoop_command)
-  iosnoop.timeout = 2
+  iosnoop.timeout = sample_interval
 
   ps = {}
   begin
@@ -208,27 +226,29 @@ def iotop(ignored)
     end
   end
 
+  return [] if ps.empty?
+
   ps.each_value do |p|
     p[:size] = p[:read_size] + p[:write_size]
   end
 
   processes = ps.values.sort_by { |p| p[:size] }
+  processes.reverse!
+
   i = 1
   processes.each do |p|
-    p[:command] = interpret_command($vague_commands, p)
+    p[:command] = interpret_command($vague_commands, p, :use_command_line => true).to_s
 
-    # if m = p[:command].match(/(.*\.app\/).*/)
-      # p[:icon] = {:type => "fileicon", :name => m[1]}
-    # else
-      # p[:icon] = {:type => "fileicon", :name => p[:command]}
-    # end
+    if m = p[:command].match(/(.*\.app\/).*/)
+      p[:icon] = {:type => "fileicon", :name => m[1]}
+    end
     p[:rank] = i
     p[:title] = "#{p[:rank]}: #{p[:command]}"
-    p[:subtitle] = "R: #{p[:read_size]} / W: #{p[:write_size]}"
+    p[:subtitle] = "Read: #{p[:read_size].to_human} ↔ Write: #{p[:write_size].to_human}"
     i += 1
   end
 
-  ps
+  return ps
 end
 
 def top_processes(sort_option)
