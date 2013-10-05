@@ -86,7 +86,7 @@
 	 * Print details
 	 */
 
-	printf("%d ⟩ %s ⟩ %d ⟩ %s ⟩ %s ⟩ %s ⟩ %s ⟩ %s\n", 
+	printf("%d ⟩ %s ⟩ %d ⟩ %s ⟩ %s ⟩ %s ⟩ %s ⟩ %s\n",
 		this->spid,
 		args[0]->b_flags & B_READ ? "R" : "W",
 		args[0]->b_bcount,

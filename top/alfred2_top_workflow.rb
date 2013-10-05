@@ -24,8 +24,6 @@ require 'open3'
 require 'mixlib/shellout'
 
 
-
-
 # (#
 # Configuration                                                           [[[1
 # #)
@@ -147,7 +145,7 @@ def ps_list(type, ignored)
   processes = {}
   i = 1
   lines.each do |entry|
-    columns = entry.split(' ')
+    columns = entry.split
 
     process = {
       :line    => entry      ,
@@ -161,11 +159,9 @@ def ps_list(type, ignored)
       :command => columns[5..-1].join(" ")    ,
     }
 
-    if m = process[:command].match(/(.*\.app\/).*/)
-      process[:icon] = {:type => "fileicon", :name => m[1]}
-    else
-      process[:icon] = {:type => "fileicon", :name => process[:command]}
-    end
+    process[:icon] = {:type => "fileicon", :name => process[:command]}
+    m = process[:command].match(/(.*\.app\/).*/)
+    process[:icon][:name] = m[1] if m
 
     process[:command] = interpret_command($vague_commands, process)
     process[:title] = "#{process[:rank]}: #{process[:command]}"
@@ -227,25 +223,23 @@ def iotop(ignored)
   end
 
   return [] if ps.empty?
-
-  ps.each_value do |p|
-    p[:size] = p[:read_size] + p[:write_size]
-  end
-
-  processes = ps.values.sort_by { |p| p[:size] }
-  processes.reverse!
-
+  ranks = {}
   i = 1
-  processes.each do |p|
-    p[:command] = interpret_command($vague_commands, p, :use_command_line => true).to_s
+  ps.sort_by { |_, p| p[:read_size] + p[:write_size] }.reverse.each do |pair|
+    ranks[pair[0]] = i
+    i += 1
+  end
+  ps.each do |_, p|
+    if p[:pid] > 0
+      command_line = interpret_command($vague_commands, p, :use_command_line => true).to_s
 
-    if m = p[:command].match(/(.*\.app\/).*/)
-      p[:icon] = {:type => "fileicon", :name => m[1]}
+      m = command_line.match(/(.*\.app\/).*/)
+      p[:icon] = {:type => "fileicon", :name => m[1]} if m
     end
-    p[:rank] = i
+
+    p[:rank] = ranks[p[:pid]]
     p[:title] = "#{p[:rank]}: #{p[:command]}"
     p[:subtitle] = "Read: #{p[:read_size].to_human} ↔ Write: #{p[:write_size].to_human}"
-    i += 1
   end
 
   return ps
