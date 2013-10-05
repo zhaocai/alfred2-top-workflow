@@ -21,6 +21,8 @@ require "alfred"
 
 require 'open3'
 
+require 'mixlib/shellout'
+
 
 
 
@@ -34,7 +36,7 @@ $ignored_processes = ['Alfred 2', 'mds']
 
 $vague_commands = [
   'ruby' , 'java'   , 'zsh'  , 'bash', 'python', 'perl',
-  'rsync', 'macruby', 'ctags', 'vim', 'Vim', 'ag', 'node', 'aria2c'
+  'rsync', 'macruby', 'ctags', 'vim', 'Vim', 'MacVim', 'ag', 'node', 'aria2c'
 ]
 
 $top_symbol = '🔝'
@@ -67,21 +69,22 @@ $additional_states = {
 
 
 
-
 # (#
 # Helper Functions                                                        [[[1
 # #)
 
 def interpret_command(vague_command_list, process)
-  command = File.basename(process[:command])
-  if vague_command_list.include?(command)
+  command = process[:command]
+  command_basename = File.basename command
+  if vague_command_list.include?(command_basename)
     c = %Q{ps -awwwxo 'command' #{process[:pid]}}
     _stdin, stdout, _stderr = Open3.popen3(c)
     if command_line = stdout.readlines.map(&:chomp)[1]
-      command = "#{command} #{command_line.split(" ")[1..-1].join(" ")}"
+      return %Q{#{File.basename(command)}#{command_line.sub(/^#{Regexp.escape(command)}/, '')}}
     end
+  else
+    return command_basename
   end
-  return command
 end
 
 def interpret_state(state)
@@ -144,24 +147,89 @@ def ps_list(type, ignored)
 
     if m = process[:command].match(/(.*\.app\/).*/)
       process[:icon] = {:type => "fileicon", :name => m[1]}
-      # else
-      #   process[:icon] = {:type => "fileicon", :name => process[:command]}
+    else
+      process[:icon] = {:type => "fileicon", :name => process[:command]}
     end
 
     process[:command] = interpret_command($vague_commands, process)
     process[:title] = "#{process[:rank]}: #{process[:command]}"
 
     # Ignore this script
-    unless process[:title].include?(__FILE__) or ignored.include?(process[:command])
+    unless process[:title].include?(__FILE__) or ignored.include?(File.basename(process[:command]))
       processes[process[:pid]] = process
     end
+
+    process[:subtitle] = "cpu: #{process[:cpu].rjust(6)}%,  "              \
+                          "memory: #{process[:memory].rjust(6)}%,  "       \
+                          "nice:#{process[:nice].rjust(4)},  "             \
+                          "state:(#{process[:pid].center(8)}) #{process[:state]}"
 
     i += 1
   end
   return processes
 end
 
+def iotop(ignored)
+  iosnoop_command = %q{./sudo.sh ./bin/iosnoop.d 2>/dev/null}
+  iosnoop = Mixlib::ShellOut.new(iosnoop_command)
+  iosnoop.timeout = 2
 
+  ps = {}
+  begin
+    iosnoop.run_command
+  rescue Mixlib::ShellOut::CommandTimeout
+    iosnoop.stdout.each_line do |line|
+      columns = line.split('⟩').map(&:strip)
+
+      pid     = columns[0].to_i
+      type    = columns[1]
+      size    = columns[2].to_i
+      command = columns[3]
+
+      if ps.has_key?(pid)
+        p = ps[pid]
+      else
+        p = {
+          :pid        => pid     ,
+          :type       => :io     ,
+          :command    => command ,
+          :read_size  => 0       ,
+          :write_size => 0       ,
+        }
+      end
+      case type
+      when 'R'
+        p[:read_size] += size
+      when 'W'
+        p[:write_size] += size
+      end
+
+      ps[pid] = p
+    end
+  end
+
+  ps.each_value do |p|
+    p[:size] = p[:read_size] + p[:write_size]
+  end
+
+  processes = ps.values.sort_by { |p| p[:size] }
+  i = 1
+  processes.each do |p|
+    p[:command] = interpret_command($vague_commands, p)
+
+    # if m = p[:command].match(/(.*\.app\/).*/)
+      # p[:icon] = {:type => "fileicon", :name => m[1]}
+    # else
+      # p[:icon] = {:type => "fileicon", :name => p[:command]}
+    # end
+    p[:rank] = i
+    p[:title] = "#{p[:rank]}: #{p[:command]}"
+    p[:subtitle] = "R: #{p[:read_size]} / W: #{p[:write_size]}"
+    i += 1
+  end
+
+  ps
+end
 
 def top_processes(sort_option)
   if sort_option == :auto
@@ -182,6 +250,8 @@ def top_processes(sort_option)
     return ps_list(:memory, $ignored_processes)
   elsif sort_option == :cpu
     return ps_list(:cpu, $ignored_processes)
+  elsif sort_option == :io
+    return iotop($ignored_processes)
   end
 
 end
@@ -194,8 +264,6 @@ end
 # #)
 
 def generate_feedback(alfred, processes, query)
-  time = Time.now.to_s
-
   feedback = alfred.feedback
 
   processes.sort_by { |_, p| p[:rank] }.each do |pair|
@@ -210,34 +278,23 @@ def generate_feedback(alfred, processes, query)
         icon[:name] = "icon/process/memory.png"
       elsif p[:type].eql?(:cpu)
         icon[:name] = "icon/process/cpu.png"
+      elsif p[:type].eql?(:io)
+        icon[:name] = "icon/process/io.png"
       end
     end
 
     feedback.add_item({
-      :uid    => "#{p[:title]} #{time}" ,
-      :title  => p[:title]              ,
-      :arg    => p[:pid]                ,
-      :icon   => icon                   ,
-      :match? => :all_title_match?      ,
-      :subtitle => "cpu: #{p[:cpu].rjust(6)}%,  "                        \
-                   "memory: #{p[:memory].rjust(6)}%,  "                  \
-                   "nice:#{p[:nice].rjust(4)},  "                        \
-                   "state:(#{p[:pid].center(8)}) #{p[:state]}"
+      :title    => p[:title]         ,
+      :subtitle => p[:subtitle]      ,
+      :arg      => p[:pid]           ,
+      :icon     => icon              ,
+      :match?   => :all_title_match? ,
     })
   end
 
   puts feedback.to_alfred(query)
 end
 
-
-# overwrite default query matcher
-module Alfred
-  class Feedback::Item
-    def match?(query)
-      all_title_match?(query)
-    end
-  end
-end
 
 if __FILE__ == $PROGRAM_NAME
   if ['/h', '/help'].include? ARGV[0]
@@ -253,6 +310,9 @@ if __FILE__ == $PROGRAM_NAME
       ARGV.shift
     elsif ['/c', '/cpu'].include? ARGV[0]
       sort_option = :cpu
+      ARGV.shift
+    elsif ['/i', '/io'].include? ARGV[0]
+      sort_option = :io
       ARGV.shift
     end
     processes = top_processes(sort_option)

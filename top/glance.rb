@@ -58,13 +58,17 @@ class Glance
       icon = {:type => "default", :name => "icon/fan/red.png"}
       title = "Fan Speed: Driving Crazy!"
     end
-    @feedback.add_item(:subtitle => "L: #{left_fan_speed} / R: #{right_fan_speed} RPM",
-                      :title => title,
-                        :icon => icon)
+    @feedback.add_item(
+      :subtitle => "Left #{left_fan_speed} ↔ Right #{right_fan_speed} RPM" ,
+      :uid      => 'Fan Speed'                                             ,
+      :title    => title                                                   ,
+      :icon     => icon)
     icon = {:type => "default", :name => "icon/temperature/GPU.png"}
-    @feedback.add_item(:subtitle => "CPU: #{cpu_temperature}° C / GPU: #{gpu_temperature}° C",
-                      :title => "CPU/GPU Temperature",
-                        :icon => icon)
+    @feedback.add_item(
+      :subtitle => "CPU: #{cpu_temperature}° C / GPU: #{gpu_temperature}° C" ,
+      :title    => "CPU/GPU Temperature"                                     ,
+      :uid      => "CPU/GPU Temperature"                                     ,
+      :icon     => icon)
 
   end
 
@@ -228,7 +232,7 @@ class Glance
         )
         @feedback.add_item(
           :title => "#{cycle_count} Cycles",
-          :subtitle => 'Charge Cycles Completed',
+          :subtitle => 'Charge Cycles',
           :icon => {:type => "default", :name => "icon/battery/cycles.png"}
         )
         @feedback.add_item(

@@ -1,8 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    alfred-workflow (1.11.2)
+    alfred-workflow (1.11.3)
       plist (>= 3.1.0)
+    mixlib-shellout (1.2.0)
     plist (3.1.0)
 
 PLATFORMS
@@ -10,4 +11,5 @@ PLATFORMS
 
 DEPENDENCIES
   alfred-workflow
+  mixlib-shellout
   plist
