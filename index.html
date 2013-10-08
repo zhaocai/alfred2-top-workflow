@@ -28,37 +28,43 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h1>Alfred 2 Top Process Workflow</h1>
+          <h1>
+<a name="alfred-2-top-process-workflow" class="anchor" href="#alfred-2-top-process-workflow"><span class="octicon octicon-link"></span></a>Alfred 2 Top Process Workflow</h1>
 
-<p>Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage. The initial motive is to avoid frequent visits to the Activity Monitor when the fan goes loud.</p>
+<p>The initial motive of this workflow is to avoid frequent visits to the Activity Monitor when the fan goes loud. Now it has been evloved with two major features:</p>
 
-<p><img src="https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/workflow.png" alt="workflow"></p>
+<ul>
+<li>1) List/Kill Top Processes by Memory/CPU/IO Usage</li>
+</ul><p><img src="https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/mixed%20top%20processes.png" alt=""></p>
 
-<h2>Usage</h2>
+<ul>
+<li>2) (<em>working in progress</em>) Get a glance of system status including internal battery, fan speed, CPU/GPU Temperature, bluetooth battery, disk capacity, etc.</li>
+</ul><p><img src="https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/glance.png" alt=""></p>
 
-<h3>A. Keywords:</h3>
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<ol>
-<li>
-<p><code>top</code>: Show a mixed processes list based on top cpu/memory usage.</p>
+<h3>
+<a name="1-top-processes" class="anchor" href="#1-top-processes"><span class="octicon octicon-link"></span></a>1. Top Processes</h3>
 
-<blockquote>
+<h4>
+<a name="a-keywords" class="anchor" href="#a-keywords"><span class="octicon octicon-link"></span></a>A. Keywords:</h4>
+
+<h5>
+<a name="1-top-show-a-mixed-processes-list-based-on-top-cpumemory-usage" class="anchor" href="#1-top-show-a-mixed-processes-list-based-on-top-cpumemory-usage"><span class="octicon octicon-link"></span></a>1.) <code>top</code>: Show a mixed processes list based on top cpu/memory usage.</h5>
+
 <ul>
 <li>
 <code>top /m</code>, <code>top /mem</code>, <code>top /memory</code> to show processes ranked by memory usage</li>
 <li>
 <code>top /c</code>, <code>top /cpu</code>, to show processes ranked by cpu usage</li>
-</ul>
-</blockquote>
-</li>
-<li><p><code>kill</code>: Filter process to kill.</p></li>
-<li><p><code>lsof</code>: List files opened by process id</p></li>
-</ol><h3>B. Modifier Key</h3>
+<li>
+<code>top /i</code>, <code>top /io</code>, to show processes ranked by io usage</li>
+</ul><h6>
+<a name="modifier-key" class="anchor" href="#modifier-key"><span class="octicon octicon-link"></span></a><strong>Modifier Key</strong>
+</h6>
 
-<h4>Keywords: <code>top</code>
-</h4>
-
-<ol>
+<ul>
 <li>
 <code>none</code>: The default action is to list files opened by process ID</li>
 <li>
@@ -68,35 +74,64 @@
 <code>⌘</code> key to force kill (<code>kill -9</code>)</li>
 <li>
 <code>alt</code> : nice cpu priority</li>
-</ol><h4>Keywords: <code>kill</code>
-</h4>
+</ul><h5>
+<a name="2-kill-filter-process-to-kill" class="anchor" href="#2-kill-filter-process-to-kill"><span class="octicon octicon-link"></span></a>2.) <code>kill</code>: Filter process to kill.</h5>
 
-<ol>
+<h6>
+<a name="modifier-key-1" class="anchor" href="#modifier-key-1"><span class="octicon octicon-link"></span></a><strong>Modifier Key</strong>
+</h6>
+
+<ul>
 <li>
 <code>none</code>: The default action is to kill by process ID</li>
 <li>
 <code>⌘</code> key to force kill (<code>kill -9</code>)</li>
-</ol><h4>Keywords: <code>lsof</code>
-</h4>
+</ul><h5>
+<a name="3-lsof-list-files-opened-by-process-id" class="anchor" href="#3-lsof-list-files-opened-by-process-id"><span class="octicon octicon-link"></span></a>3.) <code>lsof</code>: List files opened by process id</h5>
+
+<h6>
+<a name="modifier-key-2" class="anchor" href="#modifier-key-2"><span class="octicon octicon-link"></span></a><strong>Modifier Key</strong>
+</h6>
+
+<ul>
+<li>
+<code>none</code>: The default action is to reveal file in Finder</li>
+</ul><h4>
+<a name="b-filter-by-query" class="anchor" href="#b-filter-by-query"><span class="octicon octicon-link"></span></a>B. Filter by Query</h4>
+
+<h5>
+<a name="1-type-process-name-to-filter" class="anchor" href="#1-type-process-name-to-filter"><span class="octicon octicon-link"></span></a>1.) Type process name to filter</h5>
+
+<p><img src="https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/filtered%20by%20query.png" alt=""></p>
+
+<h5>
+<a name="2-to-search-for-process-state-use-idle-sleep-stopped-zombie-uninterruptible-runnable-etc" class="anchor" href="#2-to-search-for-process-state-use-idle-sleep-stopped-zombie-uninterruptible-runnable-etc"><span class="octicon octicon-link"></span></a>2.) To search for process state, use <strong>:idle</strong>, <strong>:sleep</strong>, <strong>:stopped</strong>, <strong>:zombie</strong>, <strong>:uninterruptible</strong>, <strong>:runnable</strong>, etc.</h5>
+
+<p><img src="https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/top%20sleep.png" alt=""></p>
+
+<h3>
+<a name="2-glance-an-eye-on-your-system" class="anchor" href="#2-glance-an-eye-on-your-system"><span class="octicon octicon-link"></span></a>2. Glance an Eye on your system</h3>
+
+<h4>
+<a name="a-keywords-1" class="anchor" href="#a-keywords-1"><span class="octicon octicon-link"></span></a>A. Keywords:</h4>
 
 <ol>
 <li>
-<code>none</code>: The default action is to reveal file in Finder</li>
-</ol><h3>C. Query</h3>
+<code>glance</code>: Show system information including internal battery, bluetooth battery, disk capacity, etc.</li>
+</ol><p><img src="https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/battery.png" alt=""></p>
+
+<h4>
+<a name="b-change-display-order" class="anchor" href="#b-change-display-order"><span class="octicon octicon-link"></span></a>B. Change Display Order</h4>
 
 <ol>
-<li>To search for process state, use <strong>:idle</strong>, <strong>:sleep</strong>, <strong>:stopped</strong>, <strong>:zombie</strong>, <strong>:uninterruptible</strong>, <strong>:runnable</strong>, etc.</li>
-</ol><h2>Screenshots</h2>
+<li>
+<p>Activate <code>Alfred Preferences</code> → <code>Advanced</code> → <code>Top Result Keyword Latching</code></p>
 
-<h3>1. Mixed Processes List:</h3>
-
-<p><img src="https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/mixed%20top%20processes.png" alt="mixed top processes"></p>
-
-<h3>2. Filtered By Query:</h3>
-
-<p><img src="https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/filtered%20by%20query.png" alt="filtered by query"></p>
-
-<h2>Installation</h2>
+<p><img src="https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/Alfred_Preferences_Learning.png" alt=""></p>
+</li>
+<li><p>Hit <code>↩</code> for the feedback you wish to show up on the top.</p></li>
+</ol><h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <p>Two ways are provided:</p>
 
@@ -104,7 +139,15 @@
 <li><p>You can download the <a href="https://github.com/zhaocai/alfred2-top-workflow/raw/master/Top%20Processes.alfredworkflow">Top Processes.alfredworkflow</a> and import to Alfred 2. This method is suitable for <strong>regular users</strong>.</p></li>
 <li><p>You can <code>git clone</code> or <code>fork</code> this repository and use <code>rake install</code> and <code>rake uninstall</code> to install. Check <code>rake -T</code> for available tasks.
 This method create a symlink to the alfred workflow directory: "~/Library/Application Support/Alfred 2/Alfred.alfredpreferences/workflows". This method is suitable for <strong>developers</strong>.</p></li>
-</ol><h2>Copyright</h2>
+</ol><h2>
+<a name="troubleshooting" class="anchor" href="#troubleshooting"><span class="octicon octicon-link"></span></a>Troubleshooting</h2>
+
+<ol>
+<li>Does not work in Mac OSX 10.9 (Maverick)</li>
+</ol><p>In OSX 10.9, the system ruby is upgraded to 2.0.0. You just need to download the new version of this workflow which packs the ruby gems for 2.0.0 inside.</p>
+
+<h2>
+<a name="copyright" class="anchor" href="#copyright"><span class="octicon octicon-link"></span></a>Copyright</h2>
 
 <p>Copyright (c) 2013 Zhao Cai <a href="mailto:caizhaoff@gmail.com">caizhaoff@gmail.com</a></p>
 
@@ -133,7 +176,7 @@ this program. If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.
 
           <p class="repo-owner"><a href="https://github.com/zhaocai/alfred2-top-workflow"></a> is maintained by <a href="https://github.com/zhaocai">zhaocai</a>.</p>
 
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
         </aside>
       </div>
     </div>
