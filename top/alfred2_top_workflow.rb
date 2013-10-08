@@ -84,6 +84,8 @@ def interpret_command(vague_command_list, process, opts = {})
       else
         return %Q{#{command_basename}#{command_line.sub(/^#{Regexp.escape(command)}/, '')}}
       end
+    else
+      return command_basename
     end
   else
     return command_basename

@@ -327,11 +327,11 @@ fi</string>
 				<key>argument</key>
 				<integer>0</integer>
 				<key>hotkey</key>
-				<integer>17</integer>
+				<integer>0</integer>
 				<key>hotmod</key>
-				<integer>1572864</integer>
+				<integer>0</integer>
 				<key>hotstring</key>
-				<string>T</string>
+				<string></string>
 				<key>leftcursor</key>
 				<false/>
 				<key>modsmode</key>
@@ -408,6 +408,60 @@ fi</string>
 			<key>config</key>
 			<dict>
 				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>glance</string>
+				<key>runningsubtext</key>
+				<string>working on it ヽ( ´¬`)ノ</string>
+				<key>script</key>
+				<string>/usr/bin/ruby ./glance.rb {query}</string>
+				<key>subtext</key>
+				<string>Type '{query}' to filter</string>
+				<key>title</key>
+				<string>Glances an Eye on your system</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>C439BF3F-F4EF-43E6-BFD2-DF8837E2B120</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>hotkey</key>
+				<integer>0</integer>
+				<key>hotmod</key>
+				<integer>0</integer>
+				<key>hotstring</key>
+				<string></string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>2011A968-7743-480E-A078-3D3602FF8E11</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
 				<integer>2</integer>
 				<key>keyword</key>
 				<string>top /help</string>
@@ -442,60 +496,6 @@ fi</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>action</key>
-				<integer>0</integer>
-				<key>argument</key>
-				<integer>0</integer>
-				<key>hotkey</key>
-				<integer>17</integer>
-				<key>hotmod</key>
-				<integer>786432</integer>
-				<key>hotstring</key>
-				<string>T</string>
-				<key>leftcursor</key>
-				<false/>
-				<key>modsmode</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.trigger.hotkey</string>
-			<key>uid</key>
-			<string>2011A968-7743-480E-A078-3D3602FF8E11</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>0</integer>
-				<key>keyword</key>
-				<string>glance</string>
-				<key>runningsubtext</key>
-				<string>working on it ヽ( ´¬`)ノ</string>
-				<key>script</key>
-				<string>/usr/bin/ruby ./glance.rb {query}</string>
-				<key>subtext</key>
-				<string>Type '{query}' to filter</string>
-				<key>title</key>
-				<string>Glances an Eye on your system</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>C439BF3F-F4EF-43E6-BFD2-DF8837E2B120</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
 	</array>
 	<key>readme</key>
 	<string>Lists top ten system processes by CPU or Memory usage. Provide actions to kill.</string>
@@ -504,7 +504,7 @@ fi</string>
 		<key>2011A968-7743-480E-A078-3D3602FF8E11</key>
 		<dict>
 			<key>ypos</key>
-			<real>810</real>
+			<real>690</real>
 		</dict>
 		<key>2B8AA7B1-2F79-475C-ADEF-6EE35005FCBA</key>
 		<dict>
@@ -514,7 +514,7 @@ fi</string>
 		<key>2D963FB2-D9CA-4423-AD37-66DAA9B5C6A4</key>
 		<dict>
 			<key>ypos</key>
-			<real>700</real>
+			<real>830</real>
 		</dict>
 		<key>4F27382C-82E2-4594-91A4-A671F119A335</key>
 		<dict>
@@ -539,7 +539,7 @@ fi</string>
 		<key>8BC268C2-F6D4-4B9B-BB4E-3C9D3CFC14D9</key>
 		<dict>
 			<key>ypos</key>
-			<real>710</real>
+			<real>840</real>
 		</dict>
 		<key>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</key>
 		<dict>
@@ -554,7 +554,7 @@ fi</string>
 		<key>C439BF3F-F4EF-43E6-BFD2-DF8837E2B120</key>
 		<dict>
 			<key>ypos</key>
-			<real>820</real>
+			<real>680</real>
 		</dict>
 		<key>CA714745-B63F-46C5-9D77-50C52956368C</key>
 		<dict>
