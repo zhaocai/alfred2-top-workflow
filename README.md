@@ -1,8 +1,15 @@
 # Alfred 2 Top Process Workflow
 
-Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage. The initial motive is to avoid frequent visits to the Activity Monitor when the fan goes loud.
+The initial motive of this workflow is to avoid frequent visits to the Activity Monitor when the fan goes loud. Now it has been evloved with two major features:
 
-![workflow](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/workflow.png)
+- 1) List/Kill Top Processes by Memory/CPU/IO Usage
+
+![](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/mixed%20top%20processes.png) 
+
+
+- 2) (*working in progress*) Get a glance of system status including internal battery, fan speed, CPU/GPU Temperature, bluetooth battery, disk capacity, etc.
+
+![](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/glance.png) 
 
 ## Usage
 
@@ -11,42 +18,41 @@ Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage. The initial mo
 #### A. Keywords:
 
 1. `top`: Show a mixed processes list based on top cpu/memory usage.
->   - `top /m`, `top /mem`, `top /memory` to show processes ranked by memory usage
->   - `top /c`, `top /cpu`, to show processes ranked by cpu usage
+
+    **Options**
+
+    - `top /m`, `top /mem`, `top /memory` to show processes ranked by memory usage
+    - `top /c`, `top /cpu`, to show processes ranked by cpu usage
+    - `top /i`, `top /io`, to show processes ranked by io usage
+
+    **Modifier Key**
+
+    1. `none`: The default action is to list files opened by process ID
+    2. `^` key to `kill`
+    3. `⌘` key to force kill (`kill -9`)
+    4. `alt` : nice cpu priority
 
 2. `kill`: Filter process to kill.
+
+    **Modifier Key**
+
+    1. `none`: The default action is to kill by process ID
+    3. `⌘` key to force kill (`kill -9`)
+
 3. `lsof`: List files opened by process id
 
-#### B. Modifier Key
+    **Modifier Key**
 
-##### Keywords: `top`
+    1. `none`: The default action is to reveal file in Finder
 
-1. `none`: The default action is to list files opened by process ID
-2. `^` key to `kill`
-3. `⌘` key to force kill (`kill -9`)
-4. `alt` : nice cpu priority
+#### B. Filter by Query
+1. Type to filter
 
-##### Keywords: `kill`
+![](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/filtered%20by%20query.png)
 
-1. `none`: The default action is to kill by process ID
-3. `⌘` key to force kill (`kill -9`)
+2. To search for process state, use **:idle**, **:sleep**, **:stopped**, **:zombie**, **:uninterruptible**, **:runnable**, etc.
 
-##### Keywords: `lsof`
-
-1. `none`: The default action is to reveal file in Finder
-
-#### C. Query
-1. To search for process state, use **:idle**, **:sleep**, **:stopped**, **:zombie**, **:uninterruptible**, **:runnable**, etc.
-
-
-### Screenshots
-
-#### 1. Mixed Processes List:
-
-![mixed top processes](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/mixed%20top%20processes.png)
-
-#### 2. Filtered By Query:
-![filtered by query](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/filtered%20by%20query.png)
+![](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/top%20sleep.png) 
 
 
 ### 2. Glance an Eye on your system
@@ -54,6 +60,18 @@ Alfred 2 Workflow to List/Kill Top Processes by Memory/Cpu Usage. The initial mo
 #### A. Keywords:
 
 1. `glance`: Show system information including internal battery, bluetooth battery, disk capacity, etc.
+
+![](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/battery.png)
+
+#### B. Change Display Order
+
+1. Activate `Alfred Preferences` → `Advanced` → `Top Result Keyword Latching`
+
+    ![](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/Alfred_Preferences_Learning.png)
+
+2. Hit `↩` for the feedback you wish to show up on the top.
+
+
 
 ## Installation
 
@@ -63,6 +81,13 @@ Two ways are provided:
 
 2. You can `git clone` or `fork` this repository and use `rake install` and `rake uninstall` to install. Check `rake -T` for available tasks.
 This method create a symlink to the alfred workflow directory: "~/Library/Application Support/Alfred 2/Alfred.alfredpreferences/workflows". This method is suitable for **developers**.
+
+
+## Troubleshooting
+
+1. Does not work in Mac OSX 10.9 (Maverick)
+
+In OSX 10.9, the system ruby is upgraded to 2.0.0. You just need to download the new version of this workflow which packs the ruby gems for 2.0.0 inside.
 
 
 ## Copyright
