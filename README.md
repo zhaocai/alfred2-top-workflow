@@ -17,40 +17,40 @@ The initial motive of this workflow is to avoid frequent visits to the Activity 
 
 #### A. Keywords:
 
-1. `top`: Show a mixed processes list based on top cpu/memory usage.
+##### 1.) `top`: Show a mixed processes list based on top cpu/memory usage.
 
-    **Options**
+   - `top /m`, `top /mem`, `top /memory` to show processes ranked by memory usage
+   - `top /c`, `top /cpu`, to show processes ranked by cpu usage
+   - `top /i`, `top /io`, to show processes ranked by io usage
 
-    - `top /m`, `top /mem`, `top /memory` to show processes ranked by memory usage
-    - `top /c`, `top /cpu`, to show processes ranked by cpu usage
-    - `top /i`, `top /io`, to show processes ranked by io usage
+###### **Modifier Key**
 
-    **Modifier Key**
+   - `none`: The default action is to list files opened by process ID
+   - `^` key to `kill`
+   - `⌘` key to force kill (`kill -9`)
+   - `alt` : nice cpu priority
 
-    1. `none`: The default action is to list files opened by process ID
-    2. `^` key to `kill`
-    3. `⌘` key to force kill (`kill -9`)
-    4. `alt` : nice cpu priority
 
-2. `kill`: Filter process to kill.
+##### 2.) `kill`: Filter process to kill.
 
-    **Modifier Key**
+###### **Modifier Key**
 
-    1. `none`: The default action is to kill by process ID
-    3. `⌘` key to force kill (`kill -9`)
+   - `none`: The default action is to kill by process ID
+   - `⌘` key to force kill (`kill -9`)
 
-3. `lsof`: List files opened by process id
+##### 3.) `lsof`: List files opened by process id
 
-    **Modifier Key**
+###### **Modifier Key**
 
-    1. `none`: The default action is to reveal file in Finder
+   - `none`: The default action is to reveal file in Finder
 
 #### B. Filter by Query
-1. Type to filter
+
+##### 1.) Type process name to filter
 
 ![](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/filtered%20by%20query.png)
 
-2. To search for process state, use **:idle**, **:sleep**, **:stopped**, **:zombie**, **:uninterruptible**, **:runnable**, etc.
+##### 2.) To search for process state, use **:idle**, **:sleep**, **:stopped**, **:zombie**, **:uninterruptible**, **:runnable**, etc.
 
 ![](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/top%20sleep.png) 
 
