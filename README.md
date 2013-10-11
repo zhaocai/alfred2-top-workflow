@@ -69,7 +69,7 @@ The initial motive of this workflow is to avoid frequent visits to the Activity 
 
     ![](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/Alfred_Preferences_Learning.png)
 
-2. Hit `↩` for the feedback you wish to show up on the top.
+2. Hit `↩` for the feedback item you wish to show up on the top.
 
 
 
@@ -85,9 +85,11 @@ This method create a symlink to the alfred workflow directory: "~/Library/Applic
 
 ## Troubleshooting
 
-1. Does not work in Mac OSX 10.9 (Maverick)
+### 1. Does not work in Mac OSX 10.9 (Maverick)
 
-In OSX 10.9, the system ruby is upgraded to 2.0.0. You just need to download the new version of this workflow which packs the ruby gems for 2.0.0 inside.
+In OSX 10.9, the system ruby is upgraded to 2.0.0. You just need to download the new version of this workflow which packs the ruby gems for 2.0.0 inside. 
+
+If you cloned the source code, you can simply run `rake bundle:update` in the terminal to update the bundle gems.
 
 
 ## Copyright

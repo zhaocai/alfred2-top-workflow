@@ -34,7 +34,8 @@ $ignored_processes = ['Alfred 2', 'mds']
 
 $vague_commands = [
   'ruby' , 'java'   , 'zsh'  , 'bash', 'python', 'perl',
-  'rsync', 'macruby', 'ctags', 'vim', 'Vim', 'MacVim', 'ag', 'node', 'aria2c'
+  'rsync', 'macruby', 'ctags', 'vim', 'Vim', 'MacVim', 'ag', 'node', 'aria2c',
+  'osascript'
 ]
 
 $top_symbol = '🔝'
