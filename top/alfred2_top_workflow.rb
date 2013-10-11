@@ -148,6 +148,20 @@ class Top < ::Alfred::Handler::Base
 
   end
 
+  def on_action(arg)
+    return unless action?(arg)
+
+    case options.modifier
+    when :control
+      run_and_message("kill #{arg[:pid]}")
+    when :command
+      run_and_message("kill -9 #{arg[:pid]}")
+    when :alt
+      run_and_message("renice -n 5 #{arg[:pid]}")
+    when :none
+      Alfred.search("lsof #{arg[:pid]}")
+    end
+  end
 
   def top_processes
     case options.sort
@@ -337,6 +351,11 @@ class Top < ::Alfred::Handler::Base
     end
   end
 
+  def run_and_message(command, opts = {})
+    kill = Mixlib::ShellOut.new(command, opts)
+    kill.run_command
+    puts status_message(command, kill.exitstatus)
+  end
 end
 
 
