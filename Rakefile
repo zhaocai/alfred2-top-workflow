@@ -8,10 +8,10 @@ config_file = 'config.yml'
 
 workflow_home=File.expand_path("~/Library/Application Support/Alfred 2/Alfred.alfredpreferences/workflows")
 
-
 $config = YAML.load_file(config_file)
 $config["bundleid"] = "#{$config["domain"]}.#{$config["id"]}"
 $config["plist"] = File.join($config["path"], "info.plist")
+$config["workflow_dbx"] = File.join(File.expand_path($config["dropbox"]), "/Alfred.alfredpreferences/workflows")
 
 # import sub-rakefiles
 FileList['*/Rakefile'].each { |file|
@@ -49,6 +49,10 @@ task "bundle:update" => [:chdir] do
   end
 end
 
+desc "Generate Doc"
+task :doc do
+  sh %Q{pandoc -f markdown -o "#{$config['path']}/README.pdf" README.md}
+end
 desc "Install to Alfred"
 task :install => [:config] do
   ln_sf File.expand_path($config["path"]), File.join(workflow_home, $config["bundleid"])
@@ -59,8 +63,15 @@ task :uninstall => [:config] do
   rm File.join(workflow_home, $config["bundleid"])
 end
 
+desc "Install to Dropbox"
+task :dbxinstall => [:config] do
+  ln_sf File.expand_path($config["path"]), File.join($config["workflow_dbx"], $config["bundleid"])
+end
 
-
+desc "Unlink from Dropbox"
+task :dbxuninstall => [:config] do
+  rm File.join($config["workflow_dbx"], $config["bundleid"])
+end
 
 desc "Clean up all the extras"
 task :clean => [:config] do

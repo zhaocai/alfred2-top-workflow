@@ -28,17 +28,6 @@
 				<string></string>
 			</dict>
 		</array>
-		<key>2D963FB2-D9CA-4423-AD37-66DAA9B5C6A4</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>8BC268C2-F6D4-4B9B-BB4E-3C9D3CFC14D9</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-			</dict>
-		</array>
 		<key>6DED0FCD-B485-4D7D-A4B7-673C0D34E2D0</key>
 		<array>
 			<dict>
@@ -100,7 +89,7 @@
 			</dict>
 			<dict>
 				<key>destinationuid</key>
-				<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+				<string>3F4FBD02-B2C3-467A-9976-05BF7556923E</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -277,16 +266,17 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>applescript</key>
-				<string>on alfred_script(q)	tell application "Alfred 2" to search "lsof " &amp; q &amp; " "end alfred_script
-</string>
-				<key>cachescript</key>
-				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --mode action "{query}"</string>
+				<key>type</key>
+				<integer>0</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.applescript</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
+			<string>3F4FBD02-B2C3-467A-9976-05BF7556923E</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -461,38 +451,16 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>keyword</key>
-				<string>top /help</string>
-				<key>subtext</key>
-				<string>http://zhaocai.github.io/alfred2-top-workflow/</string>
-				<key>text</key>
-				<string>Help! Show Me the Usage Page!</string>
-				<key>withspace</key>
+				<key>applescript</key>
+				<string>on alfred_script(q)	tell application "Alfred 2" to search "lsof " &amp; q &amp; " "end alfred_script
+</string>
+				<key>cachescript</key>
 				<false/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
+			<string>alfred.workflow.action.applescript</string>
 			<key>uid</key>
-			<string>2D963FB2-D9CA-4423-AD37-66DAA9B5C6A4</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>plusspaces</key>
-				<false/>
-				<key>url</key>
-				<string>http://zhaocai.github.io/alfred2-top-workflow/</string>
-				<key>utf8</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.openurl</string>
-			<key>uid</key>
-			<string>8BC268C2-F6D4-4B9B-BB4E-3C9D3CFC14D9</string>
+			<string>A325DFB8-2F81-4919-8541-1365154D5F89</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -511,10 +479,10 @@ fi</string>
 			<key>ypos</key>
 			<real>520</real>
 		</dict>
-		<key>2D963FB2-D9CA-4423-AD37-66DAA9B5C6A4</key>
+		<key>3F4FBD02-B2C3-467A-9976-05BF7556923E</key>
 		<dict>
 			<key>ypos</key>
-			<real>830</real>
+			<real>310</real>
 		</dict>
 		<key>4F27382C-82E2-4594-91A4-A671F119A335</key>
 		<dict>
@@ -536,11 +504,6 @@ fi</string>
 			<key>ypos</key>
 			<real>120</real>
 		</dict>
-		<key>8BC268C2-F6D4-4B9B-BB4E-3C9D3CFC14D9</key>
-		<dict>
-			<key>ypos</key>
-			<real>840</real>
-		</dict>
 		<key>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</key>
 		<dict>
 			<key>ypos</key>
@@ -549,7 +512,7 @@ fi</string>
 		<key>A325DFB8-2F81-4919-8541-1365154D5F89</key>
 		<dict>
 			<key>ypos</key>
-			<real>310</real>
+			<real>1010</real>
 		</dict>
 		<key>C439BF3F-F4EF-43E6-BFD2-DF8837E2B120</key>
 		<dict>
