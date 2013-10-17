@@ -25,7 +25,7 @@ For example, `top -h`
 
 ##### 1.) `top`: Show a mixed processes list based on top cpu/memory usage.
 
-   - `top -m`, `top --mem`, `top /memory` to show processes ranked by memory usage
+   - `top -m`, `top --memory` to show processes ranked by memory usage
    - `top -c`, `top --cpu`, to show processes ranked by cpu usage
    - `top -i`, `top --io`, to show processes ranked by io usage
 
@@ -93,9 +93,19 @@ This method create a symlink to the alfred workflow directory: "~/Library/Applic
 
 ### 1. Does not work in Mac OSX 10.9 (Maverick)
 
-In OSX 10.9, the system ruby is upgraded to 2.0.0. You just need to download the new version of this workflow which packs the ruby gems for 2.0.0 inside. 
+In OSX 10.9, the system ruby is upgraded to 2.0.0. You just need to download the new version of this workflow which packs the ruby gems for 2.0.0 inside.
 
-If you cloned the source code, you can simply run `rake bundle:update` in the terminal to update the bundle gems.
+If the downloaded version does not work, try 
+
+1.) open `Terminal.app`. If you use rvm or rbenv, switch to the system ruby.
+2. run `cd "$HOME/Library/Application Support/Alfred 2/Alfred.alfredpreferences/workflows/me.zhaowu.top" && rake bundle:update`
+
+
+### 2. iotop causes mouse lagging
+
+This issue is not caused by this workflow but by [DTrace][DTrace]. The related system log message is `IOHIDSystem cursor update overdue. Resending.`.
+In my Macbook Pro, any [DTrace][DTrace] based program will introduce this issue including the mac built-in `/usr/bin/iotop`, and `/Applications/Xcode.app/Contents/Applications/Instruments.app` .
+
 
 
 ## Copyright
@@ -113,3 +123,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
+
+
+
+[DTrace]: https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/dtrace.1.html

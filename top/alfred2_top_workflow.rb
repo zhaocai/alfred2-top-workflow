@@ -83,7 +83,7 @@ class Top < ::Alfred::Handler::Base
       'osascript'
     ]
 
-    @io_sample_interval = 15
+    @io_sample_interval = 10
     @callback = ::Alfred::Handler::Callback.new(alfred)
     @callback.register
   end
@@ -194,11 +194,12 @@ class Top < ::Alfred::Handler::Base
     if arg[:task] == 'callback'
       case arg[:type]
       when 'iotop'
-      
+
         generate_feedback(iotop)
         callback_entry = {
           :key => arg[:type],
           :title => "Top Workflow Callback",
+          :subtitle => "IO Top",
         }
 
         @callback.on_callback('top', callback_entry, feedback.items )
