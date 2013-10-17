@@ -7,7 +7,6 @@ require 'rubygems' unless defined? Gem # rubygems is only needed in 1.8
 require "bundle/bundler/setup"
 require "alfred"
 require 'plist'
-require 'awesome_print'
 require 'yaml'
 
 class Glance

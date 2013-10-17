@@ -18,7 +18,9 @@ require 'rubygems' unless defined? Gem # rubygems is only needed in 1.8
 
 require "bundle/bundler/setup"
 require "alfred"
-require 'alfred/handler/help'
+
+# require handler class on demand
+require 'alfred/handler/callback'
 
 require 'mixlib/shellout'
 
@@ -81,8 +83,9 @@ class Top < ::Alfred::Handler::Base
       'osascript'
     ]
 
-    @io_sample_interval = 2
-
+    @io_sample_interval = 15
+    @callback = ::Alfred::Handler::Callback.new(alfred)
+    @callback.register
   end
 
   def on_parser
@@ -105,26 +108,27 @@ class Top < ::Alfred::Handler::Base
         :kind         => 'text'                ,
         :title        => '-c, --cpu [query]'   ,
         :subtitle     => 'Sort top processes based on cpu ussage.' ,
-        :autocomplete => '-c '
+        :autocomplete => "-c #{query}"
       },
       {
         :kind         => 'text'                   ,
         :title        => '-m, --memory [query]'   ,
         :subtitle     => 'Sort top processes based on memory ussage.' ,
-        :autocomplete => '-m '
+        :autocomplete => "-m #{query}"
       },
       {
         :kind         => 'text'               ,
         :title        => '-i, --io [query]'   ,
         :subtitle     => 'Sort top processes based on io ussage.' ,
-        :autocomplete => '-i '
+        :autocomplete => "-i #{query}"
       },
     ]
   end
 
 
-  def on_feedback
-    top_processes.sort_by { |_, v| v[:rank] }.each do |pair|
+
+  def generate_feedback(processes)
+    processes.sort_by { |_, v| v[:rank] }.each do |pair|
       ps = pair[1]
       if ps[:icon]
         icon = ps[:icon]
@@ -145,25 +149,10 @@ class Top < ::Alfred::Handler::Base
         :match?   => :all_title_match? ,
       })
     end
-
   end
 
-  def on_action(arg)
-    return unless action?(arg)
 
-    case options.modifier
-    when :control
-      run_and_message("kill #{arg[:pid]}")
-    when :command
-      run_and_message("kill -9 #{arg[:pid]}")
-    when :alt
-      run_and_message("renice -n 5 #{arg[:pid]}")
-    when :none
-      Alfred.search("lsof #{arg[:pid]}")
-    end
-  end
-
-  def top_processes
+  def on_feedback
     case options.sort
     when :auto
       psm = list_processes(:memory)
@@ -178,15 +167,57 @@ class Top < ::Alfred::Handler::Base
         end
         processes[id] = p
       end
-      processes
+      generate_feedback(processes)
     when :memory
-      list_processes(:memory)
+      generate_feedback(list_processes(:memory))
     when :cpu
-      list_processes(:cpu)
+      generate_feedback(list_processes(:cpu))
     when :io
-      iotop
+      arg = xml_builder(
+        :handler => @settings[:handler] ,
+        :task => 'callback',
+        :type => 'iotop'
+      )
+
+      feedback.add_item({
+        :title    => "Collect IO trace to show top IO usage?"        ,
+        :subtitle => "Wait for callback after #{@io_sample_interval} seconds."       ,
+        :icon     => ::Alfred::Feedback.CoreServicesIcon('GenericQuestionMarkIcon') ,
+        :arg      => arg                                                            ,
+      })
     end
   end
+
+  def on_action(arg)
+    return unless action?(arg)
+
+    if arg[:task] == 'callback'
+      case arg[:type]
+      when 'iotop'
+      
+        generate_feedback(iotop)
+        callback_entry = {
+          :key => arg[:type],
+          :title => "Top Workflow Callback",
+        }
+
+        @callback.on_callback('top', callback_entry, feedback.items )
+      end
+
+    else
+      case options.modifier
+      when :control
+        run_and_message("kill #{arg[:pid]}")
+      when :command
+        run_and_message("kill -9 #{arg[:pid]}")
+      when :alt
+        run_and_message("renice -n 5 #{arg[:pid]}")
+      when :none
+        Alfred.search("lsof #{arg[:pid]}")
+      end
+    end
+  end
+
 
   def iotop
 

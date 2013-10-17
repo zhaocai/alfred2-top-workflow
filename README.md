@@ -13,22 +13,28 @@ The initial motive of this workflow is to avoid frequent visits to the Activity 
 
 ## Usage
 
+### 0. Show Help 
+
+Just type `-?`, `-h`, or `--help` after the keyword to show help.
+
+For example, `top -h`
+
 ### 1. Top Processes
 
 #### A. Keywords:
 
 ##### 1.) `top`: Show a mixed processes list based on top cpu/memory usage.
 
-   - `top /m`, `top /mem`, `top /memory` to show processes ranked by memory usage
-   - `top /c`, `top /cpu`, to show processes ranked by cpu usage
-   - `top /i`, `top /io`, to show processes ranked by io usage
+   - `top -m`, `top --mem`, `top /memory` to show processes ranked by memory usage
+   - `top -c`, `top --cpu`, to show processes ranked by cpu usage
+   - `top -i`, `top --io`, to show processes ranked by io usage
 
 ###### **Modifier Key**
 
-   - `none`: The default action is to list files opened by process ID
-   - `^` key to `kill`
-   - `⌘` key to force kill (`kill -9`)
-   - `alt` : nice cpu priority
+   - `none`    : The default action is to list files opened by process ID
+   - `control` : Kill the selected process
+   - `command` : kill forcefully (`kill -9`)
+   - `alt`     : Nice (lower) the selected process's cpu priority
 
 
 ##### 2.) `kill`: Filter process to kill.
@@ -36,7 +42,7 @@ The initial motive of this workflow is to avoid frequent visits to the Activity 
 ###### **Modifier Key**
 
    - `none`: The default action is to kill by process ID
-   - `⌘` key to force kill (`kill -9`)
+   - `command` : kill forcefully (`kill -9`)
 
 ##### 3.) `lsof`: List files opened by process id
 

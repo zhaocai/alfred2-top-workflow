@@ -168,7 +168,7 @@
 				<key>escaping</key>
 				<integer>38</integer>
 				<key>script</key>
-				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --mode=action --modifier=alt "{query}"</string>
+				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action --modifier=alt "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -214,7 +214,7 @@
 				<key>escaping</key>
 				<integer>38</integer>
 				<key>script</key>
-				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --mode=action --modifier=control "{query}"</string>
+				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action --modifier=control "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -256,7 +256,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --mode=action "{query}"</string>
+				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -327,7 +327,7 @@
 				<key>escaping</key>
 				<integer>38</integer>
 				<key>script</key>
-				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --mode=action --modifier=command "{query}"</string>
+				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action --modifier=command "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
