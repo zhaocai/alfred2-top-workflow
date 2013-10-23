@@ -25,6 +25,7 @@ For example, `top -h`
 
 ##### 1.) `top`: Show a mixed processes list based on top cpu/memory usage.
 
+
 ###### 1. `top -m`, `top --memory` to show processes ranked by memory usage
 
 ###### 2. `top -c`, `top --cpu`, to show processes ranked by cpu usage
@@ -34,6 +35,9 @@ For example, `top -h`
    Top IO requires [DTrace][Dtrace] and it would take a while to finish. The new **callback** design is to run the job in he background and post a notification (OSX 10.8+) using notification center. Click on the notification to show the result in alfred.
 
 ![](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/callback.png) 
+
+
+
 
 ###### **Modifier Key**
 
