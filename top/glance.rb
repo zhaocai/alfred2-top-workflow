@@ -287,7 +287,6 @@ def generate_feedback(alfred, query)
 end
 
 
-
 if __FILE__ == $PROGRAM_NAME
   Alfred.with_friendly_error do |alfred|
     alfred.with_rescue_feedback = true

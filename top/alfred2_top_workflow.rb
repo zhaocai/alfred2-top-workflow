@@ -231,7 +231,7 @@ class Top < ::Alfred::Handler::Base
       iosnoop.run_command
     rescue Mixlib::ShellOut::CommandTimeout
       iosnoop.stdout.each_line do |line|
-        columns = line.split('⟩').map(&:strip)
+        columns = line.force_encoding(Encoding::UTF_8).split('⟩').map(&:strip)
 
         pid     = columns[0].to_i
         type    = columns[1]
@@ -384,14 +384,11 @@ class Top < ::Alfred::Handler::Base
   end
 
   def run_and_message(command, opts = {})
-    kill = Mixlib::ShellOut.new(command, opts)
-    kill.run_command
-    puts status_message(command, kill.exitstatus)
+    sh = Mixlib::ShellOut.new(command, opts)
+    sh.run_command
+    puts status_message(command, sh.exitstatus)
   end
 end
-
-
-
 
 
 
@@ -410,6 +407,6 @@ end
 
 
 # (#
-# Modeline                                                                [[[1
+# Modeline                                                                ⟨⟨⟨1
 # #)
-# vim: set ft=ruby ts=2 sw=2 tw=78 fdm=marker fmr=[[[,]]] fdl=1 :
+# vim: set ft=ruby ts=2 sw=2 tw=78 fdm=marker fmr=⟨⟨⟨,⟩⟩⟩ fdl=1 :

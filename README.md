@@ -25,9 +25,15 @@ For example, `top -h`
 
 ##### 1.) `top`: Show a mixed processes list based on top cpu/memory usage.
 
-   - `top -m`, `top --memory` to show processes ranked by memory usage
-   - `top -c`, `top --cpu`, to show processes ranked by cpu usage
-   - `top -i`, `top --io`, to show processes ranked by io usage
+###### 1. `top -m`, `top --memory` to show processes ranked by memory usage
+
+###### 2. `top -c`, `top --cpu`, to show processes ranked by cpu usage
+
+###### 3. `top -i`, `top --io`, to show processes ranked by io usage with **callback** from top io trace collector.
+
+   Top IO requires [DTrace][Dtrace] and it would take a while to finish. The new **callback** design is to run the job in he background and post a notification (OSX 10.8+) using notification center. Click on the notification to show the result in alfred.
+
+![](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/callback.png) 
 
 ###### **Modifier Key**
 
@@ -75,7 +81,7 @@ For example, `top -h`
 
     ![](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/Alfred_Preferences_Learning.png)
 
-2. Hit `↩` for the feedback item you wish to show up on the top.
+2. Hit `Enter` for the feedback item you wish to show up on the top.
 
 
 
@@ -93,7 +99,7 @@ This method create a symlink to the alfred workflow directory: "~/Library/Applic
 
 ### 1. Does not work in Mac OSX 10.9 (Maverick)
 
-In OSX 10.9, the system ruby is upgraded to 2.0.0. You just need to download the new version of this workflow which packs the ruby gems for 2.0.0 inside.
+In OSX 10.9, the system ruby is upgraded to 2.0.0. You need to download the new version of this workflow which packs the ruby gems for 2.0.0 inside.
 
 If the downloaded version does not work, try 
 
@@ -106,6 +112,15 @@ If the downloaded version does not work, try
 This issue is not caused by this workflow but by [DTrace][DTrace]. The related system log message is `IOHIDSystem cursor update overdue. Resending.`.
 In my Macbook Pro, any [DTrace][DTrace] based program will introduce this issue including the mac built-in `/usr/bin/iotop`, and `/Applications/Xcode.app/Contents/Applications/Instruments.app` .
 
+I upgrade to OS X 10.9 and this issue is resolved.
+
+### 3. Encoding::CompatibilityError: incompatible character encodings: ASCII-8BIT and UTF-8
+
+Add the following contents to `/etc/launchd.conf`. Restart is required.
+```sh
+setenv LANG en_US.UTF-8
+setenv LC_ALL en_US.UTF-8
+```
 
 
 ## Copyright

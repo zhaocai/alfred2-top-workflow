@@ -130,7 +130,7 @@
 	<key>createdby</key>
 	<string>Zhao Cai</string>
 	<key>description</key>
-	<string>List/Kill Top Processes by Memory/Cpu Usage</string>
+	<string>List/Kill Top Processes by Memory, Cpu or IO Usage</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -168,7 +168,7 @@
 				<key>escaping</key>
 				<integer>38</integer>
 				<key>script</key>
-				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action --modifier=alt "{query}"</string>
+				<string>LANG=en_US.UTF-8 /usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action --modifier=alt "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -191,7 +191,7 @@
 				<key>runningsubtext</key>
 				<string>list processes...</string>
 				<key>script</key>
-				<string>/usr/bin/ruby ./alfred2_top_workflow.rb {query}</string>
+				<string>LANG=en_US.UTF-8 /usr/bin/ruby ./alfred2_top_workflow.rb {query}</string>
 				<key>subtext</key>
 				<string>Type to filter processes</string>
 				<key>title</key>
@@ -214,7 +214,7 @@
 				<key>escaping</key>
 				<integer>38</integer>
 				<key>script</key>
-				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action --modifier=control "{query}"</string>
+				<string>LANG=en_US.UTF-8 /usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action --modifier=control "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -256,7 +256,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action "{query}"</string>
+				<string>LANG=en_US.UTF-8 /usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -298,15 +298,15 @@
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
-				<integer>62</integer>
+				<integer>0</integer>
 				<key>keyword</key>
 				<string>top</string>
 				<key>runningsubtext</key>
 				<string>Determining top processes...</string>
 				<key>script</key>
-				<string>/usr/bin/ruby ./alfred2_top_workflow.rb {query}</string>
+				<string>LANG=en_US.UTF-8 /usr/bin/ruby ./alfred2_top_workflow.rb {query}</string>
 				<key>subtext</key>
-				<string>by Memory/CPU usage</string>
+				<string>sort by Memory, CPU, or IO usage</string>
 				<key>title</key>
 				<string>Search Top Processes for '{query}'</string>
 				<key>type</key>
@@ -327,7 +327,7 @@
 				<key>escaping</key>
 				<integer>38</integer>
 				<key>script</key>
-				<string>/usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action --modifier=command "{query}"</string>
+				<string>LANG=en_US.UTF-8 /usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action --modifier=command "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -350,7 +350,7 @@
 				<key>runningsubtext</key>
 				<string>waiting...</string>
 				<key>script</key>
-				<string>/usr/bin/ruby ./lsof.rb {query}</string>
+				<string>LANG=en_US.UTF-8 /usr/bin/ruby ./lsof.rb {query}</string>
 				<key>subtext</key>
 				<string>lsof pid query</string>
 				<key>title</key>
@@ -387,7 +387,7 @@
 				<key>runningsubtext</key>
 				<string>working on it ヽ( ´¬`)ノ</string>
 				<key>script</key>
-				<string>/usr/bin/ruby ./glance.rb {query}</string>
+				<string>LANG=en_US.UTF-8 /usr/bin/ruby ./glance.rb {query} </string>
 				<key>subtext</key>
 				<string>Type '{query}' to filter</string>
 				<key>title</key>
@@ -498,7 +498,7 @@
 		<key>C439BF3F-F4EF-43E6-BFD2-DF8837E2B120</key>
 		<dict>
 			<key>ypos</key>
-			<real>680</real>
+			<real>670</real>
 		</dict>
 		<key>CA714745-B63F-46C5-9D77-50C52956368C</key>
 		<dict>

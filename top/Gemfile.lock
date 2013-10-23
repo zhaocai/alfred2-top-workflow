@@ -1,10 +1,22 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    alfred-workflow (1.11.3)
+    alfred-workflow (2.0.2)
+      fuzzy_match (>= 2.0.4)
+      gyoku (>= 1.1.0)
+      moneta (>= 0.7.19)
+      nori (>= 2.3.0)
       plist (>= 3.1.0)
+      terminal-notifier (>= 1.5.0)
+    builder (3.2.2)
+    fuzzy_match (2.0.4)
+    gyoku (1.1.0)
+      builder (>= 2.1.2)
     mixlib-shellout (1.2.0)
+    moneta (0.7.20)
+    nori (2.3.0)
     plist (3.1.0)
+    terminal-notifier (1.5.1)
 
 PLATFORMS
   ruby
