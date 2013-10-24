@@ -17,7 +17,7 @@ The initial motive of this workflow is to avoid frequent visits to the Activity 
 
 Just type `-?`, `-h`, or `--help` after the keyword to show help.
 
-For example, `top -h`
+![](https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/help.png) 
 
 ### 1. Top Processes
 
