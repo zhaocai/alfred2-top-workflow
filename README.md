@@ -45,6 +45,7 @@ For example, `top -h`
    - `control` : Kill the selected process
    - `command` : kill forcefully (`kill -9`)
    - `alt`     : Nice (lower) the selected process's cpu priority
+   - `shift`   : Search web for process information
 
 
 ##### 2.) `kill`: Filter process to kill.
