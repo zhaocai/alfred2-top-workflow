@@ -1,10 +1,24 @@
 ---
 :id: me.zhaowu.top
+:Homepage : &homepage
+  http://zhaocai.github.io/alfred2-top-workflow/
+:triviaware : &triviaware
+  http://triviaware.com/macprocess/all
+:macinside : &macinside
+  http://www.macinside.info/
 :help: 
   - :kind: url
-    :title: Check the Homepage for usage help
-    :subtitle: http://zhaocai.github.io/alfred2-top-workflow/
-    :url: http://zhaocai.github.io/alfred2-top-workflow/
+    :title: Homepage
+    :subtitle: *homepage
+    :url: *homepage
+  - :kind: url
+    :title: MacInside - Apple Mac Process & Security Information 
+    :subtitle: *macinside
+    :url: *macinside
+  - :kind: url
+    :title: Know your Mac OS X processes - Website to check process info 
+    :subtitle: *triviaware
+    :url: *triviaware
   - :kind: file
     :path: README.pdf
 

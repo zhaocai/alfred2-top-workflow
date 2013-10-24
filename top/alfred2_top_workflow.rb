@@ -128,8 +128,7 @@ class Top < ::Alfred::Handler::Base
 
 
   def generate_feedback(processes)
-    processes.sort_by { |_, v| v[:rank] }.each do |pair|
-      ps = pair[1]
+    processes.each_pair do |_, ps|
       if ps[:icon]
         icon = ps[:icon]
       else
@@ -138,6 +137,7 @@ class Top < ::Alfred::Handler::Base
       arg = xml_builder(
       :handler => @settings[:handler] ,
       :type    => ps[:type]           ,
+      :name    => ps[:command]           ,
       :pid     => ps[:pid]
       )
 
@@ -163,7 +163,8 @@ class Top < ::Alfred::Handler::Base
         m = psm[id]
         if m
           p[:type]  = :auto
-          p[:title] =  "#{p[:rank]}/#{m[:rank]}: #{p[:command]}"
+          p[:title] =  "#{p[:order]}/#{m[:order]}: #{p[:command]}"
+          p[:order] = combined_order(p[:order], m[:order])
         end
         processes[id] = p
       end
@@ -189,6 +190,7 @@ class Top < ::Alfred::Handler::Base
   end
 
   def on_action(arg)
+    ui.debug arg
     return unless action?(arg)
 
     if arg[:task] == 'callback'
@@ -213,6 +215,8 @@ class Top < ::Alfred::Handler::Base
         run_and_message("kill -9 #{arg[:pid]}")
       when :alt
         run_and_message("renice -n 5 #{arg[:pid]}")
+      when :shift
+        Alfred::Util.google(%Q{Mac "#{arg[:name]}" process})
       when :none
         Alfred.search("lsof #{arg[:pid]}")
       end
@@ -276,8 +280,8 @@ class Top < ::Alfred::Handler::Base
         p[:icon] = {:type => "fileicon", :name => m[1]} if m
       end
 
-      p[:rank] = ranks[p[:pid]]
-      p[:title] = "#{p[:rank]}: #{p[:command]}"
+      p[:order] = ranks[p[:pid]]
+      p[:title] = "#{p[:order]}: #{p[:command]}"
       p[:subtitle] = "Read: #{p[:read_size].to_human} ↔ Write: #{p[:write_size].to_human}"
     end
 
@@ -286,6 +290,17 @@ class Top < ::Alfred::Handler::Base
 
 
   private
+
+  def combined_order(by_cpu, by_memory)
+    order = by_cpu + by_memory
+    if by_cpu < 3 or by_memory < 3
+      order = 10 if order > 10
+    else
+      order += 10
+    end
+    order
+  end
+
 
   def list_processes(type)
 
@@ -304,13 +319,13 @@ class Top < ::Alfred::Handler::Base
       columns = entry.split
 
       process = {
-        :line    => entry      ,
-        :type    => type       ,
-        :rank    => i          ,
-        :pid     => columns[0] ,
-        :nice    => columns[1] ,
-        :cpu     => columns[2] ,
-        :memory  => columns[3] ,
+        :line   => entry      ,
+        :type   => type       ,
+        :order  => i          ,
+        :pid    => columns[0] ,
+        :nice   => columns[1] ,
+        :cpu    => columns[2] ,
+        :memory => columns[3] ,
         :state   => interpret_state(columns[4]) ,
         :command => columns[5..-1].join(" ")    ,
       }
@@ -320,7 +335,7 @@ class Top < ::Alfred::Handler::Base
       process[:icon][:name] = m[1] if m
 
       process[:command] = interpret_command(process)
-      process[:title] = "#{process[:rank]}: #{process[:command]}"
+      process[:title] = "#{process[:order]}: #{process[:command]}"
 
       # Ignore this script
       unless process[:title].include?(__FILE__) || \

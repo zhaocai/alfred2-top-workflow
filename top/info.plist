@@ -81,6 +81,14 @@
 			</dict>
 			<dict>
 				<key>destinationuid</key>
+				<string>A493B0AC-FD4E-459A-9CFE-2137F39C6249</string>
+				<key>modifiers</key>
+				<integer>131072</integer>
+				<key>modifiersubtext</key>
+				<string>Search for process info online</string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
 				<string>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</string>
 				<key>modifiers</key>
 				<integer>262144</integer>
@@ -214,6 +222,23 @@
 				<key>escaping</key>
 				<integer>38</integer>
 				<key>script</key>
+				<string>LANG=en_US.UTF-8 /usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action --modifier=shift "{query}"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>A493B0AC-FD4E-459A-9CFE-2137F39C6249</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>38</integer>
+				<key>script</key>
 				<string>LANG=en_US.UTF-8 /usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action --modifier=control "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
@@ -253,23 +278,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>LANG=en_US.UTF-8 /usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action "{query}"</string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>3F4FBD02-B2C3-467A-9976-05BF7556923E</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>action</key>
 				<integer>0</integer>
 				<key>argument</key>
@@ -289,6 +297,23 @@
 			<string>alfred.workflow.trigger.hotkey</string>
 			<key>uid</key>
 			<string>6DED0FCD-B485-4D7D-A4B7-673C0D34E2D0</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>LANG=en_US.UTF-8 /usr/bin/ruby ./alfred2_top_workflow.rb --workflow-mode=action "{query}"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>3F4FBD02-B2C3-467A-9976-05BF7556923E</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -463,7 +488,7 @@
 		<key>3F4FBD02-B2C3-467A-9976-05BF7556923E</key>
 		<dict>
 			<key>ypos</key>
-			<real>320</real>
+			<real>330</real>
 		</dict>
 		<key>4F27382C-82E2-4594-91A4-A671F119A335</key>
 		<dict>
@@ -483,17 +508,22 @@
 		<key>7DC8A847-D1E3-4D91-B2B5-844E95E7F38A</key>
 		<dict>
 			<key>ypos</key>
-			<real>140</real>
+			<real>120</real>
 		</dict>
 		<key>A162DE22-9392-4CD1-AA9C-AAC39F6D31F8</key>
 		<dict>
 			<key>ypos</key>
-			<real>210</real>
+			<real>230</real>
 		</dict>
 		<key>A325DFB8-2F81-4919-8541-1365154D5F89</key>
 		<dict>
 			<key>ypos</key>
 			<real>1010</real>
+		</dict>
+		<key>A493B0AC-FD4E-459A-9CFE-2137F39C6249</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
 		</dict>
 		<key>C439BF3F-F4EF-43E6-BFD2-DF8837E2B120</key>
 		<dict>
