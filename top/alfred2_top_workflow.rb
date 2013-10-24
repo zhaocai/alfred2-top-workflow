@@ -190,7 +190,6 @@ class Top < ::Alfred::Handler::Base
   end
 
   def on_action(arg)
-    ui.debug arg
     return unless action?(arg)
 
     if arg[:task] == 'callback'

@@ -14,9 +14,11 @@
   - :kind: url
     :title: MacInside - Apple Mac Process & Security Information 
     :subtitle: *macinside
+    :order: 300
     :url: *macinside
   - :kind: url
-    :title: Know your Mac OS X processes - Website to check process info 
+    :order: 301
+    :title: Know your Mac OS X processes - Information about your Mac system processes and applications 
     :subtitle: *triviaware
     :url: *triviaware
   - :kind: file
