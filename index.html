@@ -1,34 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
     <title>Alfred2-top-workflow by zhaocai</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   </head>
-
   <body>
-    <header>
-      <div class="inner">
-        <h1>Alfred2-top-workflow</h1>
-        <h2>Alfred 2 Top Processes Based Memory or CPU Usage Workflow  </h2>
-        <a href="https://github.com/zhaocai/alfred2-top-workflow" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>
+      <header>
+        <h1>Alfred2-top-workflow</h1>
+        <p>Alfred 2 Top Processes Based Memory or CPU Usage Workflow  </p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/zhaocai/alfred2-top-workflow" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/zhaocai/alfred2-top-workflow/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/zhaocai/alfred2-top-workflow/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>
 <a name="alfred-2-top-process-workflow" class="anchor" href="#alfred-2-top-process-workflow"><span class="octicon octicon-link"></span></a>Alfred 2 Top Process Workflow</h1>
 
 <p>The initial motive of this workflow is to avoid frequent visits to the Activity Monitor when the fan goes loud. Now it has been evloved with two major features:</p>
@@ -45,6 +56,13 @@
 <a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <h3>
+<a name="0-show-help" class="anchor" href="#0-show-help"><span class="octicon octicon-link"></span></a>0. Show Help</h3>
+
+<p>Just type <code>-?</code>, <code>-h</code>, or <code>--help</code> after the keyword to show help.</p>
+
+<p><img src="https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/help.png" alt=""></p>
+
+<h3>
 <a name="1-top-processes" class="anchor" href="#1-top-processes"><span class="octicon octicon-link"></span></a>1. Top Processes</h3>
 
 <h4>
@@ -53,27 +71,34 @@
 <h5>
 <a name="1-top-show-a-mixed-processes-list-based-on-top-cpumemory-usage" class="anchor" href="#1-top-show-a-mixed-processes-list-based-on-top-cpumemory-usage"><span class="octicon octicon-link"></span></a>1.) <code>top</code>: Show a mixed processes list based on top cpu/memory usage.</h5>
 
-<ul>
-<li>
-<code>top /m</code>, <code>top /mem</code>, <code>top /memory</code> to show processes ranked by memory usage</li>
-<li>
-<code>top /c</code>, <code>top /cpu</code>, to show processes ranked by cpu usage</li>
-<li>
-<code>top /i</code>, <code>top /io</code>, to show processes ranked by io usage</li>
-</ul><h6>
+<h6>
+<a name="1-top--m-top---memory-to-show-processes-ranked-by-memory-usage" class="anchor" href="#1-top--m-top---memory-to-show-processes-ranked-by-memory-usage"><span class="octicon octicon-link"></span></a>1. <code>top -m</code>, <code>top --memory</code> to show processes ranked by memory usage</h6>
+
+<h6>
+<a name="2-top--c-top---cpu-to-show-processes-ranked-by-cpu-usage" class="anchor" href="#2-top--c-top---cpu-to-show-processes-ranked-by-cpu-usage"><span class="octicon octicon-link"></span></a>2. <code>top -c</code>, <code>top --cpu</code>, to show processes ranked by cpu usage</h6>
+
+<h6>
+<a name="3-top--i-top---io-to-show-processes-ranked-by-io-usage-with-callback-from-top-io-trace-collector" class="anchor" href="#3-top--i-top---io-to-show-processes-ranked-by-io-usage-with-callback-from-top-io-trace-collector"><span class="octicon octicon-link"></span></a>3. <code>top -i</code>, <code>top --io</code>, to show processes ranked by io usage with <strong>callback</strong> from top io trace collector.</h6>
+
+<p>Top IO requires <a href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/dtrace.1.html">DTrace</a> and it would take a while to finish. The new <strong>callback</strong> design is to run the job in he background and post a notification (OSX 10.8+) using notification center. Click on the notification to show the result in alfred.</p>
+
+<p><img src="https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/callback.png" alt=""></p>
+
+<h6>
 <a name="modifier-key" class="anchor" href="#modifier-key"><span class="octicon octicon-link"></span></a><strong>Modifier Key</strong>
 </h6>
 
 <ul>
 <li>
-<code>none</code>: The default action is to list files opened by process ID</li>
+<code>none</code>    : The default action is to list files opened by process ID</li>
 <li>
-<code>^</code> key to <code>kill</code>
-</li>
+<code>control</code> : Kill the selected process</li>
 <li>
-<code>⌘</code> key to force kill (<code>kill -9</code>)</li>
+<code>command</code> : kill forcefully (<code>kill -9</code>)</li>
 <li>
-<code>alt</code> : nice cpu priority</li>
+<code>alt</code>     : Nice (lower) the selected process's cpu priority</li>
+<li>
+<code>shift</code>   : Search web for process information</li>
 </ul><h5>
 <a name="2-kill-filter-process-to-kill" class="anchor" href="#2-kill-filter-process-to-kill"><span class="octicon octicon-link"></span></a>2.) <code>kill</code>: Filter process to kill.</h5>
 
@@ -85,7 +110,7 @@
 <li>
 <code>none</code>: The default action is to kill by process ID</li>
 <li>
-<code>⌘</code> key to force kill (<code>kill -9</code>)</li>
+<code>command</code> : kill forcefully (<code>kill -9</code>)</li>
 </ul><h5>
 <a name="3-lsof-list-files-opened-by-process-id" class="anchor" href="#3-lsof-list-files-opened-by-process-id"><span class="octicon octicon-link"></span></a>3.) <code>lsof</code>: List files opened by process id</h5>
 
@@ -129,7 +154,7 @@
 
 <p><img src="https://raw.github.com/zhaocai/alfred2-top-workflow/master/screenshots/Alfred_Preferences_Learning.png" alt=""></p>
 </li>
-<li><p>Hit <code>↩</code> for the feedback you wish to show up on the top.</p></li>
+<li><p>Hit <code>Enter</code> for the feedback item you wish to show up on the top.</p></li>
 </ol><h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
@@ -142,9 +167,32 @@ This method create a symlink to the alfred workflow directory: "~/Library/Applic
 </ol><h2>
 <a name="troubleshooting" class="anchor" href="#troubleshooting"><span class="octicon octicon-link"></span></a>Troubleshooting</h2>
 
-<ol>
-<li>Does not work in Mac OSX 10.9 (Maverick)</li>
-</ol><p>In OSX 10.9, the system ruby is upgraded to 2.0.0. You just need to download the new version of this workflow which packs the ruby gems for 2.0.0 inside.</p>
+<h3>
+<a name="1-does-not-work-in-mac-osx-109-maverick" class="anchor" href="#1-does-not-work-in-mac-osx-109-maverick"><span class="octicon octicon-link"></span></a>1. Does not work in Mac OSX 10.9 (Maverick)</h3>
+
+<p>In OSX 10.9, the system ruby is upgraded to 2.0.0. You need to download the new version of this workflow which packs the ruby gems for 2.0.0 inside.</p>
+
+<p>If the downloaded version does not work, try </p>
+
+<p>1.) open <code>Terminal.app</code>. If you use rvm or rbenv, switch to the system ruby.
+2. run <code>cd "$HOME/Library/Application Support/Alfred 2/Alfred.alfredpreferences/workflows/me.zhaowu.top" &amp;&amp; rake bundle:update</code></p>
+
+<h3>
+<a name="2-iotop-causes-mouse-lagging" class="anchor" href="#2-iotop-causes-mouse-lagging"><span class="octicon octicon-link"></span></a>2. iotop causes mouse lagging</h3>
+
+<p>This issue is not caused by this workflow but by <a href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/dtrace.1.html">DTrace</a>. The related system log message is <code>IOHIDSystem cursor update overdue. Resending.</code>.
+In my Macbook Pro, any <a href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/dtrace.1.html">DTrace</a> based program will introduce this issue including the mac built-in <code>/usr/bin/iotop</code>, and <code>/Applications/Xcode.app/Contents/Applications/Instruments.app</code> .</p>
+
+<p>I upgrade to OS X 10.9 and this issue is resolved.</p>
+
+<h3>
+<a name="3-encodingcompatibilityerror-incompatible-character-encodings-ascii-8bit-and-utf-8" class="anchor" href="#3-encodingcompatibilityerror-incompatible-character-encodings-ascii-8bit-and-utf-8"><span class="octicon octicon-link"></span></a>3. Encoding::CompatibilityError: incompatible character encodings: ASCII-8BIT and UTF-8</h3>
+
+<p>Add the following contents to <code>/etc/launchd.conf</code>. Restart is required.</p>
+
+<div class="highlight highlight-sh"><pre>setenv LANG en_US.UTF-8
+setenv LC_ALL en_US.UTF-8
+</pre></div>
 
 <h2>
 <a name="copyright" class="anchor" href="#copyright"><span class="octicon octicon-link"></span></a>Copyright</h2>
@@ -162,26 +210,14 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</
 
 <p>You should have received a copy of the GNU General Public License along with
 this program. If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/zhaocai/alfred2-top-workflow/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/zhaocai/alfred2-top-workflow/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/zhaocai/alfred2-top-workflow"></a> is maintained by <a href="https://github.com/zhaocai">zhaocai</a>.</p>
-
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/zhaocai">zhaocai</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
     </div>
-
-            <script type="text/javascript">
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
