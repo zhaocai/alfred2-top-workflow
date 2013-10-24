@@ -1,5 +1,5 @@
 {
-    "version": 1.7,
+    "version": 2.0,
     "download_uri": "https://github.com/zhaocai/alfred2-top-workflow/raw/master/Top%20Processes.alfredworkflow",
-    "description": "support ruby 2.0.0"
+    "description": "flexible handler framework"
 }
