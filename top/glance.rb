@@ -8,8 +8,24 @@ require "bundle/bundler/setup"
 require "alfred"
 require 'plist'
 require 'yaml'
+require 'mixlib/shellout'
+
 
 class Glance
+  SMC_KEYS = {
+    'TC0P' => 'cpu_temperature',
+    'TG0P' => 'gpu_temperature',
+    'F0Ac' => 'fan0_speed',
+    'F1Ac' => 'fan1_speed',
+  }
+
+  def self.sh(command, opts = {})
+    shell = Mixlib::ShellOut.new(command)
+    shell.run_command
+    shell.error!
+    return shell
+  end
+
   def self.with_query(query)
     if query[1].eql? '⟩'
       return query[2..-1]
@@ -38,12 +54,14 @@ class Glance
   def collect_temperature
     return if @actor
 
-    profiler = %x{./bin/fans_tempsMonitor}.split("\n")
+    command = %Q{./bin/smc -k #{SMC_KEYS.keys.join(',')} -r -c}
 
-    right_fan_speed = profiler[0].split[-1][0...-3].to_i
-    left_fan_speed  = profiler[1].split[-1][0...-3].to_i
-    cpu_temperature = profiler[2].split[-1].match(/\d+/)[0].to_i
-    gpu_temperature = profiler[7].split[-1].match(/\d+/)[0].to_i
+    profiler = eval("{#{Glance.sh(command).stdout}}")
+
+    right_fan_speed = profiler[:F1Ac]
+    left_fan_speed  = profiler[:F0Ac]
+    cpu_temperature = profiler[:TC0P]
+    gpu_temperature = profiler[:TG0P]
 
     fan_speed = (left_fan_speed + right_fan_speed) / 2
 
