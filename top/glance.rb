@@ -42,8 +42,8 @@ class Glance
 
     right_fan_speed = profiler[0].split[-1][0...-3].to_i
     left_fan_speed  = profiler[1].split[-1][0...-3].to_i
-    cpu_temperature = profiler[2].split[-1][0..-3].to_i
-    gpu_temperature = profiler[7].split[-1][0..-3].to_i
+    cpu_temperature = profiler[2].split[-1].match(/\d+/)[0].to_i
+    gpu_temperature = profiler[7].split[-1].match(/\d+/)[0].to_i
 
     fan_speed = (left_fan_speed + right_fan_speed) / 2
 

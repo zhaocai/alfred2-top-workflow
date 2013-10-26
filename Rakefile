@@ -37,7 +37,7 @@ task "bundle:install" => [:chdir] do
     if ! ok
       puts "fail to install gems (status = #{res.exitstatus})"
     else
-      sh %Q{find bundle -type d \\( -name cache -o -name spec -o -name test \\) -print0 | xargs -0 rm -rf}
+      sh %Q{find bundle -type d \\(-name vendor -o -name cache -o -name spec -o -name test \\) -print0 | xargs -0 rm -rf}
     end
   end
 end
@@ -48,7 +48,7 @@ task "bundle:update" => [:chdir] do
     if ! ok
       puts "fail to update gems (status = #{res.exitstatus})"
     else
-      sh %Q{find bundle -type d \\( -name cache -o -name spec -o -name test \\) -print0 | xargs -0 rm -rf}
+      sh %Q{find bundle -type d \\( -name vendor -o -name cache -o -name spec -o -name test \\) -print0 | xargs -0 rm -rf}
     end
   end
 end

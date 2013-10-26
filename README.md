@@ -1,6 +1,6 @@
 # Alfred 2 Top Process Workflow
 
-The initial motive of this workflow is to avoid frequent visits to the Activity Monitor when the fan goes loud. Now it has been evloved with two major features:
+The initial motive of this workflow is to avoid frequent visits to the Activity Monitor when the fan goes loud. Now it has been evolved with two major features:
 
 - 1) List/Kill Top Processes by Memory/CPU/IO Usage
 
