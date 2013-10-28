@@ -73,14 +73,14 @@ class Top < ::Alfred::Handler::Base
       :handler    => 'Top'
     }.update(opts)
 
-    # [TODO] load from @core.workflow_setting @zhaocai @start(2013-10-11)
     # Ignore mds because its cpu usgae spikes the moment alfred calls the workflow
     @ignored_processes = ['Alfred 2', 'mds']
 
+    # [TODO] load from @core.workflow_setting @zhaocai @start(2013-10-11)
     @vague_commands = [
       'ruby'     , 'java' , 'zsh', 'bash', 'python', 'perl', 'rsync',
       'macruby'  , 'ctags', 'vim', 'Vim' , 'MacVim', 'ag'  , 'node' , 'aria2c',
-      'osascript'
+      'osascript', 'caffeinate', 'sleep'
     ]
 
     @io_sample_interval = 10
@@ -129,6 +129,10 @@ class Top < ::Alfred::Handler::Base
 
   def generate_feedback(processes)
     processes.each_pair do |_, ps|
+      if ps[:ignore?]
+        ps[:order] = ps[:order] + 10
+      end
+
       if ps[:icon]
         icon = ps[:icon]
       else
@@ -137,14 +141,15 @@ class Top < ::Alfred::Handler::Base
       arg = xml_builder(
       :handler => @settings[:handler] ,
       :type    => ps[:type]           ,
-      :name    => ps[:command]           ,
+      :name    => ps[:command]        ,
       :pid     => ps[:pid]
       )
 
       feedback.add_item({
-        :title    => ps[:title]         ,
-        :subtitle => ps[:subtitle]      ,
+        :title    => ps[:title]        ,
+        :subtitle => ps[:subtitle]     ,
         :arg      => arg               ,
+        :order    => ps[:order]        ,
         :icon     => icon              ,
         :match?   => :all_title_match? ,
       })
@@ -329,18 +334,25 @@ class Top < ::Alfred::Handler::Base
         :command => columns[5..-1].join(" ")    ,
       }
 
+
       process[:icon] = {:type => "fileicon", :name => process[:command]}
       m = process[:command].match(/(.*\.app\/).*/)
       process[:icon][:name] = m[1] if m
 
       process[:command] = interpret_command(process)
-      process[:title] = "#{process[:order]}: #{process[:command]}"
 
       # Ignore this script
-      unless process[:title].include?(__FILE__) || \
-        @ignored_processes.include?(File.basename(process[:command]))
-        processes[process[:pid]] = process
+      if process[:command].include?(__FILE__)
+        next
       end
+
+      process[:title] = "#{process[:order]}: #{process[:command]}"
+
+      if @ignored_processes.include?(File.basename(process[:command]))
+        process[:ignore?] = true
+      end
+
+      processes[process[:pid]] = process
 
       process[:subtitle] = "cpu: #{process[:cpu].rjust(6)}%,  " \
       "memory: #{process[:memory].rjust(6)}%,  "                \
