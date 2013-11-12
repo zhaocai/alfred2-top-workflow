@@ -78,12 +78,12 @@ class Top < ::Alfred::Handler::Base
 
     # [TODO] load from @core.workflow_setting @zhaocai @start(2013-10-11)
     @vague_commands = [
-      'ruby'     , 'java' , 'zsh', 'bash', 'python', 'perl', 'rsync',
+      'ruby'     , 'java' , 'zsh', 'bash', 'python', 'pythonw', 'perl', 'rsync',
       'macruby'  , 'ctags', 'vim', 'Vim' , 'MacVim', 'ag'  , 'node' , 'aria2c',
       'osascript', 'caffeinate', 'sleep'
     ]
 
-    @io_sample_interval = 10
+    @io_sample_interval = 15
     @callback = ::Alfred::Handler::Callback.new(alfred)
     @callback.register
   end
