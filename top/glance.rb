@@ -58,12 +58,32 @@ class Glance
 
     profiler = eval("{#{Glance.sh(command).stdout}}")
 
-    right_fan_speed = profiler[:F1Ac]
-    left_fan_speed  = profiler[:F0Ac]
     cpu_temperature = profiler[:TC0P]
     gpu_temperature = profiler[:TG0P]
 
-    fan_speed = (left_fan_speed + right_fan_speed) / 2
+    icon = {:type => "default", :name => "icon/temperature/GPU.png"}
+    @feedback.add_item(
+      :subtitle => "CPU: #{cpu_temperature}° C / GPU: #{gpu_temperature}° C" ,
+      :title    => "CPU/GPU Temperature"                                     ,
+      :uid      => "CPU/GPU Temperature"                                     ,
+      :icon     => icon)
+
+
+    right_fan_speed = profiler[:F1Ac]
+    left_fan_speed  = profiler[:F0Ac]
+    add_fan_speed_item(left_fan_speed, right_fan_speed)
+  end
+
+  def add_fan_speed_item(left, right)
+    if left and right
+      fan_speed = (left + right) / 2
+    elsif left.nil?
+      fan_speed = right
+    elsif right.nil?
+      fan_speed = left
+    else
+      return
+    end
 
     if fan_speed < 3500
       icon = {:type => "default", :name => "icon/fan/green.png"}
@@ -76,19 +96,12 @@ class Glance
       title = "Fan Speed: Driving Crazy!"
     end
     @feedback.add_item(
-      :subtitle => "Left #{left_fan_speed} ↔ Right #{right_fan_speed} RPM" ,
+      :subtitle => "Left #{left} ↔ Right #{right} RPM" ,
       :uid      => 'Fan Speed'                                             ,
       :title    => title                                                   ,
       :icon     => icon)
-    icon = {:type => "default", :name => "icon/temperature/GPU.png"}
-    @feedback.add_item(
-      :subtitle => "CPU: #{cpu_temperature}° C / GPU: #{gpu_temperature}° C" ,
-      :title    => "CPU/GPU Temperature"                                     ,
-      :uid      => "CPU/GPU Temperature"                                     ,
-      :icon     => icon)
 
   end
-
 
   def collect_storage
     return if @actor
