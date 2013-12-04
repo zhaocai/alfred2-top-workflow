@@ -277,7 +277,7 @@ class Glance
           :icon => {:type => "default", :name => "icon/battery/serial.png"}
         )
         @feedback.add_item(
-          :title => "#{age.round} monthes",
+          :title => "#{age.round} months",
           :subtitle => 'Age',
           :icon => {:type => "default", :name => "icon/battery/age.png"}
         )
