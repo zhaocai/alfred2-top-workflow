@@ -138,7 +138,7 @@
 	<key>createdby</key>
 	<string>Zhao Cai</string>
 	<key>description</key>
-	<string>List/Kill Top Processes by Memory, Cpu or IO Usage</string>
+	<string>List/Kill Top Processes by Memory, CPU or IO Usage</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
