@@ -77,12 +77,12 @@ class Glance
   def add_fan_speed_item(left, right)
     if left and right
       fan_speed = (left + right) / 2
+    elsif left.nil? && right.nil?
+      return
     elsif left.nil?
       fan_speed = right
     elsif right.nil?
       fan_speed = left
-    else
-      return
     end
 
     if fan_speed < 3500
